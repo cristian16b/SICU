@@ -1,0 +1,833 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Licencias Médicas de Docentes y Asistentes Escolares</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="icon" href="https://www.santafe.gob.ar/assets/standard/images/favicon.ico">
+    <script src="/path/to/jquery.min.js"></script>
+    <!--
+    <script src="/path/to/jquery.vali<a href="https://www.jqueryscript.net/time-clock/">date</a>.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"
+            integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+            crossorigin="anonymous"></script>
+    <!--CONSULTAR SI DEBO INCLUIR LA RUTA A JQUERY-->
+
+    <!--INCLUIMOS LAS LIBRERIAS DESARROLLADAS -->
+    <script type="text/javascript" src="js/familiarEnfermo.js"></script>
+    <script type="text/javascript" src="js/funcionalidadesPestanias.js"></script>
+    <!-- FIN DE LAS LIBRERIAS DESARROLLADAS -->
+
+<!-- Compiled and minified CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+
+  <!-- Compiled and minified JavaScript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+
+
+
+  
+</head>
+<body>
+
+{% block nav %}
+    <div class="navbar-fixed">
+
+        {% block navItemsDropdown %}
+            <ul id="dropdown1" class="dropdown-content">
+                <li><a href="#!">one</a></li>
+                <li><a href="#!">two</a></li>
+                <li class="divider"></li>
+                <li><a href="#!">three</a></li>
+                <li><a href="#!"><i class="material-icons">view_module</i>four</a></li>
+                <li><a href="#!"><i class="material-icons">cloud</i>five</a></li>
+            </ul>
+        {% endblock %}
+
+        <nav class="fixed-top">
+            <div class="nav-wrapper">
+
+                {% block navBar %}
+                    <a href="https://www.santafe.gob.ar" class="brand-logo"><img
+                                src="https://www.santafe.gob.ar/assets/standard/images/gob-santafe.png"></a>
+                    <ul class="right hide-on-med-and-down">
+                     
+
+                    </ul>
+                {% endblock %}
+
+                {% block sideNav %}
+                    <ul id="slide-out" class="side-nav">
+                        {% block sideItems %}
+                            <li>
+                                <div class="user-view">
+                                    <div class="background">
+                                        <img src="{{ asset('bundles/stgtheme/img/office.jpg') }}">
+                                    </div>
+                                    <a href="#!user"><img class="circle"
+                                                          src="{{ asset('bundles/stgtheme/img/person.png') }}"></a>
+                                    <a href="#!name"><span class="white-text name">Name of person</span></a>
+                                    <a href="#!email"><span class="white-text email">person@gmail.com</span></a>
+                                </div>
+                            </li>
+                            <li><a href="#!"><i class="material-icons">cloud</i>First Link With Icon</a></li>
+                            <li><a href="#!">Second Link</a></li>
+                            <li>
+                                <div class="divider"></div>
+                            </li>
+                            <li><a class="subheader">Subheader</a></li>
+                            <li><a class="waves-effect" href="#!">Third Link With Waves</a></li>
+                        {% endblock %}
+                    </ul>
+                    <a href="#" data-activates="slide-out" class="button-collapse"><i
+                                class="material-icons">menu</i></a>
+                {% endblock %}
+
+            </div>
+
+        </nav>
+
+    </div>
+{% endblock %}
+
+{% block main %}
+<form action="enviar-datos" method="post">
+    <main role="main" class="container">
+          <div class="row">
+                            <p><b>Licencia</b></p>
+                            <div class="col s2 m2">
+                                <p><b>Tipo</b></p>
+                            </div>
+                            <div class="col s12 m2">
+                                <input id="tipoLicencia" disabled type="text"/>
+                            </div>
+                            <div class="col s2 m2">
+                                <p><b>Decreto/s:</b></p>
+                            </div>
+                            <div class="col s3 m2 offset-s1" id="colmAsistentes">
+                                <input type="checkbox" id="decretoAsistentes" checked disabled/>
+                                <label id="labelAsistentes" for="decretoAsistentes">Asist. Escolar</label>
+                            </div>
+                            <div class="col s3 m2">
+                                <input type="checkbox" id="decretoDocentes" checked disabled/>
+                                <label id="labelDocentes" for="decretoDocentes">Docente</label>
+                            </div>
+          </div>
+                        <!--pestañas de la ventana emergente -->
+                        <div class="row">
+                            <ul class="tabs" class="tabs">
+                                <li class="tab col s3 m3"><a class="active" href="#divDatosPersonales">Datos Personales</a></li>
+                                <li class="tab col s3 m3" id="datosFamiliar"><a href="#divDatosFamiliar">Datos de Familia</a></li>
+                                <li class="tab col s3 m3"><a href="#divLicencia">Licencia</a></li>
+                                <li class="tab col s3 m3"><a href="#divConfirmar">Confirmar</a></li>
+                            </ul>
+                        </div>
+                    <!--div de datos personales-->
+                   <div id="divDatosPersonales">
+                                <div class="row">
+                                        <div class="col s12"><b>Documento</b></div>
+                                        <div class="col s1">Tipo:</div>
+                                        <div class="col s2" id="dni"></div>
+                                        <div class="col s1">Número:</div>
+                                        <div class="col s1" id="numeroDni"></div>
+                                </div>
+                                <div class="row">
+                                    <!-- primer columna -->
+                                    <div class="col s12 m6">
+                                        <div class="row">
+                                                <div class="col s2" id="nombre">
+                                                    Nombre:
+                                                </div>
+
+                                        </div>
+                                        <div class="row">
+                                                <div class="col s12 m3">
+                                                    <!-- 
+                                                    <input placeholder="" id="codAreaI" type="text"> 
+                                                    POR ALGUN MOTIVO ESTA LINEA TIRABA UN ERROR
+                                                    -->
+                                                    <input placeholder="" id="codAreaI" type="text">
+                                                    <label for="codAreaI">Còdigo 1:</label>
+                                                </div>
+                                                <div class="col s12 m6">
+                                                    <input placeholder="" id="telefonoI" type="text">
+                                                    <label for="telefonoI">Teléfono 1:</label>
+                                                </div>
+                                        </div>
+                                        
+                                    </div>
+                                    <!-- segunda columna -->
+                                    <div class="col s12 m6">
+                                                <div class="row">
+                                                    <p></p>
+                                                </div>
+                                                <div class="row">
+                                                        <div class="col s12 m3">
+                                                            <input placeholder="" id="codAreaII" type="text" required>
+                                                            <label for="codAreaII">Còdigo 2:</label>
+                                                        </div>
+                                                        <div class="col s12 m6">
+                                                            <input placeholder="" id="telefonoII" type="text" required>
+                                                            <label for="telefonoII">Teléfono 2:</label>
+                                                        </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col s8 m6">
+                                                        <input  type="text" id="datepicker" class="datepicker" required>
+                                                        <label for="datepicker">Fecha de nacimiento</label>
+                                                    </div>
+                                                </div>
+                                        <div class="row">
+                                              <div class="col s2 m1">Email:</div>
+                                              <div class="col s4 m3" id="email"></div>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                                <!--3er fila con los domicilios -->
+                                <div class="row">
+                                    <div class="col s12">
+                                        <b>Dirección donde será auditado</b>
+                                    </div>
+                                        <!--1er columna de la 3er fila-->
+                                        <div class="col s12 m6 ">
+                                            <div class="row">
+                                                <div class="col s12 m7">
+                                                    <input  type="text" id="calle" value="-" required>
+                                                    <label for="calle">Calle</label>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col s7">
+                                                    <input  type="text" id="piso" value="-">
+                                                    <label for="piso">Piso</label>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col s7">
+                                                    <input  type="text" id="monoblock" value="-">
+                                                    <label for="monoblock">Monoblock</label>
+                                                </div>
+                                            </div>
+                                           <div class="row">
+                                                <div class="col s7">
+                                                    <input  type="text" id="escalera" value="-">
+                                                    <label for="escalera">Escalera</label>
+                                                </div>
+                                            </div>
+                                            
+                                            <!--
+                                            <div class="row">
+                                                
+                                            </div>
+                                            -->
+                                        </div>
+                                        <!--2da columna de la 3er fila-->
+                                        <div class="col s12 m6">
+                                            <div class="row">
+                                                <div class="col s7">
+                                                    <input  type="text" id="numero" value="-" required>
+                                                    <label for="numero">Número</label>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col s7">
+                                                    <input  type="text" id="dpto" value="-">
+                                                    <label for="dpto">Dpto</label>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col s7">
+                                                    <input  type="text" id="torre" value="-">
+                                                    <label for="torre">Torre</label>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col s8 m7">
+                                                    <input  type="text" id="localidad" value="-" disabled>
+                                                    <label for="localidad">Localidad</label>
+                                                </div>
+                                                <div clas="col s4 m3">
+                                           <!--          <a class="waves-effect waves-light btn modal-trigger" 
+                              data-target="solicitudLicencia"><i class="material-icons left">arrow_forward</i>Solicitar</a> -->
+<a class="waves-effect waves-light btn modal-trigger" data-target="buscarLocalidad"><i class="material-icons left">search</i></a>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col s7">
+                                                       <input type="checkbox" checked id="domicilioPermanente" required/>
+                                                       <label for="domicilioPermanente">Es Domicilio Permanente</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                </div>
+                        <!-- end div datos personales -->
+                        </div>
+                    
+                    <!-- div de datos de familiar -->
+                        <div id="divDatosFamiliar">
+                            <!--buscar familiar-->
+                            <div class="row">
+                                <div class="col s12 m6">
+                                    <b>Seleccionar Familiar a Cargo</b>
+                                </div>
+                                <div class="col s8 m6">
+                                     <button name="botonFamiliar" id="botonFamiliar" class="waves-effect waves-light btn modal-trigger"  data-target="buscarFamiliar">Mostrar Familiares DDJJ<i class="material-icons left">search</i></button>
+                                </div>
+                            </div>
+                            <!--datos del familiar-->
+                            <div class="row">
+                                <div class="col s12 m12">
+                                    <b>Datos del Familiar</b>
+                                </div>
+                            </div>
+                            <div class="row">
+                                
+                                <div class="col s12 m5 offset-m1">
+                                    <input  type="text" id="tipoDniFamiliar" disabled>
+                                    <label for="tipoDniFamiliar">Dni Familiar</label>
+                                </div>
+                               
+                                <div class="col s12 m5 offset-m1">
+                                    <input type="text" id="numDniFamiliar" disabled>
+                                    <label for="numDniFamiliar">Número Doc</label>
+                                </div>
+                            </div>
+                             <div class="row">
+                                
+                                <div class="col s12 m5 offset-m1">
+                                    <input  type="text" id="apellidoFamiliar" disabled>
+                                    <label for="apellidoFamiliar">Apellido</label>
+                                </div>
+                             
+                                <div class="col s12 m5 offset-m1">
+                                    <input type="text" id="nombreFamiliar" disabled>
+                                    <label for="nombreFamiliar">Nombre</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                
+                                <div class="col s12 m5 offset-m1">
+                                    <input  type="text" id="fechaNacimientoFamiliar" disabled>
+                                    <label for="fechaNacimientoFamiliar">Fecha Nac</label>
+                                </div>
+                                <div class="col s1"></div>
+                                <div class="col s12 m5 offset-m1">
+                                    <input type="text" id="parentescoFamiliar" disabled>
+                                    <label for="parentescoFamiliar">Parentesco</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col s1"></div>
+                                <div class="col s11">
+                                     <input type="checkbox" id="conviveFamiliar" required/>
+                                     <label for="conviveFamiliar">Convive</label>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- enf datos familiar -->
+                        <!-- div de datos de la licencia -->
+                        <div id="divLicencia">
+                             <!-- primer fila conceptos de licencia -->
+                            <div class="row">
+                                <div class="col s2">
+                                    <b>Concepto/s Licencia/s</b>
+                                </div>
+                                    <div class="col s12 m4" id="divSelectLicenciaAsistentes">
+                                                        <select id="selectAsistentes">
+                                                            <option value="" disabled selected>Seleccione...</option>
+                                                        </select>
+                                                        <label id="labelAsistentesSelect">Asistente</label>
+                                    </div>
+                                    <div class="col s2" id="otrodivSelectLicenciaAsistentes"><p></p>
+                                    </div>
+                                    <div class="col s12 m4">
+                                                    <select id="selectDocentes">
+                                                      <option value="" disabled selected>Seleccione...</option>
+                                                    </select>
+                                                    <label id="labelDocentesSelect">Docente</label>
+                                    </div>
+                            </div>
+                            <!-- segunda fila periodo solicitado -->
+                            <div class="row">
+                                <div class="col s12 m2">
+                                    <b>Período Solicitado</b>
+                                </div>
+                            </div>
+                            <!--datos del fallecimiento-->
+                            <div class="row" id="divFallecimiento">
+                                  
+                                    <div class="col s12 m4 offset-m2">
+                                        <input  type="text" id="fechaFallecimiento" class="datepicker" required>
+                                        <label id="labelFallecimiento" for="fechaFallecimiento">Fecha deceso del niño</label>
+                                    </div>
+                     
+                                     <div class="col s12 m4 offset-m2">
+                                        <input  type="text" id="fechaNacidoFallecido" class="datepicker" required>
+                                        <label id="labelNacimiento" for="fechaNacidoFallecido">Fecha de nacimiento</label>
+                                    </div>
+                            </div>
+                            <!--datos de posible parto-->
+                             <div class="row" id="divPosibleParto">
+                                    
+                                    <div class="col s4 m3 offset-m2">
+                                        <input  type="text" id="fechaPosibleParto" class="datepicker" required>
+                                        <label id="labelPosibleParto" for="fechaPosibleParto">Fecha posible parto</label>
+                                    </div>
+                            </div>
+                            <!--datos de maternidad-->
+                            <div class="row" id="divMaternidad">
+                                  
+                                    <div class="col s12 m4 offset-m2">
+                                        <input  type="text" id="fechaNacimiento" class="datepicker" required>
+                                        <label id="labelNacimiento" for="fechaNacimiento">Fecha de nacimiento</label>
+                                    </div>
+                                    
+                                    <div class="col s12 m4 offset-m1">
+                                        <input  type="text" id="fechaPosiblePartoI" class="datepicker" required>
+                                        <label id="labelfechaPosiblePartoI" for="fechaPosiblePartoI">Fecha posible nacimiento</label>
+                                    </div>
+                            </div>
+                            <!--inicio fin de la licencia-->
+                            <div class="row">
+                                        <div class="col s12 m3 offset-m2">
+                                                <input  type="text" id="fechaInicioLicencia"disabled>
+                                                <label for="fechaInicioLicencia">Inicio</label>
+                                        </div>
+                                        <div class="col s12 m3 offset-m3">
+                                                <input  type="text" id="fechaFinLicencia" class="datepicker" required>
+                                                <label for="fechaFinLicencia">Fin</label>
+                                        </div>
+                            </div>
+                           
+                            <!-- tercer fila medico -->
+                             <div class="row">
+                                    <div class="col m2 s12">
+                                         <b>Médico</b>
+                                    </div>
+                                    <div class="col s5 m4">
+                                        <input  type="text" id="matricula">
+                                        <label for="matricula">Matricula</label>
+                                    </div>
+                                    <div class="col s1 m2 offset-s2">
+                                        <a class="waves-effect waves-light btn modal-trigger" data-target="buscarMedico"><i class="material-icons left">search</i></a>
+                                    </div>
+                                    <div class="col s12 m4">
+                                        <input  type="text" id="nombreApellidoMedico" disabled>
+                                        <label for="nombreApellidoMedico">Apell. y Nombre</label>
+                                    </div>
+                            </div>
+                            <!-- fila que se anexa cuando se selecciona licencia por maternidad-->
+                            <div class="row" id="divInfoMedicaMaternidad">
+                            
+                                <div class="col s12 m4 offset-m2">
+                                    <input  type="text" id="cantidadHijosVivos" required>
+                                    <label for="cantidadHijosVivos">Cant. Hijos Vivos</label>
+                                </div>
+                                
+                                <div class="col s12 m4 offset-m2">
+                                    <input  type="text" id="pesoKg" placeholder="Ejemplo 3.28">
+                                    <label for="pesoKg">Peso(Kg)</label>
+                                </div>
+                            </div>
+                            <!-- cuarta patologia -->
+                             <div class="row">
+                                <div class="col s12 m2">
+                                    <b>Patología</b>
+                                </div> 
+                                <div class="col s5 m4"> 
+                                    <input  type="text" id="codCIE" placeholder="Ejemplo A26">
+                                    <label for="codCIE">Cod. CIE-10</label>
+                                </div>
+                                <div class="col s1 m2 offset-s2">
+                                      <a class="waves-effect waves-light btn"><i class="material-icons left">arrow_forward</i></a>
+                                </div>
+                                <div class="col s12 m4">
+                                        <input  type="text" id="descripcionCOD" disabled>
+                                        <label for="descripcionCOD">Descripción</label>
+                                </div>
+                            </div>
+                            <!-- hijo con discapacidad -->
+                            <div class="row" id="divDiscapacidad">
+                             
+                                <div class="col s6">
+                                     <input type="checkbox" id="hijosConDiscapacidad" required/>
+                                     <label for="hijosConDiscapacidad">Niño con capacidades diferentes</label>
+                                </div>
+                            </div>
+                            <!-- quinta cargos -->
+                             <div class="row">
+                                    <div class="col s12 m2">
+                                        <b>Cargos</b>
+                                    </div>
+                                    <div class="col s10 s2">
+                                        <input type="checkbox" id="otrosCargos"/>
+                                        <label for="otrosCargos">Deseo solicitar licencias para Otros Cargos no registrados en SARH</label>
+                                    </div>
+                                    <div class="col s2">
+                                    </div>
+                                    <div class="col s4">
+                                        <a class="waves-effect waves-light btn modal-trigger" data-target="buscarCargosSarh">Cargos en SARH<i class="material-icons left">search</i></a>
+                                    </div>
+                            </div>
+                        </div>
+                        <!-- end div datos de licencia -->
+                        <!-- div de confirmar -->
+                        <div id="divConfirmar">
+                            <div align="left">
+                                Observaciones relevantes para indicar al médico auditor
+                            </div>
+                            <div class="row">
+                                <div class="col s12">
+                                        <textarea id="observaciones" class="materialize-textarea" data-length="200"></textarea>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col s12">
+                                      <input type="checkbox" id="confirmaSolicitud" required/>
+                                      <label for="confirmaSolicitud"><b>El que suscribe, afirma que los datos consignados son correctos, completos y que se ha confeccionado esta declaración jurada sin omitir ni falsear datos, siendo fiel expresión de la verdad.</b></label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col s12">
+                                        <i class="material-icons left">info</i>
+                                        <b>Información útil para el agente:</b>
+                                        <p>Ante cualquier inconveniente comuníquese con el ASYT (0800-888-2798).</p>
+                                </div>
+                            </div>    
+                        </div>
+                        
+                        
+                        
+            <!--botones-->
+            <div align="right">
+                <!--
+                        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Cancelar</a>
+                        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" disabled>Anterior</a>
+                        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Siguiente</a>
+                -->
+                        <a href="#!" id="botonConfirmar" class="modal-action modal-close waves-effect waves-green btn-flat">Confirmar</a>
+            </div>            
+ 
+            <!-- ventana modal de buscar localidad -->
+            <div id="buscarLocalidad" class="modal modal-fixed-footer">
+                <div class="modal-content">
+                        <div align="left">
+                            <b>Búsqueda de Localidades</b>
+                        </div>
+                        <div class="row">
+                            <div class="col s5">
+                                        <input  type="text" id="codPostal">
+                                        <label for="codPostal">Cod. Postal</label>
+                            </div>
+                            <div class="col 5">
+                                        <input  type="text" id="nombreLocalidad">
+                                        <label for="nombreLocalidad">Localidad</label>
+                            </div>
+                            <div class="col s2">
+                                        <a class="waves-effect waves-light btn"><i class="material-icons left">search</i></a>
+                            </div>
+                        </div>
+                        <div class="row">
+                             <div class="col s12">
+                                    <table class="striped responsive-table centered">
+                                        <thead>
+                                          <tr>
+                                              <th>Cod Postal</th>
+                                              <th>Localidad</th>
+                                          </tr>
+                                        </thead>
+                                        <tbody>
+                                                <!-- aqui se agregaran dinamicamente las filas -->
+                                        </tbody>
+                                    </table>
+                             </div>
+                        </div>
+                        <div class="row">
+                        
+                        </div>
+                <!--fin del modal content -->
+                </div>
+                <!--botones-->
+                <div class="modal-footer">
+                        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Salir</a>
+                </div>
+            </div>
+            
+            <!-- ventana modal de busqueda medico -->
+            <div id="buscarMedico" class="modal modal-fixed-footer">
+                <div class="modal-content">
+                        <div align="left">
+                            <b>Búsqueda de Médico</b>
+                        </div>
+                        <div class="row">
+                                    <div class="col s5">
+                                                <input  type="text" id="matriculaMedico">
+                                                <label for="matricula">Matrícula</label>
+                                    </div>
+                                    <div class="col 5">
+                                                <input  type="text" id="apellidoNombreMedico">
+                                                <label for="apellidoNombreMedico">Médico</label>
+                                    </div>
+                                    <div class="col s2">
+                                                <a class="waves-effect waves-light btn"><i class="material-icons left">search</i></a>
+                                    </div>
+                        </div>
+                        <div class="row">
+                             <div class="col s12">
+                                    <table class="striped responsive-table centered">
+                                        <thead>
+                                          <tr>
+                                              <th>Matrícula</th>
+                                              <th>Médico</th>
+                                          </tr>
+                                        </thead>
+                                        <tbody>
+                                                <!-- aqui se agregaran dinamicamente las filas -->
+                                        </tbody>
+                                    </table>
+                             </div>
+                        </div>
+                        <div class="row">
+                        
+                        </div>
+                <!--fin del modal content -->
+                </div>
+                <!--botones-->
+                <div class="modal-footer">
+                        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Salir</a>
+                </div>
+            </div>
+            <!-- fin ventana modal medico -->
+            
+            <!-- modal buscar cargos sarh -->
+            <div id="buscarCargosSarh" class="modal modal-fixed-footer">
+                      <div class="modal-content">
+                              <div align="left">
+                                  <b>Visualización de Cargos</b>
+                              </div>
+                              <div class="row">
+                                   <div class="col s12">
+                                          <table class="striped responsive-table centered">
+                                              <thead>
+                                                    <tr>
+                                                        <th>Cargo</th>
+                                                        <th>FTP</th>
+                                                        <th>Sit. Rev.</th>
+                                                        <th>Curso</th>
+                                                        <th>Div.</th>
+                                                        <th>Turno</th>
+                                                        <th>Hs. Desig</th>
+                                                        <th>Materia</th>
+                                                        <th>Instituto</th>
+                                                    </tr>
+                                              </thead>
+                                              <tbody>
+                                                
+                                                      <!-- aqui se agregaran dinamicamente las filas -->
+                                              </tbody>
+                                          </table>
+                                   </div>
+                              </div>
+                       
+                      <!--fin del modal content -->
+                      </div>
+                      <!--botones-->
+                      <div class="modal-footer">
+                              <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Salir</a>
+                      </div>
+            </div>
+           
+            <!-- buscar familiar -->
+            <div id="buscarFamiliar" class="modal modal-fixed-footer">
+                      <div class="modal-content">
+                              <div align="left">
+                                  <b>Visualización de Familiares a Cargos</b>
+                              </div>
+                              <div class="row">
+                                   <div class="col s12">
+                                          <table class="striped responsive-table centered">
+                                              <thead>
+                                                    <tr>
+                                                        <th>Nro.Doc.</th>
+                                                        <th>Tipo Doc.</th>
+                                                        <th>Apellido</th>
+                                                        <th>Nombre</th>
+                                                        <th>Sexo</th>
+                                                        <th>Fec.Nac.</th>
+                                                        <th>Parentesco</th>
+                                                    </tr>
+                                              </thead>
+                                              <tbody>
+                                                      <!-- aqui se agregaran dinamicamente las filas -->
+                                              </tbody>
+                                          </table>
+                                   </div>
+                              </div>
+                       
+                      <!--fin del modal content -->
+                      </div>
+                      <!--botones-->
+                      <div class="modal-footer">
+                              <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Salir</a>
+                      </div>
+            </div>
+        
+         
+      
+        {% block backTop %}
+         
+            <div class="row">
+                <div class="col m12">
+                    <p class="right-align">
+                        <a href="#"><i class="material-icons">keyboard_arrow_up</i></a>
+                    </p>
+                </div>
+            </div>
+
+        {% endblock %}
+      
+    
+        <div id="error"></div>
+        <div id="mensajeError"></div>
+
+    
+     
+        
+        
+    </main>
+
+</form>  
+{% endblock %}
+
+
+<div class="clearfix"><br></div>
+
+{% block footer %}
+    <footer class="page-footer footer text-muted">
+        <div class="container-fluid">
+            <div class="row">
+
+                <div class="offset-m2 col m3">
+                    <div class="sociales">
+                        <p><a href="/index.php/web/content/view/full/117678">RSS / SUSCRIPCIÓN A NOTICIAS</a></p>
+                        <ul class="list-inline footer-ul">
+                            <li class="list-inline-item"><a target="_blank" href="http://www.twitter.com/GobSantaFe"><i
+                                            class="icon-footertwitter"></i></a></li>
+                            <li class="list-inline-item"><a target="_blank" href="http://www.facebook.com/GobSantaFe"><i
+                                            class="icon-footerfacebook"></i></a>
+                            </li>
+                            <li class="list-inline-item"><a target="_blank" href="http://gplus.to/GobSantaFe"><i
+                                            class="icon-footerg"></i></a></li>
+                            <li class="list-inline-item"><a target="_blank" href="http://gobsantafe.tumblr.com/"><i
+                                            class="icon-footertumblr"></i></a>
+                            </li>
+                            <li class="list-inline-item"><a target="_blank" href="http://www.youtube.com/GobSantaFe"><i
+                                            class="icon-footeryoutube"></i></a></li>
+                            <li class="list-inline-item"><a target="_blank" href="http://instagram.com/gobsantafe"><i
+                                            class="icon-footerinstagram"></i></a></li>
+                            <li class="list-inline-item"><a target="_blank" href="https://es.foursquare.com/gobsantafe"><i
+                                            class="icon-footerfoursquare"></i></a></li>
+                            <li class="list-inline-item"><a target="_blank" href="https://storify.com/GobSantaFe"><i
+                                            class="icon-footerstorify"></i></a>
+                            </li>
+                            <li class="list-inline-item"><a target="_blank"
+                                                            href="http://www.linkedin.com/company/gobierno-de-la-provincia-de-santa-fe"><i
+                                            class="icon-footerlinkedin"></i></a></li>
+                        </ul>
+                    </div>
+
+                </div>
+
+                <div class="col m3">
+
+                    <div class="marca">
+                        <img src="https://www.santafe.gob.ar/assets/app/portal/imgs/marca-footer.png" alt="Santa Fe">
+                        <p>Atención telefónica: 0800-777-0801 </p>
+                        <p>Lunes a viernes de 8 a 18 hs </p>
+                        <p><span class="cc">c</span> Atribución-CompartirIgual 2.5 Argentina</p>
+                    </div>
+
+
+                </div>
+
+                <div class="col m3">
+
+                    <div class="stg-logos-contenedor">
+                        <div class="stg-logos">
+                            <a href="https://www.santafe.gob.ar/tecnologias" target="_blank"><span
+                                        class="stg-logos-logo-tec-stg"></span></a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </footer>
+{% endblock %}
+
+{% block javascript %}
+
+
+    {% block ready %}
+
+    <script>
+    //A DIFERENCIA DE BOOTSTRAP, MATERIALIZE NECESITA LA INICIALIZACION DE ALGUNOS COMPONENTES
+            $(document).ready(function() {
+                
+         
+              //  alert('secarga');
+              //ENABLE DEL SELECT
+              $('#selectDocentes').material_select();
+              $('#selectAsistentes').material_select();
+              //$('#selectTipoAgenteII').material_select();
+              //hago los sets necesarios
+              preparoInputsSolicitar();
+              $('.modal').modal();
+            });
+            
+            $('.datepicker').pickadate({
+                monthsFull: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+		monthsShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+		weekdaysFull: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+                weekdaysShort: ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'],
+                selectMonths: true, // Creates a dropdown to control month
+                selectYears: 0, // Creates a dropdown of 15 years to control year,
+                today: 'Hoy',
+                clear: 'Limpiar',
+                closeOnSelect: true, // Close upon selecting a date,
+                format: 'dd-mm-yyyy',
+                container: 'body'
+            });
+            
+            //funcion auxiliar que setea la pagina
+//hace los hide show necesarios por jquery para adaptar las pestañas a como se comporta actualmente
+           
+            /*
+             $("#botonFamiliar").click(function(){
+                                alert(' si lo metodo en el html');
+                                //muestraErrores();
+                });
+            */
+            
+            
+    //funcion que valida que cargo todos los campos, si se cumple se habilita el boton confirmar
+    //sino se muestra un layout con un mensaje de error
+
+            
+    
+         
+    </script>
+
+
+    {% endblock %}
+
+    {% endblock %}
+
+</body>
+</html>

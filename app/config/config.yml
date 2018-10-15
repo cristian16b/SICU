@@ -1,0 +1,104 @@
+imports:
+    - { resource: parameters.yml }
+    - { resource: security.yml }
+    - { resource: services.yml }
+    - { resource: "@ComensalesBundle/Resources/config/services.yml" }
+
+# Put parameters here that don't need to change on each machine where the app is deployed
+# https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
+parameters:
+    locale: en
+    #fotos_directorio es la ruta donde se deben guardar las imagenes tomadas por webcam
+    fotos_directorio: '%kernel.project_dir%/web/img/fotos'
+    #los siguientes son los ids tipos de comensales (definidos el 2/7)
+    tipo_estudiante_grado: 1
+    tipo_docente_nodocente: 2
+    tipo_invitado: 3
+    tipo_no_definido: 4
+    #los siguientes son los ids tipos de estado (definidos el 2/7)
+    #actualizado 16/7
+    estado_pendiente: 1
+    estado_rechazado: 2
+    estado_aprobado: 3
+    estado_no_definido: 4
+    #los siguientes son los ids facultades (definido el 4/7)
+    #actualizado 16/7
+    fadu: 1
+    fbcb: 2
+    fca: 3
+    fce: 4
+    fcjs: 5
+    fcm: 6
+    fcv: 7
+    fhuc: 8
+    fiq: 9
+    fich: 10
+    ess: 11
+    ism: 12
+    rectorado_secretarias: 13
+    otras_insticuciones: 14
+    facultad_no_definido: 15
+    
+    
+
+
+
+
+
+framework:
+    #esi: ~
+    #translator: { fallbacks: ['%locale%'] }
+    secret: '%secret%'
+    router:
+        resource: '%kernel.project_dir%/app/config/routing.yml'
+        strict_requirements: ~
+    form: ~
+    csrf_protection: ~
+    validation: { enable_annotations: true }
+    #serializer: { enable_annotations: true }
+    default_locale: '%locale%'
+    trusted_hosts: ~
+    session:
+        # https://symfony.com/doc/current/reference/configuration/framework.html#handler-id
+        handler_id: session.handler.native_file
+        save_path: '%kernel.project_dir%/var/sessions/%kernel.environment%'
+    fragments: ~
+    http_method_override: true
+    assets: ~
+    php_errors:
+        log: true
+
+# Twig Configuration
+twig:
+    debug: '%kernel.debug%'
+    strict_variables: '%kernel.debug%'
+
+# Doctrine Configuration
+doctrine:
+    dbal:
+        driver: pdo_mysql
+        host: '%database_host%'
+        port: '%database_port%'
+        dbname: '%database_name%'
+        user: '%database_user%'
+        password: '%database_password%'
+        charset: UTF8
+        # if using pdo_sqlite as your database driver:
+        #   1. add the path in parameters.yml
+        #     e.g. database_path: '%kernel.project_dir%/var/data/data.sqlite'
+        #   2. Uncomment database_path in parameters.yml.dist
+        #   3. Uncomment next line:
+        #path: '%database_path%'
+
+    orm:
+        auto_generate_proxy_classes: '%kernel.debug%'
+        naming_strategy: doctrine.orm.naming_strategy.underscore
+        auto_mapping: true
+
+# Swiftmailer Configuration
+swiftmailer:
+    transport: '%mailer_transport%'
+    host: '%mailer_host%'
+    username: '%mailer_user%'
+    password: '%mailer_password%'
+    spool: { type: memory }

@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>formulario parte I</title>
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+    
+    <!--MOMENTANEO
+    <style>
+    input:invalid 
+    {
+      border: 1px solid red;
+    }
+    
+    input:valid 
+    {
+      border: 1px solid green; 
+    
+    }
+    
+  
+    </style>
+    -->
+    
+    <!--incorporo la libreria extenera para manejar los select-->
+    <script type="text/javascript" src="js/formulario_select.js"></script>
+    <script type="text/javascript" src="js/formulario_correo.js"></script>
+    <script type="text/javascript" src="js/formulario_guardar.js"></script>
+</head>
+
+<body>
+
+        
+   <div class="col-lg-10 col-md-10 col-lg-offset-1" >
+       
+       
+    <div class="row">
+            <div class="col-lg-7">
+                <p><strong><em>SISTEMA INFORMÁTICO DEL COMEDOR UNIVERSITARIO PREDIO ATE - UNL</em></strong></p>
+            </div>
+    </div>
+            <hr>
+<!--            <div class="container">-->
+                <p><em>Ingrese a continuación sus datos, los campos indicados con (*) son obligatorios.</em></p>
+         
+                <!--INICIO DEL FORMULARIO-->
+                <form class="form-horizontal" 
+                      action="formulario_ii"  
+                      method="POST"  
+                      name="formulario"
+                      
+                      > 
+                      <!--
+                      novalidate anula las validaciones html 5
+                      
+                      -->
+                      
+                    
+                     <!--APELLIDO-->
+                     <div class="form-group">
+                         <div class="col-lg-2 col-md-2">
+                                        <p><strong>Apellido</strong> (*)</p>
+                                    </div>
+                                    <div class="col-lg-4 col-md-4">
+                                        <input  class="form-control"
+                                                name = "apellido"
+                                                value="" 
+                                                autofocus="" 
+                                                type="text"
+                                                id="apellido"
+                                                placeholder="Ingrese su apellido" 
+                                                minlength="2" 	
+                                                maxlength="50" 
+                                                required
+                                                pattern="^([A-Za-zÁÉÍÓÚñáéíóúÑ]{0}?[A-Za-zÁÉÍÓÚñáéíóúÑ\']+[\s])+([A-Za-zÁÉÍÓÚñáéíóúÑ]{0}?[A-Za-zÁÉÍÓÚñáéíóúÑ\'])+[\s]?([A-Za-zÁÉÍÓÚñáéíóúÑ]{0}?[A-Za-zÁÉÍÓÚñáéíóúÑ\'])?$"
+                                                title="Ingrese el apellido usando solamente letras y sin numeros o carácteres especiales como por ejemplo: !@#$%&/()=??¡]¨*[__-{"
+                                                >
+                                    </div>
+                    </div>
+                    
+                    <!--NOMBRE-->
+                    <div class="form-group">
+                                    <div class="col-lg-2 col-md-2">
+                                        <p><strong>Nombre </strong>(*)</p>
+                                    </div>
+                                    <div class="col-lg-4 col-md-4">
+                                        <input class="form-control" 
+                                               type="text" 
+                                               name="nombre" 
+                                               id="nombre"
+                                               placeholder="Ingrese su nombre"
+                                               minlength="3" 	
+                                               maxlength="50" 
+                                               Value="" 
+                                               required 
+                                               pattern="^([A-Za-zÁÉÍÓÚñáéíóúÑ]{0}?[A-Za-zÁÉÍÓÚñáéíóúÑ\']+[\s])+([A-Za-zÁÉÍÓÚñáéíóúÑ]{0}?[A-Za-zÁÉÍÓÚñáéíóúÑ\'])+[\s]?([A-Za-zÁÉÍÓÚñáéíóúÑ]{0}?[A-Za-zÁÉÍÓÚñáéíóúÑ\'])?$"
+                                               title="Ingrese el apellido usando solamente letras y sin numeros o carácteres especiales como por ejemplo: !@#$%&/()=??¡]¨*[__-{"
+                                               >
+                                    </div>
+                    </div>
+                    
+                    <!--DNI-->
+                    <div class="form-group">
+                                    <div class="col-lg-2 col-md-2">
+                                        <p><strong>DNI </strong>(*)</p>
+                                    </div>
+                                    <div class="col-lg-3  col-md-3" value="">
+                                        <input class="form-control" 
+                                               type="text" 
+                                               name="dni" 
+                                               id="dni"
+                                               placeholder="Ingrese su documento"
+                                               minlength="7" 	
+                                               maxlength="10" 
+                                               required
+                                               pattern="[0-9]{1,2}\.?[0-9]{3}\.?[0-9]{3}"
+                                               title="Revisar su documento. 
+                                               Ejemplos de dni validos 1.000.000 o 1000000"
+                                               >
+                                    </div>
+                    </div>
+                
+                    <!--TIPO DE COMENSAL-->
+                    <div class="form-group">
+                                    <div class="col-lg-2 col-md-2">
+                                        <p><strong>Tipo de comensal </strong>(*)</p>
+                                    </div>
+                                    <div class="col-lg-5 col-md-5">
+                                        <select class="form-control input-lg" 
+                                                name="select_tipo"
+                                                id="tipo_comensal"
+                                                onchange ="mostrarFacultad();"
+                                                required>
+                                            <!--hidden permite mostrar un mensaje de ayuda que cuando el user lo abre no lo ve de nuevo-->
+                                            <option disabled selected hidden>Seleccione el tipo de comensal</option>
+                                            <option value="1">Estudiante de carrera de grado</option>
+                                            <option value="2">Docente - No docente</option>
+                                            <option value="3">Invitado</option>
+                                        </select>
+                                    </div>
+                    </div>
+    
+                    <!--FACULTAD-->
+                    <div class="form-group">
+                                    <div class="col-lg-2 col-md-2">
+                                        <p><strong>Facultad </strong>(*)</p>
+                                    </div>
+                                    <div class="col-lg-5 col-md-5">
+                                        <select class="form-control input-lg" 
+                                                id ="facultad"
+                                                onchange="mostrarCarrera();"
+                                                name="select_facultad" 
+                                                required
+                                                disabled
+                                                >
+                                            <option disabled selected hidden>Seleccione la institución donde trabaja y/o estudiá</option>
+<!--                                            <option disabled selected hidden>Seleccione la institución donde trabaja y/o estudiá</option>
+                                            <option>Facultad de Arquitectura, Diseño y Urbanismo</option>
+                                            <option>Facultad de Bioquímica y Ciencias Biológicas</option>
+                                            <option>Facultad de Ciencias Agrarias</option>
+                                            <option>Facultad de Ciencias Económicas</option>
+                                            <option>Facultad de Ciencias Jurídicas y Sociales</option>
+                                            <option>Facultad de Ciencias Médicas</option>
+                                            <option>Facultad de Ciencias Veterinarias</option>
+                                            <option>Facultad de Humanidades y Ciencias</option>
+                                            <option>Facultad de Ingeniería Química</option>
+                                            <option>Facultad de Ingeniería y Ciencias Hídricas</option>
+                                            <option>Escuela Superior de Sanidad “Ramón Carrillo”</option>
+                                            <option>Instituto Superior de Música</option>
+                                            <option>Centro Universitario / Reconquista-Avellaneda</option>
+                                            <option>Centro Universitario / Gálvez</option>
+                                            <option>Rectorado y Secretarias dependientes</option>
+                                            <option>Otras instituciones</option>
+-->
+                                        </select>
+                                    </div>
+                    </div>
+                   
+                    <!--CARRERA-->
+                    <div class="form-group">
+                                    <div class="col-lg-2 c
+                                         ol-md-2">
+                                        <p><strong>Carrera </strong></p>
+                                    </div>
+                                    <div class="col-lg-5 col-md-5">
+                                        <select class="form-control input-lg" 
+                                                id ="carrera"
+                                                name="select_carrera"
+                                                disabled
+                                                >
+                                                 <option 
+                                                     disabled 
+                                                     selected 
+                                                     hidden>
+                                                     Seleccione la carrera que estudiá</option>
+                                        
+                                        </select>
+                                    </div>
+                    </div>
+                    
+                    <!--CORREO-->
+                    <div class="row">
+                        <div class="col-md-12">
+                                <div class="form-group">
+                                    <div class="col-lg-2 col-md-2">
+                                        <p><strong>Correo </strong>(*)</p>
+                                    </div>
+                                    <div class="col-lg-4 col-md-4">
+                                        <input class="form-control" 
+                                               type="email" 
+                                               name="correo" 
+                                               placeholder="Ingrese su correo para poder contactarlo"
+                                               minlength="5" 	
+                                               maxlength="50"
+                                               required
+                                               id="correo"
+                                               autocomplete="off"
+                                               pattern="[a-zA-Z0-9aáéíóúÁÉÍÓÚ.,!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*"
+                                               title="Revise su correo"
+                                               onpaste="return false" oncut="return false" oncopy="return false"
+                                               >
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+					
+                    <!--CORREO 2-->
+                    <div class="row">
+                        <div class="col-md-12">
+                                <div class="form-group">
+                                    <div class="col-lg-2 col-md-2">
+                                        <p><strong>Correo </strong>(*)</p>
+                                    </div>
+                                    <div class="col-lg-4 col-md-4">
+                                        <input class="form-control" 
+                                               id="correo2"
+                                               type="email" 
+                                               name="correo2" 
+                                               placeholder="Ingrese nuevamente su correo"
+                                               minlength="5" 	
+                                               maxlength="50"
+                                               required
+                                               pattern="[a-zA-Z0-9aáéíóúÁÉÍÓÚ.,!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*"
+                                               title="Revise su correo"
+                                               autocomplete="off"
+                                               onpaste="return false" oncut="return false" oncopy="return false"
+                                               onchange="comparaCorreo();"
+                                               >
+                                    </div>
+                                </div>
+                        </div>
+                    </div>
+					
+					
+                    <!--TELEFONO-->        
+                    <div class="form-group">  
+                                    <div class="col-lg-2 col-md-2">
+                                        <p><strong>Codigo de Área</strong> (*)</p>
+                                    </div>
+                                    <div class="col-lg-2 col-md-2">
+                                        <input class="form-control" 
+                                               type="codtel" 
+                                               name="codtelefono" 
+                                               placeholder="Ingrese codigo área"
+                                               minlength="2"
+                                               id="codtelefono"
+                                               maxlength="50"
+                                               pattern="[0-9()\#\-\.\_]+\s+"
+                                               required>
+                                    </div>
+                                    <div class="col-lg-2 col-md-2">
+                                        <p><strong>Telefono</strong> (*)</p>
+                                    </div>
+                                    <div class="col-lg-4 col-md-4 col-md-pull-1">
+                                        <input class="form-control" 
+                                               type="tel" 
+                                               name="telefono"
+                                               id="telefono"
+                                               placeholder="Ingrese su telefono"
+                                               minlength="2" 	
+                                               maxlength="50"
+                                               pattern="[0-9()\#\-\.\_]+\s+"
+                                               required>
+                                    </div>
+                    </div>
+     
+                    <!--ENFERMEDADES-->
+                    <div class="form-group">
+                                <div class="col-lg-2 col-md-3">
+                                    <p><strong>¿Usted es?</strong></p>
+                                </div>
+                                <div class="col-lg-3 col-md-3">
+                                    <div class="checkbox">
+                                        <label class="control-label" 
+                                               for="Celiaco">
+                                            <input type="checkbox"
+                                                   name ="celiaco"
+                                                   
+                                                   id="celiaco">Celiaco </label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label class="control-label" for="vegetariano">
+                                            <input type="checkbox"
+                                                   name ="vegetariano"
+                                                   
+                                                   id="vegetariano">Vegetariano</label>
+                                    </div>
+                                </div>
+                    </div>
+          
+                
+                    <!--BOTONES-->
+                    <div class="row">
+                        <div class="col-lg-4  col-md-4 col-md-offset-7">
+                            <div class="btn-group" role="group">
+                                
+                               <!--BOTON VALIDAR Y SALTAR A LA PAGINA SIGUIENTE-->
+                              
+                               <input class="btn btn-primary" 
+                                      type="submit" 
+                                      value="CONTINUAR" 
+                                      onClick="guardarDatosI();">
+                              
+                              
+                               <!--BOTON CANCELAR Y BORRAR LOS DATOS-->
+                               <input class="btn btn-danger" type="reset" value="CANCELAR">
+                            </div>
+                        </div>
+                    </div>
+                    <!--FIN DE FORMULARIO-->
+                </form>
+                <!--LINEA DIVISORIA-->
+                <hr>
+            </div>
+    
+    <!--FIN DE TODO-->
+    <script src="js/jquery.min.js"></script>
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+    
+   
+</body>
+<!--FIN-->
+
+</html>

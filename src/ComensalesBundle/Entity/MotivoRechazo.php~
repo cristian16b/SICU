@@ -1,0 +1,78 @@
+<?php
+
+namespace ComensalesBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * MotivoRechazo
+ *
+ * @ORM\Table(name="motivo_rechazo")
+ * @ORM\Entity(repositoryClass="ComensalesBundle\Repository\MotivoRechazoRepository")
+ */
+class MotivoRechazo
+{
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="comentario", type="string", length=255)
+     */
+    private $comentario;
+    
+    /**
+    * @ORM\OneToOne(targetEntity="Solicitud", inversedBy="MotivoRechazo")
+    * @ORM\JoinColumn(name="solicitud_id", referencedColumnName="id")
+    */
+    private $solicitud;
+    
+    /**
+    * @ORM\OneToOne(targetEntity="TipoRechazo")
+    * @ORM\JoinColumn(name="tipo_rechazo_id", referencedColumnName="id")
+    */
+    private $tipo_rechazo;
+
+
+    /**
+     * Get id
+     *
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set comentario
+     *
+     * @param string $comentario
+     *
+     * @return MotivoRechazo
+     */
+    public function setComentario($comentario)
+    {
+        $this->comentario = $comentario;
+
+        return $this;
+    }
+
+    /**
+     * Get comentario
+     *
+     * @return string
+     */
+    public function getComentario()
+    {
+        return $this->comentario;
+    }
+}
+

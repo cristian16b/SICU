@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>formulario parte II</title>
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <!--  jQuery -->
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> 
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+  
+    <!--llamo a la libreria correspondiente-->
+    <script type="text/javascript" src="js/formulario_fotos.js"></script>
+    <script type="text/javascript" src="js/formulario_select.js"></script>
+    <script type="text/javascript" src="js/formulario_fechas.js"></script>
+    <script type="text/javascript" src="js/formulario_guardar.js"></script>
+    <!--estilo de la imagen previsualizada en el navegador-->
+    <style>
+          .foto {
+            width: 300px;
+            border: 1px solid #000;
+          }
+    </style>
+</head>
+
+<body>
+        
+    <!--inicio del cuerpo-->
+    <div class="col-lg-9 col-md-9 col-lg-offset-1" >
+    <div class="row">
+        <div class="col-lg-7">
+            <p><strong><em>SISTEMA INFORMÁTICO DEL COMEDOR UNIVERSITARIO UNL</em></strong></p>
+        </div>
+    </div>
+    <!--  <div class="container"-->      
+          
+        <!--INICIO DEL FORMULARIO-->
+          
+        <form class="form-horizontal"
+                action="guardar"
+                method="post" 
+                name="form"
+                enctype="multipart/form-data"
+               >
+                <!--ELIMINAR NOVALIDATE DEL FORM CLASS PARA QUE HTML ACTIVE LAS VALIDACIONES DEL FORMULARIO
+                    SOLO DEJAR PARA DESARROLLO Y TESTING SIN VALIDACIÓN-->
+            
+            <hr>
+                <p><em>A continuación, debe subir una foto personal para usar en su tarjeta. Subir una foto (no imagen o avatar) en la que sea facilmente identificable y clara. Puede optar por subir un archivo o obtenerla por su webcam de su pc.</em></p>
+                
+                <div class="form-group">
+                            <div class ="row">
+                                    <div class="col-lg-3" id="videodiv">
+                                       <video  id="video" style="display:none" autoplay muted>
+                                           
+                                       </video> 
+                                    </div>
+                                    <div class="col-lg-1" id="canvasdiv">
+                                        <canvas id="canvas"
+                                                style="display:none"
+                                               >
+                                            
+                                        </canvas>
+                                    </div>
+                                    <div class="col-lg-6">
+                                         <img class="foto" 
+                                                     src="img/perfil_defecto.png" 
+                                                     id="imagen" 
+                                                     alt ="PREVISUALIZACIÓN"
+                                                />
+                                    </div>
+                               
+                               <textarea name="base64" 
+                                         id="base64"
+                                   style="display:none">
+                               </textarea>
+                           </div>
+                </div>
+                
+                <div class="form-group">    
+                    <div class="col-lg-offset-2 col-md-12 col-md-offset-4">
+                        
+                            <input class="btn btn-default"
+                                   type="file"
+                                   id ="archivo"
+                                   value="Subir foto"
+                                   name="archivo"
+                                   title="Subir archivo"
+                                   onClick="previsualizar();"
+                            />
+                            
+                        <div class="btn-group" role="group">
+                             
+                            
+                                                        <input class="btn btn-default" 
+                                                              id="habilitarVideo"
+                                                              type="button"
+                                                              value="Habilitar webcam"
+                                                             onClick="mostrarVideo();">
+                                                        <input class="btn btn-default" 
+                                                              id="tomarfoto"
+                                                              type="button"
+                                                              value="Tomar foto"
+                                                             >    
+                                                        <input class="btn btn-default" 
+                                                              id="cancelarfoto"
+                                                              value="Guardar"
+                                                              onClick="ocultarVideo();">
+                        </div>
+                    </div>
+                </div>
+                
+                <hr>
+                
+                <div class="form-group">
+                <p>La credencial sera entregada personalmente en una de las sedes habilitadas para tal fin. Debiendo asistir con el certificado de alumno regular (Estudiantes) o una copia del último recibo de sueldo (Docentes y No docentes). </p>
+                <p>Seleccione la sede donde va a retirarlo, la fecha en que se acercara y el horario en el que usted considera mas conveniente.</p>
+                        <div class="col-lg-8 col-md-8">
+                        
+                            <div class="col-lg-4 col-md-4">
+                                <select class="form-control" 
+                                        name="sede" 
+                                        id="sede"
+                                        required=""
+                                        >
+                                    <option disabled selected hidden>Seleccione la sede</option>
+                                    <option value="1">Predio UNL - ATE</option>
+                                    <option value="2">Rectorado</option>
+                                    <option value="3">Esperanza</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-4 col-md-4">
+                                            <input class="form-control"
+                                                   type="text" 
+                                                   id = "datepicker"
+                                                   required=""
+                                                   placeholder="Seleccione la fecha"
+                                                   onchange="guardarFecha();"
+                                                   disabled
+                                                   />                
+                            </div>                        <!--  -->
+                           
+                            
+    
+                            <div class="col-lg-4 col-md-4">
+                                <select class="form-control" 
+                                        id ="horario_turno"
+                                        name="horario_turno" 
+                                        required=""
+                                        disabled
+                                        onchange="guardarHorario();"
+                                        > 
+                                    <option disabled selected hidden>Seleccione el horario</option>
+                                </select>
+                            </div>
+                            
+                            
+                                
+                        </div>
+                </div>
+                <div class="row">
+                    <div id="gif"></div>
+                    <div class="alert alert-danger"
+                         id ="error-turno"
+                          style="display:none">
+                    </div>
+                </div>    
+                <hr>
+                
+                <div class="form-group">
+                        <p>Ingrese el código de verificación:</p>
+                        <div class="col-lg-2  col-md-2">
+                            <img width="50" height="50">
+                        </div>
+                        
+                        <div class="col-lg-2 col-md-2">
+                                <input class="form-control" 
+                                       type="text" 
+                                       name="captcha_ingresado" 
+                                       required="" 
+                                       placeholder="Ingrese el código"
+                                       maxlength="5" 
+                                       minlength="1">
+                        </div>
+                        
+                        <div class="col-lg-2 col-md-2">
+                            <button class="btn btn-default"
+                                    name ="actualizar"
+                                    id="actualizar"
+                                    type="button">Actualizar </button>
+                        </div>
+                </div>
+                
+                            
+                       
+                <div class="row">
+                           <p>Para finalizar, presionar GUARDAR. Para editar sus datos personales, VOLVER. Para cancelar y salir, CANCELAR</p>
+                         
+                            <div class="col-lg-4 col-md-4 col-lg-offset-7  col-md-offset-7">
+                                <div class="btn-group" role="group">
+                                    <!--
+                                    <input class="btn btn-primary"   
+                                           type="submit" 
+                                           value="GUARDAR" 
+                                           onClick="guardarDatosII();"
+                                           >
+                                    -->
+                    
+                                      <input class="btn btn-primary" 
+                                      type="submit" 
+                                      value="CONTINUAR" 
+                                      onClick="convertirBase64();">
+                    
+                                    <!--boton que vuelve a la pagina anterior-->
+                                    <!--
+                                    <a class="btn btn-default" href="formulario_i" type="button" >VOLVER</a>
+                                    -->
+                                    <a class="btn btn-default" href="javascript:window.history.back();" type="button" >VOLVER</a>
+                                    <button class="btn btn-danger" type="reset">CANCELAR</button>
+                            </div>
+                        </div>
+                </div>
+                <hr>
+            </div>
+    
+           <textarea
+                                        name="fecha" 
+                                        id="fecha"
+                                        style = "display:none"
+                                        onchange="tmp();">
+                               </textarea>
+       <!-- </div> -->
+        </form>    
+        <!--fin del formulario-->
+      
+
+    <!-- scrip para tomar una foto por la web cam-->
+    <script>
+
+    
+    
+        
+                 (function() {
+
+                  var streaming = false,
+                      video        = document.querySelector('#video'),
+                      cover        = document.querySelector('#cover'),
+                      canvas       = document.querySelector('#canvas'),
+                      photo        = document.querySelector('#photo'),
+                      tomarfoto  = document.querySelector('#tomarfoto'),
+                      width = 300,
+                      height = 0;
+                  var image = document.getElementById('imagen');
+                  image.src = "img/perfil_defecto.png";
+
+                  navigator.getMedia = ( navigator.getUserMedia || 
+                                         navigator.webkitGetUserMedia ||
+                                         navigator.mozGetUserMedia ||
+                                         navigator.msGetUserMedia);
+
+
+                  video.addEventListener('canplay', function(ev){
+                    if (!streaming) {
+                      height = video.videoHeight / (video.videoWidth/width);
+                      video.setAttribute('width', width);
+                      video.setAttribute('height', height);
+                      canvas.setAttribute('width', width);
+                      canvas.setAttribute('height', height);
+                      streaming = true;
+                    }
+                  }, false);
+
+                  function takepicture(e) {
+
+
+                   //asigno la ruta de archivo para que se muestre
+
+                   canvas.width = width;
+                   canvas.height = height;
+                   canvas.getContext('2d').drawImage(video, 0, 0, width, height);
+                   
+
+                   //intento convertir
+                    var imagen = document.getElementById('imagen');
+                    imagen.src = canvas.toDataURL("image/png");
+   
+                  }
+
+                  tomarfoto.addEventListener('click', function(ev){
+                      takepicture();
+                    ev.preventDefault();
+                  }, false);
+
+})();
+    
+    //<!-- fin del codigo de carga de la imagen-->
+</script>
+
+    
+  <script>
+  //lo estraigo y lo meto en una libreria
+var disableddates = ["20-6-2018", "9-7-2018"];
+
+function noFeriados(date) 
+{
+    noExcursion(date);
+    
+    var m = date.getMonth();
+    var d = date.getDate();
+    var y = date.getFullYear();
+    var currentdate = d + '-' + (m + 1) + '-' + y ;
+                //alert(currentdate);
+
+    for (var i = 0; i < disableddates.length; i++) 
+                {
+        if ($.inArray(currentdate, disableddates) != -1 ) 
+                        {
+            return [false];
+        } 
+    }
+
+    return noExcursion(date);
+}
+
+//funcion que bloquea todos lo dias expecto los que queremos habilitar para la seleccion
+function noExcursion(date){
+var day = date.getDay();
+// aqui indicamos el numero correspondiente a los dias que ha de bloquearse (el 0 es Domingo, 1 Lunes, etc...) en el ejemplo bloqueo todos menos los lunes y jueves.
+return [(day != 0  && day != 6), ''];
+};
+
+$.datepicker.regional['es'] = {
+ closeText: 'Cerrar',
+ prevText: '< Ant',
+ nextText: 'Sig >',
+ currentText: 'Hoy',
+ monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+ monthNamesShort: ['Ene','Feb','Mar','Abr', 'May','Jun','Jul','Ago','Sep', 'Oct','Nov','Dic'],
+ dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+ dayNamesShort: ['Dom','Lun','Mar','Mié','Juv','Vie','Sáb'],
+ dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sá'],
+ weekHeader: 'Sm',
+ dateFormat: 'dd-mm-yy',
+ firstDay: 0,
+ isRTL: false,
+ showMonthAfterYear: false,
+ yearSuffix: '',
+ }; 
+ 
+ $.datepicker.setDefaults($.datepicker.regional['es']); 
+  $(function() {
+   $('#datepicker').datepicker({ 
+				minDate: +10, 
+				maxDate: "+1M",
+                                beforeShowDay: noExcursion,
+                                beforeShowDay:noFeriados
+				}
+	);
+		});
+		
+</script>
+
+
+</body>
+
+</html>

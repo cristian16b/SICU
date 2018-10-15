@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>formulario parte II</title>
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+
+<body>
+    <div class="row">
+        <div class="col-lg-5">
+            <p><strong><em>SISTEMA INFORMÁTICO DEL COMEDOR UNIVERSARIO UNL</em></strong></p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1">
+            <hr>
+            <form class="form-horizontal" method="post">
+                <p><em>A continuación, debe subir una foto personal para usar en su tarjeta. Subir una foto (no imagen o avatar) en la que sea facilmente identificable y clara. Puede optar por subir un archivo o obtenerla por su webcam de su pc.</em></p>
+                <div
+                class="form-group">
+                    <div class="col-lg-4 col-md-4">
+                        <iframe width="350" height="250" allowfullscreen="" frameborder="0"></iframe>
+                    </div>
+                    <div class="col-lg-4"><img src="assets/img/perfil_defecto.png" width="350" height="250"></div>
+                    <div class="col-lg-12 col-lg-offset-5 col-md-6">
+                        <input type="file">
+                        <div class="btn-group" role="group">
+                            <button class="btn btn-default" type="button">Capturar foto</button>
+                            <button class="btn btn-default" type="button">Cerrar </button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <hr>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <p>La credencial sera entregada personalmente en una de las sedes habilitadas para tal fin. Debiendo asistir con el certificado de alumno regular (Estudiantes) o una copia del último recibo de sueldo (Docentes y No docentes). Seleccione
+                            la sede donde va a retirarlo, la fecha en que se acercara y el horario en el que usted considera más conveniente.</p>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <select class="form-control" name="sede" required="">
+                                    <option value="1" selected="">Predio UNL - ATE</option>
+                                    <option value="2">Rectorado</option>
+                                    <option value="3">Esperanza</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <input class="form-control" type="date" name="fecha_turno" required="">
+                            </div>
+                            <div class="col-md-4">
+                                <select class="form-control" name="horario_turno" required=""></select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <hr>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-3 col-md-3">
+                                <p>Ingrese el código de verificación:</p>
+                            </div>
+                            <div class="col-lg-2 col-lg-pull-1 col-md-2 col-md-pull-1"><img width="50" height="50"></div>
+                            <div class="col-lg-2 col-md-2">
+                                <input class="form-control" type="text" name="captcha_ingresado" required="" maxlength="5" minlength="1">
+                            </div>
+                            <div class="col-lg-2 col-md-2">
+                                <button class="btn btn-default" type="button">Actualizar </button>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-lg-9 col-md-10">
+                                <p> Para finalizar, presionar GUARDAR. Para editar sus datos personales, VOLVER. Para cancelar y salir, CANCELAR</p>
+                            </div>
+                            <div class="col-lg-5 col-lg-offset-7 col-md-5 col-md-offset-7">
+                                <div class="btn-group" role="group">
+                                    <button class="btn btn-primary" type="button">GUARDAR </button>
+                                    <button class="btn btn-default" type="button">VOLVER </button>
+                                    <button class="btn btn-danger" type="button">CANCELAR </button>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                    </div>
+        </div>
+        </form>
+    </div>
+    </div>
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+</body>
+
+</html>

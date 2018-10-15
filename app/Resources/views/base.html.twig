@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel</title>
+    <link rel="stylesheet" href="{{ asset('bootstrap/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
+    
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> 
+    
+    <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
+    
+    <script type="text/javascript" src="{{ asset('js/panel/panel_filtros.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/panel/panel_exportar.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/panel/panel_abm.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/panel/panel_modificarMostrar.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/complementos/BlockUi.js') }} "></script>
+    <script type="text/javascript" src="{{ asset('js/formulario_fotos.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/formulario_select.js') }}"></script>
+    
+    <script type="text/javascript" src="{{ asset('js/complementos/tableExport/libs/FileSaver/FileSaver.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/complementos/tableExport/libs/jsPDF/jspdf.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/complementos/tableExport/libs/jsPDF-AutoTable/jspdf.plugin.autotable.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/complementos/tableExport/tableExport.min.js') }}"></script>
+    
+    <script type="text/javascript" src="{{ asset('js/complementos/tablePaginacionSort/scripts/jQuery.sortpaginate.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/complementos/tablePaginacionSort/css/jQuery.sortpaginate.css') }}"></script>
+    <script type='text/javascript'>
+    $(function () {
+        $("table").sortpaginate({pageSize: 2});
+    });
+    </script>
+
+    <style>
+        #tablaEstilo
+        {height: 450px;}
+        #noScrollHorizontal{overflow-x: hidden;}
+  
+          .foto {
+            width: 300px;
+            border: 1px solid #000;
+          }
+    </style>
+     <script>
+  //lo estraigo y lo meto en una libreria
+var disableddates = ["20-6-2018", "9-7-2018"];
+
+function noFeriados(date) 
+{
+    noExcursion(date);
+    
+    var m = date.getMonth();
+    var d = date.getDate();
+    var y = date.getFullYear();
+    var currentdate = d + '-' + (m + 1) + '-' + y ;
+                //alert(currentdate);
+
+    for (var i = 0; i < disableddates.length; i++) 
+                {
+        if ($.inArray(currentdate, disableddates) != -1 ) 
+                        {
+            return [false];
+        } 
+    }
+
+    return noExcursion(date);
+}
+
+//funcion que bloquea todos lo dias expecto los que queremos habilitar para la seleccion
+function noExcursion(date){
+var day = date.getDay();
+// aqui indicamos el numero correspondiente a los dias que ha de bloquearse (el 0 es Domingo, 1 Lunes, etc...) en el ejemplo bloqueo todos menos los lunes y jueves.
+return [(day != 0  && day != 6), ''];
+};
+
+$.datepicker.regional['es'] = {
+ closeText: 'Cerrar',
+ prevText: '< Ant',
+ nextText: 'Sig >',
+ currentText: 'Hoy',
+ monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+ monthNamesShort: ['Ene','Feb','Mar','Abr', 'May','Jun','Jul','Ago','Sep', 'Oct','Nov','Dic'],
+ dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+ dayNamesShort: ['Dom','Lun','Mar','Mié','Juv','Vie','Sáb'],
+ dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sá'],
+ weekHeader: 'Sm',
+ dateFormat: 'dd-mm-yy',
+ firstDay: 0,
+ isRTL: false,
+ showMonthAfterYear: false,
+ yearSuffix: '',
+ }; 
+ 
+ $.datepicker.setDefaults($.datepicker.regional['es']); 
+  $(function() {
+   $('#datepicker').datepicker({ 
+				minDate: +10, 
+				maxDate: "+1M",
+                                beforeShowDay: noExcursion,
+                                beforeShowDay:noFeriados
+				}
+	);
+		});
+                    $(function() 
+                        {
+                                $('#calendario').datepicker({ 
+                                beforeShowDay: noExcursion
+				}
+                                );
+                        });
+    
+    
+</script>
+    
+    
+</head>
+<body>
+    
+    {% block body %}
+        {# block comentario #}
+    {% endblock %}    
+    
+</body>
+</html>

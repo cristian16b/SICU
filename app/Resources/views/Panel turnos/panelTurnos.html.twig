@@ -1,0 +1,195 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <div class="row">
+        <div class="col-lg-2 col-md-2">
+            <ul class="nav nav-pills nav-stacked"  >
+                <li><a href="solicitudes">SOLICITUDES</a></li>
+                <li  class="active"><a href="#">TURNOS </a></li>
+                <li><a href="tarjetas">TARJETAS </a></li>
+                <li><a href="#">MENUS CONSUMIDOS</a></li>
+            </ul>
+        </div>
+        <div class="col-lg-9 col-md-9">
+                    <div class="row">
+                        <div class="col lg-9 col-md-9">
+                            <p> </p>
+                        </div>
+                    </div>
+            <div class="row" id="tablaEstilo">
+                <div class="col-lg-12 col-md-12">
+                    <div class="row" >
+                        <div class="col-lg-11 col-md-11">
+                                <div class="col-lg-1 col-md-1">
+                                    FILTRAR
+                                    <!--<p>FILTRAR:</p>-->
+                                </div>
+                                <div class="col-lg-3 col-md-3">
+                                {#  #}
+                                <select class="form-control"
+                                            required
+                                            id="sede-turno">
+                                    <option value="sede" disabled selected hidden>Sede</option>
+                                {% for sede in sedes %}
+                                    <option>{{sede.nombreSede}}</option>
+                                {% endfor %}
+                                </select>
+                                </div>
+                                <div class="col-lg-3 col-md-3">
+                                    <input class="form-control"
+                                                   type="text"
+                                                   align="center"
+                                                   name="fecha-dia-mes-anio"
+                                                   id ="calendario"
+                                                   required=""
+                                                   placeholder="Seleccione la fecha"
+                                                   />
+                                </div>
+                                {#
+                                <div class="col-lg-2 col-md-2">
+                                    <select class="form-control"
+                                            id="estado">
+                                        <option value="horario" disabled selected hidden>Horario</option>
+                                    </select>
+                                </div>
+                                #}
+                                <div class="col-lg-1 col-md-1">
+                                    <button 
+                                        class="btn btn-default"
+                                        type="button"
+                                        id="boton-filtrar-turnos"
+                                        >MOSTRAR 
+                                    </button>
+                                </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <p> </p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-5 col-md-5">
+                            <div class="btn-group" role="group">
+                                <button class="btn btn-default" 
+                                   type="button" 
+                                   id="boton-agregar-turnos">AGREGAR</button>
+                                <button class="btn btn-default" 
+                                   type="button" 
+                                   id="boton-modificar-turnos">MODIFICAR CUPO</button>
+
+                                <button class="btn btn-default" 
+                                        type="button" 
+                                        id="boton-eliminar-turno">ELIMINAR </button>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-3">
+                            <div class="btn-group" role="group">
+                                <button class="btn btn-primary" 
+                                        id="boton-filtrar-turnos"
+                                        type="button">CAMBIAR TURNO
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-3">
+                            <div class="btn-group" role="group">
+                                <button class="btn btn-default" 
+                                        type="button" 
+                                        id="boton-exportar-turnos-pdf"
+                                        >PDF
+                                </button>
+                                <button class="btn btn-default" 
+                                        type="button" 
+                                        id="boton-exportar-turnos-xls"
+                                        >XLS
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6">
+                            <p> </p>
+                        </div>
+                    </div>
+                    <div class="row" id="tablaEstilo">
+                        <div class="col-lg-6 col-md-6">
+                            <div class="table-responsive">
+                                <table id="mytable"
+                                    class="table table-hover table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Horario</th>
+                                            <th>Cupos disponibles</th>
+                                            <th>Ver</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody  id="tabla-turnos" align="center">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6">
+                            <div class="table-responsive">
+                                <table id="mytable"
+                                    class="table table-hover table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Dni</th>
+                                            <th>Apellido Nombre</th>
+                                            <th>Facultad</th>
+                                            <th>Tipo</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody  id="tabla-turnos-solicitantes" align="center">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                                
+                    <div class="row">
+                        <div class="col lg-12 col-md-12">
+                            <p> </p>
+                        </div>
+                    </div>
+                    <p> </p>
+                    <div class="row">
+                        <div class="col-md-12">
+                                    <div class="col-lg-1 col-md-1">
+                                        <p>BUSCAR POR:</p>
+                                    </div>
+                                    <div class="col-lg-3 col-lg-push-0 col-lg-pull-0 col-md-3">
+                                        <select 
+                                            id="buscar-turnos"
+                                            class="form-control"
+                                                requiered>
+                                            <option disabled selected hidden>Elija filtro de busqueda</option>
+                                            <option value="Apellido">Apellido</option>
+                                            <option value="Dni">DNI</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-lg-2 col-lg-pull-0 col-md-2">
+                                        <input id="buscarInput"
+                                               class="form-control" 
+                                               type="input-buscar-turno">
+                                    </div>
+                                    <div class="col-lg-1 col-md-1">
+                                        <button class="btn btn-default" 
+                                                id="boton-buscar-turno"
+                                                type="button">BUSCAR</button>
+                                    </div>
+                                </div>
+                    </div>
+                </div>
+              </div>
+            </div>
+    </div>
+    {% include 'Panel turnos/modal/modal-agregar-turno.html.twig' %}
+    {% block javascripts %}
+        <script>
+            {% include 'scripts/panel turnos/turnos_filtrar.twig.js' %}
+            {% include 'scripts/panel turnos/turnos_abm.twig.js' %}
+        </script>
+    {% endblock %}    
+{% endblock%}

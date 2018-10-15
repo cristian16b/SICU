@@ -1,0 +1,131 @@
+<?php
+
+namespace ComensalesBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Foto
+ *
+ * @ORM\Table(name="foto")
+ * @ORM\Entity(repositoryClass="ComensalesBundle\Repository\FotoRepository")
+ */
+class Foto
+{
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nombre", type="string", length=128, nullable=true)
+     */
+    private $nombre;
+
+   /**
+     * @var string
+     *
+     * @ORM\Column(name="nombreFisico", type="string", length=128, nullable=true)
+     */
+    private $nombreFisico;
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="peso", type="float")
+     */
+    private $peso;
+    
+    
+    
+
+    /**
+     * Get id
+     *
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set nombre
+     *
+     * @param string $nombre
+     *
+     * @return Foto
+     */
+    public function setNombre($nombre)
+    {
+        $this->nombre = $nombre;
+
+        return $this;
+    }
+
+    /**
+     * Get nombre
+     *
+     * @return string
+     */
+    public function getNombre()
+    {
+        return $this->nombre;
+    }
+
+   
+    /**
+     * Set peso
+     *
+     * @param float $peso
+     *
+     * @return Foto
+     */
+    public function setPeso($peso)
+    {
+        $this->peso = $peso;
+
+        return $this;
+    }
+
+    /**
+     * Get peso
+     *
+     * @return float
+     */
+    public function getPeso()
+    {
+        return $this->peso;
+    }
+
+
+    /**
+     * Set nombreFisico
+     *
+     * @param string $nombreFisico
+     *
+     * @return Foto
+     */
+    public function setNombreFisico($nombreFisico)
+    {
+        $this->nombreFisico = $nombreFisico;
+
+        return $this;
+    }
+
+    /**
+     * Get nombreFisico
+     *
+     * @return string
+     */
+    public function getNombreFisico()
+    {
+        return $this->nombreFisico;
+    }
+}

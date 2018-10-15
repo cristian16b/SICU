@@ -1,0 +1,283 @@
+<?php
+
+namespace ComensalesBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Persona
+ *
+ * @ORM\Table(name="persona")
+ * @ORM\Entity(repositoryClass="ComensalesBundle\Repository\PersonaRepository")
+ */
+class Persona
+{
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="dni", type="string", length=255, nullable=true)
+     */
+    private $dni;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="apellido", type="string", length=15, nullable=true)
+     */
+    private $apellido;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="correo", type="string", length=60, nullable=true)
+     */
+    private $correo;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nombre", type="string", length=255, nullable=true)
+     */
+    private $nombre;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="codtelefono", type="string", length=60)
+     */
+    private $codTelefono;
+    
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="telefono", type="string", length=60)
+     */
+    private $telefono;
+    
+    
+    /**
+    * @ORM\ManyToOne(targetEntity="Carrera",cascade={"persist"})
+    * @ORM\JoinColumn(name="carrera_id", referencedColumnName="id")
+    */
+    private $carrera;
+    
+    /**
+    * @ORM\ManyToOne(targetEntity="Facultad",cascade={"persist"})
+    * @ORM\JoinColumn(name="facultad_id", referencedColumnName="id")
+    */
+    private $facultad;
+    
+
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set dni
+     *
+     * @param string $dni
+     *
+     * @return Persona
+     */
+    public function setDni($dni)
+    {
+        $this->dni = $dni;
+
+        return $this;
+    }
+
+    /**
+     * Get dni
+     *
+     * @return string
+     */
+    public function getDni()
+    {
+        return $this->dni;
+    }
+
+    /**
+     * Set apellido
+     *
+     * @param string $apellido
+     *
+     * @return Persona
+     */
+    public function setApellido($apellido)
+    {
+        $this->apellido = $apellido;
+
+        return $this;
+    }
+
+    /**
+     * Get apellido
+     *
+     * @return string
+     */
+    public function getApellido()
+    {
+        return $this->apellido;
+    }
+
+    /**
+     * Set correo
+     *
+     * @param string $correo
+     *
+     * @return Persona
+     */
+    public function setCorreo($correo)
+    {
+        $this->correo = $correo;
+
+        return $this;
+    }
+
+    /**
+     * Get correo
+     *
+     * @return string
+     */
+    public function getCorreo()
+    {
+        return $this->correo;
+    }
+
+    /**
+     * Set nombre
+     *
+     * @param string $nombre
+     *
+     * @return Persona
+     */
+    public function setNombre($nombre)
+    {
+        $this->nombre = $nombre;
+
+        return $this;
+    }
+
+    /**
+     * Get nombre
+     *
+     * @return string
+     */
+    public function getNombre()
+    {
+        return $this->nombre;
+    }
+
+    /**
+     * Set telefono
+     *
+     * @param string $telefono
+     *
+     * @return Persona
+     */
+    public function setTelefono($telefono)
+    {
+        $this->telefono = $telefono;
+
+        return $this;
+    }
+
+    /**
+     * Get telefono
+     *
+     * @return string
+     */
+    public function getTelefono()
+    {
+        return $this->telefono;
+    }
+
+    /**
+     * Set carrera
+     *
+     * @param \ComensalesBundle\Entity\Carrera $carrera
+     *
+     * @return Persona
+     */
+    public function setCarrera(\ComensalesBundle\Entity\Carrera $carrera = null)
+    {
+        $this->carrera = $carrera;
+
+        return $this;
+    }
+
+    /**
+     * Get carrera
+     *
+     * @return \ComensalesBundle\Entity\Carrera
+     */
+    public function getCarrera()
+    {
+        return $this->carrera;
+    }
+
+    /**
+     * Set codTelefono
+     *
+     * @param string $codTelefono
+     *
+     * @return Persona
+     */
+    public function setCodTelefono($codTelefono)
+    {
+        $this->codTelefono = $codTelefono;
+
+        return $this;
+    }
+
+    /**
+     * Get codTelefono
+     *
+     * @return string
+     */
+    public function getCodTelefono()
+    {
+        return $this->codTelefono;
+    }
+
+    /**
+     * Set facultad
+     *
+     * @param \ComensalesBundle\Entity\Facultad $facultad
+     *
+     * @return Persona
+     */
+    public function setFacultad(\ComensalesBundle\Entity\Facultad $facultad = null)
+    {
+        $this->facultad = $facultad;
+
+        return $this;
+    }
+
+    /**
+     * Get facultad
+     *
+     * @return \ComensalesBundle\Entity\Facultad
+     */
+    public function getFacultad()
+    {
+        return $this->facultad;
+    }
+}

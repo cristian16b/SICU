@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel</title>
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+    
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> 
+    
+    <link rel="stylesheet" href="css/styles.css">
+    
+    <script type="text/javascript" src="js/panel/panel_filtros.js"></script>
+    <script type="text/javascript" src="js/panel/panel_exportar.js"></script>
+    <script type="text/javascript" src="js/panel/panel_abm.js"></script>
+    <script type="text/javascript" src="js/panel/panel_recortar_fotos.js"></script>
+    <script type="text/javascript" src="js/panel/panel_modificarMostrar.js"></script>
+    <script type="text/javascript" src="js/complementos/BlockUi.js"></script>
+    <script type="text/javascript" src="js/formulario_fotos.js"></script>
+    <script type="text/javascript" src="js/formulario_select.js"></script>
+    
+    <script type="text/javascript" src="js/complementos/tableExport/libs/FileSaver/FileSaver.min.js"></script>
+    <script type="text/javascript" src="js/complementos/tableExport/libs/jsPDF/jspdf.min.js"></script>
+    <script type="text/javascript" src="js/complementos/tableExport/libs/jsPDF-AutoTable/jspdf.plugin.autotable.js"></script>
+    <script type="text/javascript" src="js/complementos/tableExport/tableExport.min.js"></script>
+    
+    <script type="text/javascript" src="js/complementos/tablePaginacionSort/scripts/jQuery.sortpaginate.js"></script>
+    <script type="text/javascript" src="js/complementos/tablePaginacionSort/css/jQuery.sortpaginate.css"></script>
+    
+    <link href="imgareaselect-default.css" rel="stylesheet">
+    <script src="jquery.imgareaselect.js"></script> >
+    <link rel="stylesheet" href="css/jquery.awesome-cropper.css">
+    <script src="build/jquery.awesome-cropper.js"></script> 
+
+
+    <script type="text/javascript">
+        $(function () 
+        {
+            $("table").sortpaginate({pageSize: 2});
+            $('#imagen').awesomeCropper({ 
+                width: 150, 
+                height: 150, 
+                debug: false
+            });
+        });
+    </script>
+    <style>
+        #tablaEstilo
+        {height: 450px;}
+        #noScrollHorizontal{overflow-x: hidden;}
+  
+        .foto 
+        {
+            border: 1px solid #000;
+        }
+    </style>
+</head>
+<body class="noScrollHorizontal">
+    
+    <div class="row">
+        <div class="col-lg-2 col-md-2">
+            <ul class="nav nav-pills nav-stacked"  >
+                <li class="active"><a href="solicitudes">SOLICITUDES</a></li>
+                <li><a href="turnos">TURNOS </a></li>
+                <li><a href="tarjetas">TARJETAS </a></li>
+                <li><a href="menus">MENUS CONSUMIDOS</a></li>
+            </ul>
+        </div>
+        <div class="col-lg-9 col-md-9">
+            
+                    <div class="row">
+                        <div class="col lg-9 col-md-9">
+                            <p> </p>
+                        </div>
+                    </div>
+            <div class="row" id="tablaEstilo">
+                <div class="col-lg-12 col-md-12">
+                    
+                    <div class="row" >
+                        <div class="col-lg-11 col-md-11">
+                            <form>
+                                <div class="col-lg-1 col-md-1">
+                                    FILTRAR
+                                    <!--<p>FILTRAR:</p>-->
+                                </div>
+                                <div class="col-lg-3 col-md-3">
+                                    <select class="form-control"
+                                            required
+                                            id="tipo">
+                                        <option value="tipo" disabled selected hidden>Tipo de comensal</option> 
+                                        <option value="Estudiante">Estudiante de grado</option>
+                                        <option value="Docnodoc">Docente - No docente</option>
+                                        <option value="Invitado">Invitado</option>
+                                        <option value="Todos">Todos</option>
+                                    </select>
+                                </div>
+    <div class="col-lg-4 col-md-3">
+        <select class="form-control"
+                requiered
+                id ="facultadSelect"
+                >
+           <option value="facultad" disabled selected hidden>Facultad / Escuela / Otros</option>
+
+                  <option value="fadu">Facultad de Arquitectura, Diseño y
+                                                        Urbanismo</option>
+                  <option value="fbcb">Facultad de Bioquímica y Ciencias
+                        Biológicas</option>
+                  <option value="fca"> Facultad de Ciencias Agrarias</option>
+                  <option value="fce">Facultad de Ciencias Económicas</option>
+                  <option value="fcjs"> Facultad de Ciencias Jurídicas y
+                        Sociales</option>
+                  <option value="fcm">Facultad de Ciencias Médicas</option>
+                  <option value="fcv">Facultad de Ciencias Veterinarias</option>
+                  <option value="fhuc">Facultad de Humanidades y Ciencias</option>
+                  <option value="fiq">Facultad de Ingeniería Química</option>
+                  <option value="fich">Facultad de Ingeniería y Ciencias
+                        Hídricas</option>
+                  <option value="ess">Escuela Superior de Sanidad “Ramón
+                        Carrillo”</option>
+                  <option value="ism">Instituto Superior de Música</option>
+                  <!--
+                  <option value="">Centro Universitario /
+                        Reconquista-Avellaneda</option>
+                  <option>Centro Universitario / Gálvez</option>
+                  <option>Todas las facu ltades</option>
+                  -->
+                  <option value="rec">Rectorado y Secretarias dependientes</option>
+                  <option value="otras">Otras instituciones</option>
+                  
+    </select>
+                                </div>
+                                <div class="col-lg-2 col-md-2">
+                                    <select class="form-control"
+                                            id="estado">
+                                        <option value="estado" disabled selected hidden>Estado</option>
+                                        <option value="Aprobados">Aprobados</option>
+                                        <option value="Rechazados">Rechazados</option>
+                                        <option value="Pendientes">Pendientes</option>
+                                        <option value="Todos">Todos</option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-1 col-md-1">
+                                    <button 
+                                        class="btn btn-default"
+                                        type="button"
+                                        id="mostrar"
+                                        >MOSTRAR </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <p> </p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-3 col-md-3">
+                            <div class="btn-group" role="group">
+                                <a class="btn btn-default" 
+                                   href="formulario_i" 
+                                   type="button" 
+                                   target="_blank">AGREGAR</a>
+                                <!--
+                                <button class="btn btn-default" type="button" id ="agregar">AGREGAR </button>
+                                -->
+                                <button class="btn btn-default" 
+                                        type="button" 
+                                        id ="eliminar">ELIMINAR </button>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-3">
+                            <div class="btn-group" role="group">
+                                 
+                                <button class="btn btn-primary" 
+                                        id="aceptar"
+                                        type="button">ACEPTAR 
+                                </button>
+                                <button 
+                                    id="rechazar"
+                                    class="btn btn-danger"
+                                    type="button">RECHAZAR
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-lg-5 col-md-4">
+                            <div class="btn-group" role="group">
+                                <button class="btn btn-default" type="button" id="pdf"
+                                        >EXPORTAR PDF
+                                </button>
+                                <button class="btn btn-default" type="button" id="xls"
+                                        >EXPORTAR XLS
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12">
+                            <p> </p>
+                        </div>
+                    </div>
+                    <div class="row" id="tablaEstilo">
+                        <div class="col-md-12">
+                            <div class="table-responsive">
+                                <table id="mytable"
+                                    class="table table-hover table-striped">
+                                    <!--  class="table tablesorter table-hover table-striped" -->
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Nro</th>
+                                            <th>DNI </th>
+                                            <th>Apellido </th>
+                                            <th>Nombre </th>
+                                            <th>Estado </th>
+                                            <th>Tipo comensal</th>
+                                            <th>Fecha Turno </th>
+                                            <th>Horario Turno </th>
+                                            <th>Sede</th>
+                                            <th>Telefono</th>
+                                            <th>Más info</th>
+                                            <th>Modificar</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody  id="tabla">
+                                        <!--here is input the rows-->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col lg-12 col-md-12">
+                            <p> </p>
+                        </div>
+                    </div>
+                    <p> </p>
+                    <div class="row">
+                        <div class="col-md-12">
+                                    <div class="col-lg-1 col-md-1">
+                                        <p>BUSCAR POR:</p>
+                                    </div>
+                                    <div class="col-lg-3 col-lg-push-0 col-lg-pull-0 col-md-3">
+                                        <select 
+                                            id="buscarSelect"
+                                            class="form-control"
+                                                requiered>
+                                            <option disabled selected hidden>Elija filtro de busqueda</option>
+                                            <option value="Apellido">Apellido</option>
+                                            <option value="Dni">DNI</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-lg-2 col-lg-pull-0 col-md-2">
+                                        <input id="buscarInput"
+                                               class="form-control" 
+                                               type="search">
+                                    </div>
+                                    <div class="col-lg-1 col-md-1">
+                                        <button class="btn btn-default" 
+                                                id="buscar"
+                                                type="button">BUSCAR</button>
+                                    </div>
+                                </div>
+                            
+                    </div>
+                </div>
+              </div>
+            </div>
+        </div>
+ 
+<!--DEFINICION DE VENTANAS EMERGENTES-->
+
+
+
+                    <!-- primer ventana modal: muestra la ventana de rechazo de un comensal ver "rechazar solicitud.mkb" -->            
+                           <div id="rechazar-dialogo" title="RECHAZAR SOLICITUD">
+                                   <form>
+                                       <div class="form-group">
+                                           <p>Sera rechazada la siguiente solicitud:</p>
+                                           <div id="dniApellidoNombre"></div>
+                                           <p></p>
+                                           <p>Seleccione un motivo de rechazo:</p>
+                                           <select 
+                                                   id="motivo"
+                                                   class="form-control"
+                                                       requiered>
+                                                   <option disabled selected hidden>Elija el motivo de rechazo</option>
+                                                   <option>Información declarada no es valida</option>
+                                                   <option>No pertenece a la comunidad UNL</option>
+                                                   <option>Falta información</option>
+                                                   <option>No es estudiante grado</option>
+                                                   <option>No es docente - no docente</option>
+                                                   <option>Otros motivos</option>
+                                           </select>
+
+                                           <p>Comentarios adicionales:</p>
+                                           <textarea id="comentarios" class="form-control">
+
+
+
+                                           </textarea>
+                                           <!--oculto para el usuario, guardo el id de la solicitud-->
+                                           <textarea  maxlength="100"
+                                                      id="idSolicitud"
+                                                      style="display:none">
+                                           </textarea>
+                                       </div>
+                                   </form>
+                           </div>
+
+
+
+                           <!-- fin de la ventana modal-->
+                    
+       
+                   <!--dialogo mas informacion y modificar -->
+
+                   <div id="modificarMasInfo-dialogo" >
+                               <!--INICIO DEL FORMULARIO-->
+                           
+                                   <form class="form-horizontal" 
+                                         name="formulario"
+                                         id="noScrollHorizontal"
+                                         > 
+                                         <!--
+                                         novalidate anula las validaciones html 5
+
+                                         -->
+                                       <!--NRO SOLICITUD-->
+                                       <div class="form-group">
+                                                       <div class="col-lg-2 col-md-2">
+                                                           <p><strong>Nro Solicitud</strong></p>
+                                                       </div>
+                                                       <div class="col-lg-4 col-md-4">
+                                                           <input  class="form-control"
+                                                                   name = "nroSolicitud"
+                                                                   type="text"
+                                                                   id="nroSolicitud" 
+                                                                   disabled
+                                                                   >
+                                                       </div>
+                                       <!--ESTADO-->    
+                                                       <div class="col-lg-2 col-md-2">
+                                                           <p><strong>Estado</strong></p>
+                                                       </div>
+                                                       <div class="col-lg-3  col-md-3 col-lg-pull-1 col-md-pull-1">
+                                                           <input class="form-control" 
+                                                                  type="text" 
+                                                                  name="estadoSolicitud" 
+                                                                  id="estadoSolicitud"
+                                                                  disabled
+                                                                  required
+                                                           >
+                                                       </div>    
+                                       </div>
+
+                                       <!--DNI-->
+                                       <div class="form-group">
+                                                       <div class="col-lg-2 col-md-2">
+                                                           <p><strong>DNI</strong></p>
+                                                       </div>
+                                                       <div class="col-lg-3  col-md-3" value="">
+                                                           <input class="form-control" 
+                                                                  type="text" 
+                                                                  name="dni" 
+                                                                  id="dni"
+                                                                  disabled
+                                                                  minlength="7" 	
+                                                                  maxlength="10" 
+                                                                  required
+                                                                  pattern="[0-9]{1,2}\.?[0-9]{3}\.?[0-9]{3}"
+                                                                  title="Revisar su documento. 
+                                                                  Ejemplos de dni validos 1.000.000 o 1000000"
+                                                                  >
+                                                       </div>
+                                       </div>
+
+
+                                       <div class="form-group">
+                                           <!--APELLIDO-->
+                                            <div class="col-lg-2 col-md-2">
+                                                           <p><strong>Apellido</strong></p>
+                                                       </div>
+                                                       <div class="col-lg-4 col-md-4">
+                                                           <input  class="form-control"
+                                                                   name = "apellido"
+                                                                   value="" 
+                                                                   autofocus="" 
+                                                                   type="text"
+                                                                   id="apellido"
+                                                                   disabled 
+                                                                   minlength="2" 	
+                                                                   maxlength="50" 
+                                                                   required
+                                                                   pattern="^([A-Za-zÁÉÍÓÚñáéíóúÑ]{0}?[A-Za-zÁÉÍÓÚñáéíóúÑ\']+[\s])+([A-Za-zÁÉÍÓÚñáéíóúÑ]{0}?[A-Za-zÁÉÍÓÚñáéíóúÑ\'])+[\s]?([A-Za-zÁÉÍÓÚñáéíóúÑ]{0}?[A-Za-zÁÉÍÓÚñáéíóúÑ\'])?$"
+                                                                   title="Ingrese el apellido usando solamente letras y sin numeros o carácteres especiales como por ejemplo: !@#$%&/()=??¡]¨*[__-{"
+                                                                   >
+                                                       </div>
+                                           <!--NOMBRE-->
+                                                       <div class="col-lg-2 col-md-2">
+                                                           <p><strong>Nombre</strong></p>
+                                                       </div>
+                                                       <div class="col-lg-4 col-md-4 col-lg-pull-1 col-md-pull-1">
+                                                           <input class="form-control" 
+                                                                  type="text" 
+                                                                  name="nombre" 
+                                                                  id="nombre"
+                                                                  disabled
+                                                                  minlength="3" 	
+                                                                  maxlength="50" 
+                                                                  Value="" 
+                                                                  required 
+                                                                  pattern="^([A-Za-zÁÉÍÓÚñáéíóúÑ]{0}?[A-Za-zÁÉÍÓÚñáéíóúÑ\']+[\s])+([A-Za-zÁÉÍÓÚñáéíóúÑ]{0}?[A-Za-zÁÉÍÓÚñáéíóúÑ\'])+[\s]?([A-Za-zÁÉÍÓÚñáéíóúÑ]{0}?[A-Za-zÁÉÍÓÚñáéíóúÑ\'])?$"
+                                                                  title="Ingrese el apellido usando solamente letras y sin numeros o carácteres especiales como por ejemplo: !@#$%&/()=??¡]¨*[__-{"
+                                                                  >
+                                                       </div>
+
+                                       </div>
+
+
+                                       <!--TIPO DE COMENSAL-->
+                                       <div class="form-group">
+                                                       <div class="col-lg-2 col-md-2">
+                                                           <p><strong>Tipo de comensal</strong></p>
+                                                       </div>
+                                                       <div class="col-lg-5 col-md-5">
+                                                           <select class="form-control input-lg" 
+                                                                   name="select_tipo"
+                                                                   id="tipo_comensal"
+                                                                   disabled
+                                                                   required>
+                                                               <!--hidden permite mostrar un mensaje de ayuda que cuando el user lo abre no lo ve de nuevo-->
+                                                               <option disabled selected hidden></option>
+                                                               <option value="Estudiante de carrera de grado">Estudiante de carrera de grado</option>
+                                                               <option value="Docente - No docente">Docente - No docente</option>
+                                                               <option value="Invitado">Invitado</option>
+                                                           </select>
+                                                       </div>
+                                       </div>
+
+
+                                       <!--FACULTAD-->
+                                       <div class="form-group">
+                                                       <div class="col-lg-2 col-md-2">
+                                                           <p><strong>Facultad</strong></p>
+                                                       </div>
+                                                       <div class="col-lg-6 col-md-6">
+                                                           <select class="form-control input-lg" 
+                                                                   id ="facultad"
+                                                                   name="select_facultad" 
+                                                                   onchange="mostrarCarrera();"
+                                                                   disabled
+                                                                   >
+                                                               <option disabled selected hidden></option>
+                                                                 <option value="fadu">Facultad de Arquitectura, Diseño y
+                                                                     Urbanismo</option>
+                                                                 <option value="fbcb">Facultad de Bioquímica y Ciencias
+                                                                       Biológicas</option>
+                                                                 <option value="fca"> Facultad de Ciencias Agrarias</option>
+                                                                 <option value="fce">Facultad de Ciencias Económicas</option>
+                                                                 <option value="fcsj"> Facultad de Ciencias Jurídicas y
+                                                                       Sociales</option>
+                                                                 <option value="fcm">Facultad de Ciencias Médicas</option>
+                                                                 <option value="fcv">Facultad de Ciencias Veterinarias</option>
+                                                                 <option value="fhuc">Facultad de Humanidades y Ciencias</option>
+                                                                 <option value="fiq">Facultad de Ingeniería Química</option>
+                                                                 <option value="fich">Facultad de Ingeniería y Ciencias
+                                                                       Hídricas</option>
+                                                                 <option value="ess">Escuela Superior de Sanidad “Ramón
+                                                                       Carrillo”</option>
+                                                                 <option value="ism">Instituto Superior de Música </option>
+                                                                 <option value="rec">Rectorado y Secretarias dependientes</option>
+                                                                 <option value="otras">Otras instituciones</option>
+                                             
+                                                           </select>
+                                                       </div>
+                                       </div>
+
+                                       <!--CARRERA-->
+                                       <div class="form-group">
+                                                       <div class="col-lg-2 col-md-2">
+                                                           <p><strong>Carrera</strong></p>
+                                                       </div>
+                                                       <div class="col-lg-5 col-md-5">
+                                                           <select class="form-control input-lg" 
+                                                                   id ="carrera"
+                                                                   name="select_carrera"
+                                                                   disabled
+                                                                   >
+                                                                   <option 
+                                                                        disabled 
+                                                                        selected 
+                                                                        hidden> 
+                                                                    </option>
+
+                                                           </select>
+                                                       </div>
+
+                                       </div>
+
+
+
+                                       <!--CORREO-->
+
+                                       <div class="form-group">
+                                                       <div class="col-lg-2 col-md-2">
+                                                           <p><strong>Correo</strong></p>
+                                                       </div>
+                                                       <div class="col-lg-4 col-md-4">
+                                                           <input class="form-control" 
+                                                                  type="email" 
+                                                                  name="correo" 
+                                                                  disabled
+                                                                  minlength="5" 	
+                                                                  maxlength="50"
+                                                                  required
+                                                                  id="correo"
+                                                                  autocomplete="off"
+                                                                  pattern="[a-zA-Z0-9aáéíóúÁÉÍÓÚ.,!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*"
+                                                                  title="Revise su correo"
+                                                                  onpaste="return false" oncut="return false" oncopy="return false"
+                                                                  >
+                                                       </div>
+                                       </div>
+
+
+                                       <!--TELEFONO-->        
+                                        <div class="form-group">  
+                                                       <div class="col-lg-2 col-md-2">
+                                                           <p><strong>Codigo de Área</strong></p>
+                                                       </div>
+                                                       <div class="col-lg-2 col-md-2">
+                                                           <input class="form-control" 
+                                                                  type="codtel" 
+                                                                  name="codtelefono" 
+
+                                                                  minlength="2"
+                                                                  id="codtelefono"
+                                                                  maxlength="50"
+                                                                  pattern="[0-9()\#\-\.\_]+\s+"
+                                                                  disabled
+                                                                  required>
+                                                       </div>
+                                                       <div class="col-lg-2 col-md-2">
+                                                           <p><strong>Telefono</strong></p>
+                                                       </div>
+                                                       <div class="col-lg-3 col-md-3 col-lg-pull-1 col-md-pull-1">
+                                                           <input class="form-control" 
+                                                                  type="tel" 
+                                                                  name="telefono"
+                                                                  id="telefono"
+                                                                  disabled
+                                                                  minlength="2" 	
+                                                                  maxlength="50"
+                                                                  pattern="[0-9()\#\-\.\_]+\s+"
+                                                                  required>
+                                                       </div>
+                                        </div>
+                                        <!--DETALLE-->
+                                        <div class="form-group">
+                                                   <div class="col-lg-2 col-md-3">
+                                                       <p><strong>¿Usted es?</strong></p>
+                                                   </div>
+                                                   <div class="col-lg-3 col-md-3">
+                                                       <div class="checkbox">
+                                                           <label class="control-label" 
+                                                                  for="Celiaco">
+                                                               <input type="checkbox"
+                                                                      name ="celiaco"
+                                                                      value="celiaco"
+                                                                      disabled
+                                                                      id="celiaco">Celiaco </label>
+                                                       </div>
+                                                       <div class="checkbox">
+                                                           <label class="control-label" for="vegetariano">
+                                                               <input type="checkbox"
+                                                                      name ="vegetariano"
+                                                                      value="vegetariano"
+                                                                      disabled
+                                                                      id="vegetariano">Vegetariano</label>
+                                                       </div>
+                                                   </div>
+                                        </div>
+                                       <!--los siguientes div los traigo del formulario ii-->
+                                       <div class="form-group">
+                                           <div class="col-lg-2 col-md-3">
+                                               <p><strong>Foto</strong></p>
+                                           </div>
+                                              <div class ="row">
+                                                       <div class="col-lg-3" id="videodiv">
+                                                          <video  id="video" style="display:none">
+                                                          </video> 
+                                                       </div>
+                                                       <div class="col-lg-1" id="canvasdiv">
+                                                           <canvas id="canvas"
+                                                                   style="display:none"
+                                                                  >
+                                                           </canvas>
+                                                       </div>
+                                                      <div class="col-lg-1">
+                                                            <img class="foto" 
+                                                                        src="img/perfil_defecto.png" 
+                                                                        id="imagen" 
+                                                                   />
+                                                       </div>
+                                                  <textarea name="base64" 
+                                                            id="base64"
+                                                            style="display:none"
+                                                      >
+                                                  </textarea>
+                                                  <!--   -->
+                                              </div>
+                                       </div>
+                                   <!-- div de visualizacion -->
+                                   <div class="form-group">
+                                           <div class="col-lg-offset-2 col-md-12 col-md-offset-4">
+                                                       <canvas id="canvasRecorte" hidden></canvas>
+                                                       <input class="btn btn-default"
+                                                                  type="file"
+                                                                  id ="archivo"
+                                                                  value="Subir foto"
+                                                                  name="archivo"
+                                                                  disabled
+                                                                  title="Subir archivo"
+                                                                  onClick="previsualizar();"
+                                                        >
+                                               <div class="col-lg-6">
+                                                   <div class="btn-group" role="group">
+                                                        <input class="btn btn-default" 
+                                                              id="habilitarVideo"
+                                                              type="button"
+                                                              disabled
+                                                              value="Habilitar webcam"
+                                                             onClick="mostrarVideo();">
+                                                        <input class="btn btn-default" 
+                                                              id="tomarfoto"
+                                                              type="button"
+                                                              disabled
+                                                              value="Tomar foto"
+                                                              onClick="previsualizar()"
+                                                             >
+                                                        <input class="btn btn-default"
+                                                               id="cancelarfoto"
+                                                               type="button"
+                                                               disabled
+                                                               onClick="ocultarVideo();"
+                                                               value="Guardar"
+                                                               >
+                                                        <input class="btn btn-default"
+                                                               type="button" 
+                                                               id="botonRecortar" 
+                                                               value="Recortar" 
+                                                               />
+                                                   </div>
+                                           </div>
+                                        </div>
+                                   </div>
+                                       
+                                   <!-- div info de turnos -->
+                                   <div class="form-group">
+                                       <div class="col-lg-1 col-md-1">
+                                               <p><strong>Sede Turno</strong></p>
+                                           </div>
+                                               <div class="col-lg-3 col-md-3">
+                                                   <select class="form-control" 
+                                                           name="sede" 
+                                                           id="sede"
+                                                           required=""
+                                                           disabled
+                                                           >
+                                                       <option disabled selected hidden></option>
+                                                       <option value="1">Predio UNL - ATE</option>
+                                                       <option value="2">Rectorado</option>
+                                                       <option value="3">Esperanza</option>
+                                                   </select>
+                                               </div>
+                                       <div class="col-lg-1 col-md-1">
+                                           <p><strong>Fecha</strong></p>
+                                       </div>
+                                       <div class="col-lg-3 col-md-3">
+                                                               <input class="form-control"
+                                                                      type="text" 
+                                                                      id = "datepicker"
+                                                                      required=""
+                                                                      disabled
+                                                                      
+                                                                      onchange="guardarFecha();"
+                                                                      disabled
+                                                                      />                
+                                       </div>
+                                       <div class="col-lg-1 col-md-1">
+                                           <p><strong>Horario</strong></p>
+                                       </div>
+
+                                           <div class="col-lg-3 col-md-3">
+                                                   <select class="form-control" 
+                                                           id ="horario_turno"
+                                                           name="horario_turno" 
+                                                           required=""
+                                                           disabled
+                                                           onchange="guardarHorario();"
+                                                           > 
+                                                       <option disabled selected hidden></option>
+                                                   </select>
+                                           </div>
+                                   </div>
+
+                                   <div class="form-group">
+                                       <div class="col-lg-2 col-md-2">
+                                           <p><strong>Revisado por</strong></p>
+                                       </div>
+
+                                       <div class="col-lg-3 col-md-3">
+                                           <input class="form-control"
+                                                    type="text" 
+                                                    id = "revisor"
+                                                    disabled
+                                                      />        
+                                       </div>
+                                       <div class="col-lg-1 col-md-1 ">
+                                           <p><strong>Fecha</strong></p>
+                                       </div>
+
+                                       <div class="col-lg-3 col-md-3">
+                                           <input class="form-control"
+                                                  type="text" 
+                                                  id = "fechaRevision"
+                                                  disabled
+                                                  />        
+                                       </div>
+
+                                   </div>
+
+                               </form>
+       
+                               {% include 'Panel solicitudes/modal-recortar.html.twig' %}
+                               
+       <script>
+     (function() {
+
+                  var streaming = false,
+                      video        = document.querySelector('#video'),
+                      cover        = document.querySelector('#cover'),
+                      canvas       = document.querySelector('#canvas'),
+                      photo        = document.querySelector('#photo'),
+                      tomarfoto  = document.querySelector('#tomarfoto'),
+                      width = 300,
+                      height = 0;
+                  var image = document.getElementById('imagen');
+                  //image.src = "img/perfil_defecto.png";
+
+                  navigator.getMedia = ( navigator.getUserMedia || 
+                                         navigator.webkitGetUserMedia ||
+                                         navigator.mozGetUserMedia ||
+                                         navigator.msGetUserMedia);
+
+                  video.addEventListener('canplay', function(ev){
+                    if (!streaming) {
+                      height = video.videoHeight / (video.videoWidth/width);
+                      video.setAttribute('width', width);
+                      video.setAttribute('height', height);
+                 
+            canvas.setAttribute('width', width);
+                      canvas.setAttribute('height', height);
+                      streaming = true;
+                    }
+                  }, false);
+
+
+                  function takepicture(e) {
+
+
+                   //asigno la ruta de archivo para que se muestre
+
+                   canvas.width = width;
+                   canvas.height = height;
+                   canvas.getContext('2d').drawImage(video, 0, 0, width, height);
+                   
+
+                   //intento convertir
+                    var imagen = document.getElementById('imagen');
+                    imagen.src = canvas.toDataURL("image/png");
+   
+                  }
+
+
+                  tomarfoto.addEventListener('click', function(ev){
+                      takepicture();
+                    ev.preventDefault();
+                  }, false);
+
+})();
+ 
+
+
+    
+    //<!-- fin del codigo de carga de la imagen-->
+</script>
+
+    
+  <script>
+  //lo estraigo y lo meto en una libreria
+var disableddates = ["20-6-2018", "9-7-2018"];
+
+function noFeriados(date) 
+{
+    noExcursion(date);
+    
+    var m = date.getMonth();
+    var d = date.getDate();
+    var y = date.getFullYear();
+    var currentdate = d + '-' + (m + 1) + '-' + y ;
+                //alert(currentdate);
+
+    for (var i = 0; i < disableddates.length; i++) 
+                {
+        if ($.inArray(currentdate, disableddates) != -1 ) 
+                        {
+            return [false];
+        } 
+    }
+
+    return noExcursion(date);
+}
+
+//funcion que bloquea todos lo dias expecto los que queremos habilitar para la seleccion
+function noExcursion(date){
+var day = date.getDay();
+// aqui indicamos el numero correspondiente a los dias que ha de bloquearse (el 0 es Domingo, 1 Lunes, etc...) en el ejemplo bloqueo todos menos los lunes y jueves.
+return [(day != 0  && day != 6), ''];
+};
+
+$.datepicker.regional['es'] = {
+ closeText: 'Cerrar',
+ prevText: '< Ant',
+ nextText: 'Sig >',
+ currentText: 'Hoy',
+ monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+ monthNamesShort: ['Ene','Feb','Mar','Abr', 'May','Jun','Jul','Ago','Sep', 'Oct','Nov','Dic'],
+ dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+ dayNamesShort: ['Dom','Lun','Mar','Mié','Juv','Vie','Sáb'],
+ dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sá'],
+ weekHeader: 'Sm',
+ dateFormat: 'dd-mm-yy',
+ firstDay: 0,
+ isRTL: false,
+ showMonthAfterYear: false,
+ yearSuffix: '',
+ }; 
+ 
+ $.datepicker.setDefaults($.datepicker.regional['es']); 
+  $(function() {
+   $('#datepicker').datepicker({ 
+				minDate: +10, 
+				maxDate: "+1M",
+                                beforeShowDay: noExcursion,
+                                beforeShowDay:noFeriados
+				}
+	);
+		});
+		
+</script>
+                   </div>
+
+<!--fin ventana mas info-->
+        
+<!--dialogo de confirmación para eliminar-->
+
+<div id="confirmacion-dialogo" style="display:none; cursor: default"> 
+        <h3>¿Estas seguro de eliminar la solicitud seleccionada?</h3> 
+        <input class="btn btn-warning" type="button" id="si" value="Si" /> 
+        <input class="btn btn-secondary" type="button" id="no" value="No" /> 
+</div> 
+
+
+<!--FIN DE DEFINICION DE VENTANAS EMERGENTES-->  
+</body>
+
+</html>
