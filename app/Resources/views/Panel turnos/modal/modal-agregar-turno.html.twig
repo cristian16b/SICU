@@ -7,38 +7,69 @@
         </div>
     </div>
     <div class="row" >
-                                <div class="col-lg-3 col-md-3">
-                                {#  #}
-                                <select class="form-control"
-                                            required
-                                            id="sede-turno">
-                                    <option value="sede" disabled selected hidden>Sede</option>
-                                {% for sede in sedes %}
-                                    <option>{{sede.nombreSede}}</option>
-                                {% endfor %}
-                                </select>
-                                </div>
-                                <div class="col-lg-3 col-md-3">
-                                    <input class="form-control"
-                                                   type="text"
-                                                   align="center"
-                                                   name="fecha-dia-mes-anio"
-                                                   id ="calendario"
-                                                   required=""
-                                                   placeholder="Seleccione la fecha"
-                                                   />
-                                </div>
+        <div class="col-lg-6 col-md-6">
+        {#  #}
+        <select class="form-control"
+                    required
+                    id="sede-turno">
+            <option value="sede" disabled selected hidden>Sede</option>
+        {% for sede in sedes %}
+            <option>{{sede.nombreSede}}</option>
+        {% endfor %}
+        </select>
+        </div>
+        <div class="col-lg-6 col-md-6">
+            <input class="form-control"
+                           type="text"
+                           align="center"
+                           name="fecha-dia-mes-anio"
+                           id ="calendario"
+                           required=""
+                           placeholder="Seleccione la fecha"
+                           />
+        </div>
     </div>
     <div class="row">
         <div class="col-lg-6 col-md-6">
-            <div class="row">
-                
-            </div>
-            <div class="row">
-            </div>
-            <div class="row">
-            </div>
+            <select class="form-control"
+                        required
+                        id="agregar-turno-horario-inicio">
+                <option value="horario-inicio" disabled selected hidden>Hora inicio</option>
+                <option>9</option>
+                <option>10</option>
+                <option>11</option>
+                <option>12</option>
+                <option>13</option>
+                <option>14</option>
+                <option>15</option>
+            </select>
         </div>
     </div>
+    <div class="row">
+        <div class="col-lg-6 col-md-6">
+            <select class="form-control"
+                        required
+                        id="agregar-turno-horario-fin">
+                <option disabled selected hidden>Hora fin</option>
+                <option>10</option>
+                <option>11</option>
+                <option>12</option>
+                <option>13</option>
+                <option>14</option>
+                <option>15</option>
+                <option>16</option>
+            </select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-5 col-md-6">
+            <input class="form-control"
+                           type="text"
+                           id ="agregar-turno-cupo"
+                           required=""
+                           placeholder="Ingrese la cantidad de cupo a crear por horario"
+                           />
+        </div>
+    </div>    
 </div>
 {% endblock %}
