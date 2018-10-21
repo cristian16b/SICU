@@ -68,6 +68,27 @@ class TurnosController extends Controller{
         }
     }
     
+    /**
+    * @Route("/crear/turnos",name="crear_turnos")     
+    * @Method({"GET"}) 
+    */
+    public function crearTurno(Request $request)
+    {
+        if($request->isXmlHttpRequest())
+        {
+            //leo el request
+            $sede = $request->query->get('sede');
+            $fecha = $request->query->get('fecha');
+            $horaInicio = $request->query->get('horaInicio');
+            $horaFin = $request->query->get('horaFin');
+            $cupo = $request->query->get('cupo');
+             
+            $servicio = $this->container->get('gestor_turnos');
+            return $servicio->crearTurno($sede,$fecha,$horaInicio,$horaFin,$cupo);
+        }
+    }
+
+
     ///////////////////////////
     /**
     * @Route("/obtener-turno",name="obtener-turno")     

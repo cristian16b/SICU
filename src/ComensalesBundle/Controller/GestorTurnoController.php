@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use ComensalesBundle\Entity\Sede;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Query;
-
+use ComensalesBundle\Entity\Turno;
 
 /**
  * Description of GestionTurnoController
@@ -79,7 +79,28 @@ class GestorTurnoController extends Controller
         return new JsonResponse($qb->getQuery()->getArrayResult());
     }
 
-    
+    public function crearTurno($sede,$fecha,$horaInicio,$horaFin,$cupo)
+    {
+        $turnoNuevo = new Turno();
+        $turnoNuevo->setCupo($cupo);
+        $turnoNuevo->setDia($fecha);
+        $turnoNuevo->setSede($sede);
+        
+        $db = $this->entityManager;
+        
+        $db = $turnoNuevo->setHorario($horaInicio);
+        $db->persist($turnoNuevo);
+        $db->flush($turnoNuevo);
+        
+        
+        /*
+        for($i = $horaInicio; $i<$horaFin; $i++)
+        {
+            
+        }
+         * 
+         */
+    }
 
 
 
