@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 {% block body %}
 <div id="modal-agregar-turno">
+<div id="noScrollHorizontal">
     <div class="row">
         <div class="col-lg-12 col-md-12">
             <p>Seleccione fecha y sede a la que desea agregar turnos</p>
@@ -9,21 +10,21 @@
     <div class="row" >
         <div class="col-lg-6 col-md-6">
         {#  #}
-        <select class="form-control"
-                    required
-                    id="sede-turno">
-            <option value="sede" disabled selected hidden>Sede</option>
-        {% for sede in sedes %}
-            <option>{{sede.nombreSede}}</option>
-        {% endfor %}
-        </select>
+            <select class="form-control"
+                        required
+                        id="sede-turno">
+                <option value="agregar-turno-sede" disabled selected hidden>Sede</option>
+            {% for sede in sedes %}
+                <option>{{sede.nombreSede}}</option>
+            {% endfor %}
+            </select>
         </div>
         <div class="col-lg-6 col-md-6">
             <input class="form-control"
                            type="text"
                            align="center"
                            name="fecha-dia-mes-anio"
-                           id ="calendario"
+                           id ="agregar-turno-fecha"
                            required=""
                            placeholder="Seleccione la fecha"
                            />
@@ -62,14 +63,15 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-lg-5 col-md-6">
+        <div class="col-lg-6 col-md-6">
             <input class="form-control"
                            type="text"
                            id ="agregar-turno-cupo"
                            required=""
-                           placeholder="Ingrese la cantidad de cupo a crear por horario"
+                           placeholder="Cupo por horario"
                            />
         </div>
-    </div>    
+    </div>
+</div>
 </div>
 {% endblock %}

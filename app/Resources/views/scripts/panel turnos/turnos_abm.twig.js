@@ -5,7 +5,7 @@ $( function() {
       autoOpen: false,
       resizable: false,
       height: "auto",
-      width: 750,
+      width: "auto",
       modal: true,
       buttons: 
       {

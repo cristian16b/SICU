@@ -104,14 +104,20 @@ $.datepicker.regional['es'] = {
 				}
 	);
 		});
-                    $(function() 
-                        {
-                                $('#calendario').datepicker({ 
-                                beforeShowDay: noExcursion
-				}
-                                );
-                        });
-    
+    $(function() 
+        {
+                $('#calendario').datepicker({ 
+                beforeShowDay: noExcursion
+                }
+                );
+        });
+    $(function() 
+        {
+                $('#agregar-turno-fecha').datepicker({ 
+                beforeShowDay: noExcursion
+                }
+                );
+        });
     
 </script>
     
