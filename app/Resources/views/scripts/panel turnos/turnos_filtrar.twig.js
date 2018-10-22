@@ -34,7 +34,7 @@ function obtengoFecha()
 function buscarTurnos()
 {
     var sede = $("#sede-turno").val();
-    var fecha = obtengoFecha();
+    var fecha = obtengoFecha($("#calendario").val());
 //    alert(fecha);alert(sede);
     
     if(sede === null || fecha === null)

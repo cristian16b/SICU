@@ -11,7 +11,6 @@ $( function() {
       {
         Guardar: function() 
         {
-           alert('click');
            var errores = crearTurnos();
            if(errores.length === 0)
                 $( this ).dialog( "close" );
@@ -39,9 +38,10 @@ $(function()
     });
 });
 
-function crearTurno()
+function crearTurnos()
 {
     var errores = '';
+//    alert('entro');
     var sede = $("#agregar-turno-sede").val();
     var fecha = $("#agregar-turno-fecha").val();
     var horaInicio = $("#agregar-turno-horario-inicio").val();
@@ -55,11 +55,13 @@ function crearTurno()
     datos.horaFin = horaFin;
     datos.cupo = cupo;
     
+//            alert('click dentro func crearturno');
+    
     $.ajax
     ({
 
             async:true,
-            method: 'POST',
+            method: 'GET',
             url: "{{ path('turnos_crear_turnos') }}",
             data: datos,
             dataType: 'json',
@@ -67,9 +69,13 @@ function crearTurno()
             {
                 $.blockUI({ message: '<img src="/img/cargando.gif"><h3>Cargando ...</h3>' });
             },
-            success: function()
+            success: function(datos)
             {
                 $.unblockUI();
+                if(datos.resultado !== '1')
+                {
+                    errores = 'No fue posible crear el turno, intente nuevamente';
+                }
             },
             timeout:11500,
             error : function() 

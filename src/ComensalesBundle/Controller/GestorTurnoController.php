@@ -79,67 +79,45 @@ class GestorTurnoController extends Controller
         return new JsonResponse($qb->getQuery()->getArrayResult());
     }
 
-    public function crearTurno($sede,$fecha,$horaInicio,$horaFin,$cupo)
+    public function crearTurno($nombreSede,$fecha,$horaInicio,$horaFin,$cupo)
     {
-        $turnoNuevo = new Turno();
-        $turnoNuevo->setCupo($cupo);
-        $turnoNuevo->setDia($fecha);
-        $turnoNuevo->setSede($sede);
-        
+//        var_dump($nombreSede);die;
         $db = $this->entityManager;
+        $sede = $db->getRepository('ComensalesBundle:Sede')->findBynombreSede($nombreSede);
+//        var_dump($sede);
         
-        $db = $turnoNuevo->setHorario($horaInicio);
-        $db->persist($turnoNuevo);
-        $db->flush($turnoNuevo);
-        
-        
-        /*
-        for($i = $horaInicio; $i<$horaFin; $i++)
+        if(empty($sede))
         {
-            
+            $resultado = array ('resultado ' => '0');
         }
-         * 
-         */
+        else
+        {
+            $hora = $horaInicio;
+            $horaFin = $horaFin - 1;
+            $listaTurnos = array();
+            $i=0;
+            for($hora = $horaInicio; $hora < $horaFin; $hora++)
+            {
+                $turnoNuevo = new Turno();
+                $turnoNuevo->setCupo((int)$cupo);
+                $turnoNuevo->setSede($sede[0]);
+                $fechaIngresada = \DateTime::createFromFormat('Y-m-j', $fecha);
+                $turnoNuevo->setDia($fechaIngresada);
+                $turnoNuevo->setHorario($hora);
+                $listaTurnos[$i] = $turnoNuevo;
+                $i++;
+            }
+            for($i=0;$i<count($listaTurnos);$i++)
+            {
+                $db->persist($listaTurnos[$i]);
+                
+            }
+            $db->flush();
+            $resultado = array ('resultado ' => '1');
+        }
+        
+        return new JsonResponse($resultado);
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     ////////////////////////////////////////////////////////////////////////
     
     public function obtenerHorarios($sede,$dia,$mes,$año)
