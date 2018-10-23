@@ -49,6 +49,35 @@ $( function() {
       {
         Guardar: function() 
         {
+            modificarUnCupo();
+            buscarTurnos();
+            $( this ).dialog( "close" );
+        }
+        ,
+        Salir: function() 
+        {
+           $( this ).dialog( "close" );
+        }
+     }
+     }); 
+    //fin }
+    }
+//fin definicion
+);
+
+$( function() {
+    $( "#modal-modificar-varios-cupo" ).dialog({
+      autoOpen: false,
+      resizable: false,
+      height: "auto",
+      width: "auto",
+      modal: true,
+      buttons: 
+      {
+        Guardar: function() 
+        {
+            modificarVariosCupos();
+            buscarTurnos();
             $( this ).dialog( "close" );
         }
         ,
@@ -70,12 +99,16 @@ $(function()
         //pregunto si hay una fila checkeada
         var i=0;
         var horario,cupo;
+        var lista = [];
         //obtengo el dni y cuento cuantas filas fueron seleccionadas por el usuario
         $("input[type=checkbox]:checked").each(function()
         {
             //leo el id,dni,apellido y nombre en ese orden
             horario = $(this).parent().parent().find('td').eq(1).html();
             cupo = $(this).parent().parent().find('td').eq(2).html();
+            
+            //guardo
+            lista[i] = horario;
 
             //cuento
             i++;
@@ -88,7 +121,11 @@ $(function()
         }
         else if(i > 1)
         {
-            
+//            alert(lista);
+            $("#modal-modificar-varios-cupo").dialog('open');
+            $("#modal-modificar-varios-cupo").dialog('option', 'title', 'Modificar cupo');
+            //fuente: https://gist.github.com/nrojas13/bfb6edfedd9178333486b8a2b94ea46f
+            sessionStorage.setItem('horarios',JSON.stringify(lista));
         }
         else if(i === 1)
         {
@@ -96,9 +133,8 @@ $(function()
             $("#modal-modificar-un-cupo").dialog('open');
             $("#modal-modificar-un-cupo").dialog('option', 'title', 'Modificar cupo');
             $("#modificar-cupo-actual").val(cupo);
-            $("#modificar-cupo-actual").val(cupo)
+            $("#modificar-cupo-actualizado").val(cupo)
         }
-        
     });
 });
 
@@ -164,4 +200,17 @@ function obtengoFecha(fecha)
         salida = array[2] + '-' + array[1] + '-' + array[0];
     }
     return salida;
+}
+
+function modificarUnCupo()
+{
+    var sede = $("#sede-turno").val();
+    var fecha = obtengoFecha($("#calendario").val());
+    var cantidad = $("#modificar-cupo-ingresado").val();
+    
+    alert(sede + fecha + cantidad);
+}
+function modificarVariosCupos()
+{
+    
 }
