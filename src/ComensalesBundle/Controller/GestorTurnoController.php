@@ -110,13 +110,46 @@ class GestorTurnoController extends Controller
             for($i=0;$i<count($listaTurnos);$i++)
             {
                 $db->persist($listaTurnos[$i]);
-                
             }
             $db->flush();
             $resultado = array ('resultado ' => '1');
         }
         
         return new JsonResponse($resultado);
+    }
+    
+    public function modificarCupo($sede,$fecha,$horario,$cantidad)
+    {
+        $db = $this->getDoctrine()->getEntityManager();
+        $qb = $db->createQueryBuilder();
+
+        //escribo la consuLta
+        $qb->select('t')
+               ->from('ComensalesBundle:Turno','t')
+               ->where('t.dia = :fecha')
+               ->andWhere('t.sede = :sede')
+               ->setParameter('fecha',$fecha)
+               ->setParameter('sede',$sede)
+               ->setParameter('horario',$horario)
+               ;
+        $q = $qb->getQuery();
+        //consulto
+        $resultado = $q->getResult();
+        //decremento
+        if(empty($resultado))
+        {
+            throw $this->createNotFoundException('Error n° - Turno no encontrado');
+        }
+            //pregunto 
+        if($resultado[0]->getCupo() + $cantidad  < 0)
+        {
+            throw $this->createNotFoundException('Error n° - El cupo no puede ser negativo');
+        }
+        //sete
+        $resultado[0]->setCupo($resultado[0]->getCupo()+$cantidad);
+        //guardo
+        $db->flush();
+        return $resultado[0];        
     }
     ////////////////////////////////////////////////////////////////////////
     
@@ -166,41 +199,5 @@ class GestorTurnoController extends Controller
                                  $sede_nueva,$fecha_nueva,$horario_nuevo,$dni,$nroSolicitud)
     {
         
-    }
-    
-    //bandera = true  -> incrementa la cantidad recibida
-    //bandera = false -> decrementa la cantidad recibida
-    public function modificarCupo($sede,$fecha,$horario,$cantidad)
-    {
-        $db = $this->getDoctrine()->getEntityManager();
-        $qb = $db->createQueryBuilder();
-
-        //escribo la consuLta
-        $qb->select('t')
-               ->from('ComensalesBundle:Turno','t')
-               ->where('t.dia = :fecha')
-               ->andWhere('t.sede = :sede')
-               ->setParameter('fecha',$fecha)
-               ->setParameter('sede',$sede)
-               ->setParameter('horario',$horario)
-               ;
-        $q = $qb->getQuery();
-        //consulto
-        $resultado = $q->getResult();
-        //decremento
-        if(empty($resultado))
-        {
-            throw $this->createNotFoundException('Error n° - Turno no encontrado');
-        }
-            //pregunto 
-        if($resultado[0]->getCupo() + $cantidad  < 0)
-        {
-            throw $this->createNotFoundException('Error n° - El cupo no puede ser negativo');
-        }
-        //sete
-        $resultado[0]->setCupo($resultado[0]->getCupo()+$cantidad);
-        //guardo
-        $db->flush();
-        return $resultado[0];        
     }
 }
