@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 {% block body %}
-<div id="modal-modificar-cupo">
+<div id="modal-modificar-un-cupo">
 <div id="noScrollHorizontal">
     <div class="row">
         <div class="col-lg-7 col-md-7">
@@ -12,11 +12,12 @@
             </select>
         </div>
     </div>
+    
     <div class="row">
         <div class="col-lg-4 col-md-4">
             <p>Cupo actual</p>
         </div>
-        <div class="col-lg-3 col-md-3">
+        <div class="col-lg-4 col-md-4">
             <input class="form-control"
                            type="text"
                            id ="modificar-cupo-actual"
@@ -28,9 +29,10 @@
         <div class="col-lg-4 col-md-4">
             <p>Cantidad</p>
         </div>
-        <div class="col-lg-3 col-md-3">
+        <div class="col-lg-4 col-md-4">
             <input class="form-control"
                            type="text"
+                           value="0"
                            id ="modificar-cupo-ingresado"
             />
         </div>
@@ -39,7 +41,7 @@
         <div class="col-lg-4 col-md-4">
             <p>Cupo actualizado</p>
         </div>
-        <div class="col-lg-3 col-md-3">
+        <div class="col-lg-4 col-md-4">
             <input class="form-control"
                            type="text"
                            id ="modificar-cupo-actualizado"
@@ -47,6 +49,7 @@
             />
         </div>
     </div>
+    
 </div>
 </div>    
 {% endblock%}
