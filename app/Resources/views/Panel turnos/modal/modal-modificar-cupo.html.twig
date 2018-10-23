@@ -1,21 +1,19 @@
-{# empty Twig template #}
 {% extends 'base.html.twig' %}
 {% block body %}
-<div id="modal-agregar-turno">
+<div id="modal-modificar-cupo">
 <div id="noScrollHorizontal">
     <div class="row">
-        <div class="col-lg-6 col-md-6">
+        <div class="col-lg-7 col-md-7">
             <select class="form-control"
                             required
                             id="modificar-cupo-opcion">
-                <option disabled selected hidden>Incrementar o Decrementar</option>
                 <option>Incrementar</option>
                 <option>Decrementar</option>
             </select>
         </div>
     </div>
     <div class="row">
-        <div class="col-lg-3 col-md-3">
+        <div class="col-lg-4 col-md-4">
             <p>Cupo actual</p>
         </div>
         <div class="col-lg-3 col-md-3">
@@ -27,8 +25,8 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-lg-3 col-md-3">
-            <p id="texto-cupo"></p>
+        <div class="col-lg-4 col-md-4">
+            <p>Cantidad</p>
         </div>
         <div class="col-lg-3 col-md-3">
             <input class="form-control"
@@ -38,7 +36,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-lg-3 col-md-3">
+        <div class="col-lg-4 col-md-4">
             <p>Cupo actualizado</p>
         </div>
         <div class="col-lg-3 col-md-3">

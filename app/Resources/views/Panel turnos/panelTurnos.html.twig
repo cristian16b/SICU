@@ -75,8 +75,7 @@
                                    id="boton-agregar-turnos">AGREGAR</button>
                                 <button class="btn btn-default" 
                                    type="button" 
-                                   id="boton-modificar-turnos">MODIFICAR CUPO</button>
-
+                                   id="boton-modificar-cupo">MODIFICAR CUPO</button>
                                 <button class="btn btn-default" 
                                         type="button" 
                                         id="boton-eliminar-turno">ELIMINAR </button>
@@ -186,6 +185,7 @@
             </div>
     </div>
     {% include 'Panel turnos/modal/modal-agregar-turno.html.twig' %}
+    {% include 'Panel turnos/modal/modal-modificar-cupo.html.twig' %}
     {% block javascripts %}
         <script>
             {% include 'scripts/panel turnos/turnos_filtrar.twig.js' %}

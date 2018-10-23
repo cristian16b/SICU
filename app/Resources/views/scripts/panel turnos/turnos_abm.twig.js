@@ -38,6 +38,41 @@ $(function()
     });
 });
 
+$( function() {
+    $( "#modal-modificar-cupo" ).dialog({
+      autoOpen: false,
+      resizable: false,
+      height: "auto",
+      width: "auto",
+      modal: true,
+      buttons: 
+      {
+        Guardar: function() 
+        {
+            $( this ).dialog( "close" );
+        }
+        ,
+        Salir: function() 
+        {
+           $( this ).dialog( "close" );
+        }
+     }
+     }); 
+    //fin }
+    }
+//fin definicion
+);
+
+$(function()
+{
+    $("#boton-modificar-cupo").on("click",function()
+    {
+        $("#modal-modificar-cupo").dialog('open');
+        $("#modal-modificar-cupo").dialog('option', 'title', 'Modificar cupo');
+    });
+});
+
+
 function crearTurnos()
 {
     var errores = '';
