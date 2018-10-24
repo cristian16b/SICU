@@ -50,7 +50,6 @@ $( function() {
         Guardar: function() 
         {
             modificarUnCupo();
-            buscarTurnos();
             $( this ).dialog( "close" );
         }
         ,
@@ -77,7 +76,6 @@ $( function() {
         Guardar: function() 
         {
             modificarVariosCupos();
-            buscarTurnos();
             $( this ).dialog( "close" );
         }
         ,
@@ -133,7 +131,8 @@ $(function()
             $("#modal-modificar-un-cupo").dialog('open');
             $("#modal-modificar-un-cupo").dialog('option', 'title', 'Modificar cupo');
             $("#modificar-cupo-actual").val(cupo);
-            $("#modificar-cupo-actualizado").val(cupo)
+            $("#modificar-cupo-actualizado").val(cupo);
+            $("#modificar-cupo-horario").val(horario);
         }
     });
 });
@@ -207,8 +206,43 @@ function modificarUnCupo()
     var sede = $("#sede-turno").val();
     var fecha = obtengoFecha($("#calendario").val());
     var cantidad = $("#modificar-cupo-ingresado").val();
+    var bandera = $("#modificar-cupo-opcion").val() === "Decrementar" ? true: false;
+    var horario = $("#modificar-cupo-horario").val();
+//    alert(sede + fecha + cantidad);
+    var datos = {};
+    datos.sede = sede;
+    datos.fecha = fecha;
+    datos.cantidad = cantidad;
+    datos.bandera = bandera;
+    datos.horario = horario;
     
-    alert(sede + fecha + cantidad);
+    
+    $.ajax
+    ({
+            async:true,
+            method: 'GET',
+            url: "{{ path('turnos_modificar_cupo') }}",
+            data: datos,
+            dataType: 'json',
+            beforeSend: function()
+            {
+                $.blockUI({ message: '<img src="/img/cargando.gif"><h3>Cargando ...</h3>' });
+            },
+            success: function(datos)
+            {
+                $.unblockUI();
+                buscarTurnos();
+            },
+            timeout:11500,
+            error : function() 
+            {
+                //desbloqueo la pagina
+                $.unblockUI();
+            
+                errores = 'Error de conexión, intente nuevamente'
+            }
+    });
+    
 }
 function modificarVariosCupos()
 {

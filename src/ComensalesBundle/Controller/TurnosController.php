@@ -87,7 +87,31 @@ class TurnosController extends Controller{
             return $servicio->crearTurno($sede,$fecha,$horaInicio,$horaFin,$cupo);
         }
     }
-
+    
+    /**
+    * @Route("/modificar/cupo",name="modificar_cupo")     
+    * @Method({"GET"}) 
+    */
+    public function modificarCupo(Request $request)
+    {
+        if($request->isXmlHttpRequest())
+        {
+            //leo el request
+            $sede = $request->query->get('sede');
+            $fecha = $request->query->get('fecha');
+            $horario = $request->query->get('horario');
+            $bandera = $request->query->get('bandera');
+            $cantidad = $request->query->get('cantidad');
+            
+            if($bandera)
+            {
+                $cantidad = $cantidad * -1; 
+            }
+            
+            $servicio = $this->get('gestor_turnos');
+            return $servicio->modificarCupo($sede,$fecha,$horario,$cantidad);
+        }
+    }
 
     ///////////////////////////
     /**
@@ -126,24 +150,6 @@ class TurnosController extends Controller{
         }
     }
     
-    /**
-    * @Route("/decrementar-turno",name="actualizar_s")     
-    * @Method({"GET"}) 
-    */
-    public function decrementarCupo(Request $request)
-    {
-        if($request->isXmlHttpRequest())
-        {
-            //leo el request
-            $sede = $request->query->get('sede-quitar');
-            $fecha = $request->query->get('fecha-quitar');
-            $horario = $request->query->get('horario-quitar');
-            $cantidad = $request->query->get('cantidad-quitar') * (-1);
-            
-            $servicio = $this->get('gestor_turnos');
-            return $servicio->modificarCupo($sede,$fecha,$horario,$cantidad);
-        }
-    }
     
     /**
     * @Route("/eliminar-turno",name="eliminar-turno")     

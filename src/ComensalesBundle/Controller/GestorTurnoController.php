@@ -120,26 +120,34 @@ class GestorTurnoController extends Controller
     
     public function modificarCupo($sede,$fecha,$horario,$cantidad)
     {
-        $db = $this->getDoctrine()->getEntityManager();
-        $qb = $db->createQueryBuilder();
+//        $qb = $this->entityManager->createQueryBuilder();
 
         //escribo la consuLta
-        $qb->select('t')
+//        $qb->select('t')
+        $resultado = 
+               $this->entityManager->createQueryBuilder()->select('t')
                ->from('ComensalesBundle:Turno','t')
+               ->innerJoin('ComensalesBundle:Sede','s')
                ->where('t.dia = :fecha')
-               ->andWhere('t.sede = :sede')
+               ->andWhere('s.nombreSede = :sede')
+               ->andWhere('t.horario = :horario')
                ->setParameter('fecha',$fecha)
                ->setParameter('sede',$sede)
                ->setParameter('horario',$horario)
+               ->getQuery()
+               ->getResult();
                ;
-        $q = $qb->getQuery();
         //consulto
-        $resultado = $q->getResult();
+//        $resultado = $qb->getQuery()->getResult();
+//        $resultado = $this->entityManager->getQuery()->getResult();
         //decremento
         if(empty($resultado))
         {
             throw $this->createNotFoundException('Error n° - Turno no encontrado');
         }
+//        var_dump($resultado[0]->getCupo());
+//        var_dump($cantidad);
+//        die;
             //pregunto 
         if($resultado[0]->getCupo() + $cantidad  < 0)
         {
@@ -148,16 +156,16 @@ class GestorTurnoController extends Controller
         //sete
         $resultado[0]->setCupo($resultado[0]->getCupo()+$cantidad);
         //guardo
-        $db->flush();
-        return $resultado[0];        
+        $this->entityManager->flush();
+        
+        return new JsonResponse(array ('resultado ' => '1'));
     }
     ////////////////////////////////////////////////////////////////////////
     
     public function obtenerHorarios($sede,$dia,$mes,$año)
     {
         //consulta dql con doctrine
-        $db = $this->getDoctrine()->getEntityManager();
-        $qb = $db->createQueryBuilder();
+        $qb = $this->entityManager->createQueryBuilder();
 
         //escribo la consuLta
         $qb->select('t.horario,t.cupo')
