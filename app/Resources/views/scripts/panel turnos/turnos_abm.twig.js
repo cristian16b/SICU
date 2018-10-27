@@ -75,7 +75,13 @@ $( function() {
       {
         Guardar: function() 
         {
-            modificarVariosCupos();
+            alert('wii');
+            var array = localStorage.getItem('listaHorarios');
+            // Se parsea para poder ser usado en js con JSON.parse :)
+            array = JSON.parse(array);
+            alert(array.length);
+            alert(array);
+            //modificarVariosCupos();
             $( this ).dialog( "close" );
         }
         ,
@@ -99,12 +105,12 @@ $(function()
         var horario,cupo;
         var lista = [];
         //obtengo el dni y cuento cuantas filas fueron seleccionadas por el usuario
-        $("input[type=checkbox]:checked").each(function()
+        $(".fila-turnos:checked").each(function()
         {
             //leo el id,dni,apellido y nombre en ese orden
             horario = $(this).parent().parent().find('td').eq(1).html();
             cupo = $(this).parent().parent().find('td').eq(2).html();
-            
+            alert(horario);
             //guardo
             lista[i] = horario;
 
@@ -123,7 +129,7 @@ $(function()
             $("#modal-modificar-varios-cupo").dialog('open');
             $("#modal-modificar-varios-cupo").dialog('option', 'title', 'Modificar cupo');
             //fuente: https://gist.github.com/nrojas13/bfb6edfedd9178333486b8a2b94ea46f
-            sessionStorage.setItem('horarios',JSON.stringify(lista));
+            sessionStorage.setItem('listaHorarios',JSON.stringify(lista));
         }
         else if(i === 1)
         {
@@ -155,8 +161,6 @@ function crearTurnos()
     datos.horaFin = horaFin;
     datos.cupo = cupo;
     
-//            alert('click dentro func crearturno');
-    
     $.ajax
     ({
 
@@ -186,7 +190,6 @@ function crearTurnos()
                 errores = 'Error de conexión, intente nuevamente'
             }
     });
-    
     return errores;
 }
 
@@ -228,7 +231,7 @@ function modificarUnCupo()
             {
                 $.blockUI({ message: '<img src="/img/cargando.gif"><h3>Cargando ...</h3>' });
             },
-            success: function(datos)
+            success: function()
             {
                 $.unblockUI();
                 buscarTurnos();
@@ -242,7 +245,6 @@ function modificarUnCupo()
                 errores = 'Error de conexión, intente nuevamente'
             }
     });
-    
 }
 function modificarVariosCupos()
 {

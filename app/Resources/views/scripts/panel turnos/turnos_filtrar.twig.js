@@ -100,7 +100,7 @@ function cargarFilasTurnos(datos)
     var i;
     for(i= 0;i < datos.length; i++)
     {
-            Check = '<td><input type="checkbox" name="check' + i +'" /></td>';
+            Check = '<td><input type="checkbox" class=' + '"form-control fila-turnos"' + '/></td>';
             horario = '<td>'+datos[i].horario+'</td>';
             cupo = '<td>'+datos[i].cupo+'</td>';
             boton = '<td> <input class="boton-ver-solicitantes btn btn-info btn-sm"  type="button" value=">>" /></td>';

@@ -124,8 +124,7 @@ class GestorTurnoController extends Controller
 
         //escribo la consuLta
 //        $qb->select('t')
-        $resultado = 
-               $this->entityManager->createQueryBuilder()->select('t')
+        $resultado = $this->entityManager->createQueryBuilder()->select('t')
                ->from('ComensalesBundle:Turno','t')
                ->innerJoin('ComensalesBundle:Sede','s')
                ->where('t.dia = :fecha')
@@ -134,9 +133,8 @@ class GestorTurnoController extends Controller
                ->setParameter('fecha',$fecha)
                ->setParameter('sede',$sede)
                ->setParameter('horario',$horario)
-               ->getQuery()
-               ->getResult();
-               ;
+               ->getQuery()->getResult();
+               
         //consulto
 //        $resultado = $qb->getQuery()->getResult();
 //        $resultado = $this->entityManager->getQuery()->getResult();
@@ -160,6 +158,9 @@ class GestorTurnoController extends Controller
         
         return new JsonResponse(array ('resultado ' => '1'));
     }
+    
+    
+    
     ////////////////////////////////////////////////////////////////////////
     
     public function obtenerHorarios($sede,$dia,$mes,$año)
