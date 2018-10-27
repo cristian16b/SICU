@@ -99,17 +99,15 @@ class TurnosController extends Controller{
             //leo el request
             $sede = $request->query->get('sede');
             $fecha = $request->query->get('fecha');
-            $horario = $request->query->get('horario');
+            $listaHorarios = $request->query->get('listaHorarios');
             $bandera = $request->query->get('bandera');
             $cantidad = $request->query->get('cantidad');
-            
-            if($bandera)
+            $servicio = $this->get('gestor_turnos');
+            if($bandera == 'Decrementar')
             {
                 $cantidad = $cantidad * -1; 
             }
-            
-            $servicio = $this->get('gestor_turnos');
-            return $servicio->modificarCupo($sede,$fecha,$horario,$cantidad);
+            return $servicio->modificarCupo($sede,$fecha,$listaHorarios,$cantidad);
         }
     }
 

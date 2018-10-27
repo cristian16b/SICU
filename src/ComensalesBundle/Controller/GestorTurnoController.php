@@ -120,11 +120,51 @@ class GestorTurnoController extends Controller
     
     public function modificarCupo($sede,$fecha,$horario,$cantidad)
     {
-//        $qb = $this->entityManager->createQueryBuilder();
-
-        //escribo la consuLta
-//        $qb->select('t')
-        $resultado = $this->entityManager->createQueryBuilder()->select('t')
+        $long = count($horario);
+        $retorno = null;
+        if($long == 1)
+        {
+           $retorno = $this->modificarUnCupo($sede, $fecha, $horario, $cantidad);
+        }
+        else if($long > 1)
+        {
+            $retorno = $this->modificarVariosCupos($sede, $fecha, $horario, $cantidad);
+        }
+        return $retorno;
+    }
+    
+    private function modificarUnCupo($sede,$fecha,$horario,$cantidad)
+    {
+        $resultado = $this->obtenerConsultaModifCupo($fecha, $sede, $horario);
+        
+        if(empty($resultado))
+        {
+            throw $this->createNotFoundException('Error n° - Turno no encontrado');
+        }
+        
+        if($resultado[0]->getCupo() + $cantidad  < 0)
+        {
+            throw $this->createNotFoundException('Error n° - El cupo no puede ser negativo');
+        }
+        
+        //sete
+        $resultado[0]->setCupo($resultado[0]->getCupo()+$cantidad);
+        //guardo
+        $this->entityManager->flush();
+        
+        return new JsonResponse(array ('resultado ' => '1'));
+    }
+    
+    private function modificarVariosCupos($sede,$fecha,$listaHorarios,$cantidad)
+    {
+        var_dump($listaHorarios);
+        die;
+        return new JsonResponse(array ('resultado ' => '1'));
+    }
+    
+    private function obtenerConsultaModifCupo($fecha,$sede,$horario)
+    {
+        return $this->entityManager->createQueryBuilder()->select('t')
                ->from('ComensalesBundle:Turno','t')
                ->innerJoin('ComensalesBundle:Sede','s')
                ->where('t.dia = :fecha')
@@ -134,31 +174,7 @@ class GestorTurnoController extends Controller
                ->setParameter('sede',$sede)
                ->setParameter('horario',$horario)
                ->getQuery()->getResult();
-               
-        //consulto
-//        $resultado = $qb->getQuery()->getResult();
-//        $resultado = $this->entityManager->getQuery()->getResult();
-        //decremento
-        if(empty($resultado))
-        {
-            throw $this->createNotFoundException('Error n° - Turno no encontrado');
-        }
-//        var_dump($resultado[0]->getCupo());
-//        var_dump($cantidad);
-//        die;
-            //pregunto 
-        if($resultado[0]->getCupo() + $cantidad  < 0)
-        {
-            throw $this->createNotFoundException('Error n° - El cupo no puede ser negativo');
-        }
-        //sete
-        $resultado[0]->setCupo($resultado[0]->getCupo()+$cantidad);
-        //guardo
-        $this->entityManager->flush();
-        
-        return new JsonResponse(array ('resultado ' => '1'));
     }
-    
     
     
     ////////////////////////////////////////////////////////////////////////

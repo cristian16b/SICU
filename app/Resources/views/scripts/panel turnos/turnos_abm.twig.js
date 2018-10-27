@@ -49,7 +49,7 @@ $( function() {
       {
         Guardar: function() 
         {
-            modificarUnCupo();
+            modificarCupo();
             $( this ).dialog( "close" );
         }
         ,
@@ -75,12 +75,9 @@ $( function() {
       {
         Guardar: function() 
         {
-            alert('wii');
-            var array = localStorage.getItem('listaHorarios');
-            // Se parsea para poder ser usado en js con JSON.parse :)
-            array = JSON.parse(array);
-            alert(array.length);
-            alert(array);
+            var horario = sessionStorage.getItem('listaHorarios');
+            alert(horario);
+            modificarCupo();
             //modificarVariosCupos();
             $( this ).dialog( "close" );
         }
@@ -110,7 +107,7 @@ $(function()
             //leo el id,dni,apellido y nombre en ese orden
             horario = $(this).parent().parent().find('td').eq(1).html();
             cupo = $(this).parent().parent().find('td').eq(2).html();
-            alert(horario);
+            //alert(horario);
             //guardo
             lista[i] = horario;
 
@@ -128,6 +125,7 @@ $(function()
 //            alert(lista);
             $("#modal-modificar-varios-cupo").dialog('open');
             $("#modal-modificar-varios-cupo").dialog('option', 'title', 'Modificar cupo');
+            alert(lista);
             //fuente: https://gist.github.com/nrojas13/bfb6edfedd9178333486b8a2b94ea46f
             sessionStorage.setItem('listaHorarios',JSON.stringify(lista));
         }
@@ -139,6 +137,8 @@ $(function()
             $("#modificar-cupo-actual").val(cupo);
             $("#modificar-cupo-actualizado").val(cupo);
             $("#modificar-cupo-horario").val(horario);
+            sessionStorage.setItem('listaHorarios',JSON.stringify(lista));
+//            alert(lista);
         }
     });
 });
@@ -163,7 +163,6 @@ function crearTurnos()
     
     $.ajax
     ({
-
             async:true,
             method: 'GET',
             url: "{{ path('turnos_crear_turnos') }}",
@@ -204,22 +203,21 @@ function obtengoFecha(fecha)
     return salida;
 }
 
-function modificarUnCupo()
+function modificarCupo()
 {
     var sede = $("#sede-turno").val();
     var fecha = obtengoFecha($("#calendario").val());
     var cantidad = $("#modificar-cupo-ingresado").val();
-    var bandera = $("#modificar-cupo-opcion").val() === "Decrementar" ? true: false;
-    var horario = $("#modificar-cupo-horario").val();
+    var bandera = $("#modificar-cupo-opcion").val();
+    var horario = sessionStorage.getItem('listaHorarios');
 //    alert(sede + fecha + cantidad);
     var datos = {};
     datos.sede = sede;
     datos.fecha = fecha;
     datos.cantidad = cantidad;
     datos.bandera = bandera;
-    datos.horario = horario;
-    
-    
+    datos.listaHorarios = JSON.parse(horario);
+//    alert(datos.listaHorarios);
     $.ajax
     ({
             async:true,
