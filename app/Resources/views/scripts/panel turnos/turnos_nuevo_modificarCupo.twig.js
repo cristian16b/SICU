@@ -165,10 +165,26 @@ $(function()
 
         if(isNaN($("#modificar-cupo-ingresado").val()) === false)
         {
-            $("#modificar-cupo-actualizado").val(
-                parseInt($("#modificar-cupo-actualizado").val()) + 
-                parseInt($("#modificar-cupo-ingresado").val())
+            var actual = parseInt($("#modificar-cupo-actual").val());
+            var nuevo =  parseInt($("#modificar-cupo-ingresado").val());
+            if($("#modificar-cupo-opcion").val() === 'Decrementar')
+            {
+                nuevo = nuevo * -1;
+            }
+            var suma = actual + nuevo;
+            
+            if(suma > -1)
+            {
+                $("#modificar-cupo-actualizado").val(
+                suma
                 );
+            }
+            else 
+            {
+                alert('El cupo no puede ser negativo, ingrese nuevamente');
+                $("#modificar-cupo-ingresado").val("0");
+            }
+            
         }
         else
         {
@@ -233,7 +249,7 @@ function modificarCupo()
     var cantidad = $("#modificar-cupo-ingresado").val();
     var bandera = $("#modificar-cupo-opcion").val();
     var horario = sessionStorage.getItem('listaHorarios');
-//    alert(sede + fecha + cantidad);
+//    alert(cantidad);
     var datos = {};
     datos.sede = sede;
     datos.fecha = fecha;
@@ -243,27 +259,27 @@ function modificarCupo()
 //    alert(datos.listaHorarios);
     $.ajax
     ({
-            async:true,
-            method: 'GET',
-            url: "{{ path('turnos_modificar_cupo') }}",
-            data: datos,
-            dataType: 'json',
-            beforeSend: function()
-            {
-                $.blockUI({ message: '<img src="/img/cargando.gif"><h3>Cargando ...</h3>' });
-            },
-            success: function()
-            {
-                $.unblockUI();
-                buscarTurnos();
-            },
-            timeout:11500,
-            error : function() 
-            {
-                //desbloqueo la pagina
-                $.unblockUI();
-            
-                errores = 'Error de conexión, intente nuevamente'
-            }
+        async:true,
+        method: 'GET',
+        url: "{{ path('turnos_modificar_cupo') }}",
+        data: datos,
+        dataType: 'json',
+        beforeSend: function()
+        {
+            $.blockUI({ message: '<img src="/img/cargando.gif"><h3>Cargando ...</h3>' });
+        },
+        success: function()
+        {
+            $.unblockUI();
+            buscarTurnos();
+        },
+        timeout:11500,
+        error : function() 
+        {
+            //desbloqueo la pagina
+            $.unblockUI();
+
+            errores = 'Error de conexión, intente nuevamente'
+        }
     });
 }

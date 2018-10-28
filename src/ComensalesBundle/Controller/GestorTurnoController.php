@@ -149,6 +149,7 @@ class GestorTurnoController extends Controller
         
         //sete
         $resultado[0]->setCupo($resultado[0]->getCupo()+$cantidad);
+//        var_dump($resultado[0]->getCupo());
         //guardo
         $this->entityManager->flush();
         
@@ -157,14 +158,12 @@ class GestorTurnoController extends Controller
     
     private function modificarVariosCupos($sede,$fecha,$listaHorarios,$cantidad)
     {
-        var_dump($listaHorarios[0]);
-        die;
         $cantidadElem = count($listaHorarios);
-        for($i=0;i<$cantidadElem;$i++)
+        for($i=0;$i<$cantidadElem;$i++)
         {
-            
+            $this->modificarUnCupo($sede, $fecha, $listaHorarios[$i], $cantidad);
         }
-        
+//        die;
         return new JsonResponse(array ('resultado ' => '1'));
     }
     
