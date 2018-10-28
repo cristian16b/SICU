@@ -119,7 +119,7 @@ function buscarSolicitantesPorTurno(sede,fecha,horario)
     datos.fecha = fecha;
     datos.horario = horario;
 
-    borrarFilasSolicitantesTurnos()
+    borrarFilasSolicitantesTurnos();
     $.ajax
     ({
         async:true,
@@ -159,11 +159,11 @@ function cargarFilasSolicitantesTurnos(datos)
     
     borrarFilasSolicitantesTurnos();
     
-    var fila,dni,nombreApellido,facultad,tipoComensal;
+    var fila,Check,dni,nombreApellido,facultad,tipoComensal;
     var i;
     for(i= 0;i < datos.length; i++)
     {
-            Check = '<td><input type="checkbox" name="check' + i +'" /></td>';
+            Check = '<td><input type="checkbox" class=' + '"form-control fila-solicitantes"' + '/></td>';
             dni = '<td>' + datos[i].dni+'</td>';
             nombreApellido = '<td>'+ datos[i].apellido + ' , ' + datos[i].nombre +'</td>';
             facultad = '<td>' + datos[i].nombreFacultad+'</td>';

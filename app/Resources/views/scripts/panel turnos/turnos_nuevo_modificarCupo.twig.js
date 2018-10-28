@@ -192,21 +192,10 @@ function crearTurnos()
     return errores;
 }
 
-function obtengoFecha(fecha)
-{
-    var array = fecha.split("-");
-    var salida = null;
-    if(array.length > 0)
-    {
-        salida = array[2] + '-' + array[1] + '-' + array[0];
-    }
-    return salida;
-}
-
 function modificarCupo()
 {
     var sede = $("#sede-turno").val();
-    var fecha = obtengoFecha($("#calendario").val());
+    var fecha = obtengoFecha();
     var cantidad = $("#modificar-cupo-ingresado").val();
     var bandera = $("#modificar-cupo-opcion").val();
     var horario = sessionStorage.getItem('listaHorarios');
@@ -243,8 +232,4 @@ function modificarCupo()
                 errores = 'Error de conexión, intente nuevamente'
             }
     });
-}
-function modificarVariosCupos()
-{
-    
 }
