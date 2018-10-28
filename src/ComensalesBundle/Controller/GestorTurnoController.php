@@ -157,8 +157,8 @@ class GestorTurnoController extends Controller
     
     private function modificarVariosCupos($sede,$fecha,$listaHorarios,$cantidad)
     {
-//        var_dump($listaHorarios);
-//        die;
+        var_dump($listaHorarios[0]);
+        die;
         $cantidadElem = count($listaHorarios);
         for($i=0;i<$cantidadElem;$i++)
         {

@@ -49,8 +49,16 @@ $( function() {
       {
         Guardar: function() 
         {
-            modificarCupo();
-            $( this ).dialog( "close" );
+            if(isNaN($("#modificar-cupo-ingresado").val()) === false)
+            {
+                modificarCupo();
+                $( this ).dialog( "close" );
+            }
+            else
+            {
+                alert('La cantidad ingresada debe ser numerica');
+                $("#modificar-cupo-ingresado").val("0");
+            }
         }
         ,
         Salir: function() 
@@ -75,11 +83,16 @@ $( function() {
       {
         Guardar: function() 
         {
-            var horario = sessionStorage.getItem('listaHorarios');
-            alert(horario);
-            modificarCupo();
-            //modificarVariosCupos();
-            $( this ).dialog( "close" );
+            if(isNaN($("#modificar-cupo-ingresado").val()) === false)
+            {
+                modificarCupo();
+                $( this ).dialog( "close" );
+            }
+            else
+            {
+                alert('La cantidad ingresada debe ser numerica');
+                $("#modificar-cupo-ingresado").val("0");
+            }
         }
         ,
         Salir: function() 
@@ -125,7 +138,7 @@ $(function()
 //            alert(lista);
             $("#modal-modificar-varios-cupo").dialog('open');
             $("#modal-modificar-varios-cupo").dialog('option', 'title', 'Modificar cupo');
-            alert(lista);
+//            alert(lista);
             //fuente: https://gist.github.com/nrojas13/bfb6edfedd9178333486b8a2b94ea46f
             sessionStorage.setItem('listaHorarios',JSON.stringify(lista));
         }
@@ -143,6 +156,27 @@ $(function()
     });
 });
 
+$(function()
+{
+    $("#modificar-cupo-ingresado").on("change",function()
+    {
+//        alert(parseInt($("#modificar-cupo-actualizado").val()) + 
+//                parseInt($("#modificar-cupo-ingresado").val()));
+
+        if(isNaN($("#modificar-cupo-ingresado").val()) === false)
+        {
+            $("#modificar-cupo-actualizado").val(
+                parseInt($("#modificar-cupo-actualizado").val()) + 
+                parseInt($("#modificar-cupo-ingresado").val())
+                );
+        }
+        else
+        {
+            alert('La cantidad ingresada debe ser numerica');
+            $("#modificar-cupo-ingresado").val("0");
+        }
+    });
+});
 
 function crearTurnos()
 {
