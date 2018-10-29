@@ -1,7 +1,7 @@
 /* 
  */
 $( function() {
-    $( "#modal-eliminar" ).dialog({
+    $( "#modal-eliminar-horario" ).dialog({
       autoOpen: false,
       resizable: false,
       height: "auto",
@@ -59,7 +59,7 @@ $( function() {
 );
 $(function()
 {
-    $("#eliminar-solicitante-horario").on("click",function()
+    $("#boton-eliminar-solicitante-horario").on("click",function()
     {
         $("#modal-eliminar-horario").dialog('open');
         $("#modal-eliminar-horario").dialog('option', 'title', 'Eliminar');
