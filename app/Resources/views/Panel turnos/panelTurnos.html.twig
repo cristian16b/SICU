@@ -78,19 +78,27 @@
                                    id="boton-modificar-cupo">MODIFICAR CUPO</button>
                                 <button class="btn btn-default" 
                                         type="button" 
-                                        id="boton-eliminar-turno">ELIMINAR </button>
+                                        id="boton-eliminar-horario">QUITAR HORARIO</button>
                             </div>
                         </div>
-                        <div class="col-lg-3 col-md-3">
+                        {#<div class="col-lg-3 col-md-3">
                             <div class="btn-group" role="group">
                                 <button class="btn btn-primary" 
                                         id="boton-filtrar-turnos"
                                         type="button">CAMBIAR TURNO
                                 </button>
                             </div>
-                        </div>
-                        <div class="col-lg-3 col-md-3">
+                        </div>#}
+                        <div class="col-lg-5 col-md-5 col-lg-offset-1">
                             <div class="btn-group" role="group">
+                                <button class="btn btn-primary" 
+                                        id="boton-cambiar-turno"
+                                        type="button">CAMBIAR TURNO
+                                </button>
+                                <button class="btn btn-default" 
+                                        id="boton-eliminar-solicitante-horario"
+                                        type="button">ELIMINAR
+                                </button>
                                 <button class="btn btn-default" 
                                         type="button" 
                                         id="boton-exportar-turnos-pdf"
@@ -187,9 +195,11 @@
     {% include 'Panel turnos/modal/modal-agregar-turno.html.twig' %}
     {% include 'Panel turnos/modal/modal-modificar-un-cupo.html.twig' %}
     {% include 'Panel turnos/modal/modal-modificar-varios-cupos.html.twig' %}
-    {% include 'Panel turnos/modal/modal-eliminar.html.twig' %}
+    {% include 'Panel turnos/modal/modal-eliminar-horario.html.twig' %}
+    {% include 'Panel turnos/modal/modal-eliminar-solicitante.html.twig' %}
     {% block javascripts %}
         <script>
+            {% include 'scripts/panel turnos/turnos_eliminar.twig.js' %}
             {% include 'scripts/panel turnos/turnos_filtrar.twig.js' %}
             {% include 'scripts/panel turnos/turnos_nuevo_modificarCupo.twig.js' %}
         </script>
