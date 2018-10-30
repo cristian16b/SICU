@@ -12,6 +12,7 @@ $( function() {
         Confirmar: function() 
         {
             eliminarHorarios();
+            buscarTurnos();
             $( this ).dialog( "close" );
         }
         ,
@@ -70,7 +71,6 @@ $( function() {
       {
         Confirmar: function() 
         {
-            eliminarHorariosSolicitantes();
             $( this ).dialog( "close" );
         }
         ,
@@ -119,7 +119,41 @@ $(function()
 
 function eliminarHorarios()
 {
+    var sede = $("#sede-turno").val();
+    var fecha = obtengoFecha();
+    var listaHorarios = sessionStorage.getItem('listaHorarios');
     //
+    var datos = {};
+    datos.sede = sede;
+    datos.fecha = fecha;
+    datos.listaHorarios = JSON.parse(listaHorarios);
+    
+    $.ajax
+    ({
+        async:true,
+        method: 'GET',
+        url: "{{ path('turnos_eliminar_turno') }}",
+        data: datos,
+        dataType: 'json',
+        beforeSend: function()
+        {
+            $.blockUI({ message: '<img src="/img/cargando.gif"><h3>Cargando ...</h3>' });
+        },
+        success: function()
+        {
+            $.unblockUI();
+        },
+        timeout:11500,
+        error : function() 
+        {
+            //desbloqueo la pagina
+            $.unblockUI();
+
+            var errores = 'Error de conexión, intente nuevamente';
+
+            alert(errores);
+        }
+    });
 }
 
 function eliminarHorariosSolicitantes()

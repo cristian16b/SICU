@@ -111,6 +111,24 @@ class TurnosController extends Controller{
         }
     }
 
+    /**
+    * @Route("/eliminar/turno",name="eliminar_turno")     
+    * @Method({"GET"}) 
+    */
+    public function eliminarTurno(Request $request)
+    {
+        if($request->isXmlHttpRequest())
+        {
+            //leo el request
+            $sede = $request->query->get('sede');
+            $fecha = $request->query->get('fecha');
+            $listaHorarios = $request->query->get('listaHorarios');
+            
+            $servicio = $this->get('gestor_turnos');
+            return $servicio->eliminarHorarios($sede, $fecha, $listaHorarios);
+        }
+    }
+    
     ///////////////////////////
     /**
     * @Route("/obtener-turno",name="obtener-turno")     
@@ -145,25 +163,6 @@ class TurnosController extends Controller{
             
             $servicio = $this->get('gestor_turnos');
             return $servicio->modificarCupo($sede,$fecha,$horario,$cantidad);
-        }
-    }
-    
-    
-    /**
-    * @Route("/eliminar-turno",name="eliminar-turno")     
-    * @Method({"GET"}) 
-    */
-    public function eliminarTurno(Request $request)
-    {
-        if($request->isXmlHttpRequest())
-        {
-            //leo el request
-            $sede = $request->query->get('sede-eliminar');
-            $fecha = $request->query->get('fecha-eliminar');
-            $horario = $request->query->get('horario-eliminar');
-            
-            $servicio = $this->get('gestor_turnos');
-            return $servicio->eliminarTurno($sede, $fecha, $horario);
         }
     }
     

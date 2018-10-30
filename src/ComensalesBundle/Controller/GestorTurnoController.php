@@ -181,53 +181,43 @@ class GestorTurnoController extends Controller
                ->getQuery()->getResult();
     }
     
-    
-    ////////////////////////////////////////////////////////////////////////
-    
-    public function obtenerHorarios($sede,$dia,$mes,$año)
+    public function eliminarHorarios($sede,$fecha,$listaHorarios)
     {
-        //consulta dql con doctrine
-        $qb = $this->entityManager->createQueryBuilder();
-
+//        var_dump($listaHorarios);die;
+        $cantidadElem = count($listaHorarios);
+        for($i=0;$i<$cantidadElem;$i++)
+        {
+            $resultado = $this->obtenerHorario($fecha, $sede, $listaHorarios[$i]);
+            if($resultado[0]->getCupo() !== 0)
+            {
+                $resultado[0]->setCupo(0);
+                $this->entityManager->flush();
+            }
+        }
+        return new JsonResponse(array('resultado' => '1'));
+    }
+    
+    private function obtenerHorario($fecha,$sede,$horario)
+    {
         //escribo la consuLta
-        $qb->select('t.horario,t.cupo')
+        $resultado = 
+           $this->entityManager->createQueryBuilder()
+           ->select('t')
            ->from('ComensalesBundle:Turno','t')
            ->innerJoin('ComensalesBundle:Sede','s')
            ->where('t.dia = :fecha_elegida')
            ->andWhere('s.nombreSede = :sede_elegida')
+           ->andWhere('t.horario = :horario_elegido')
            ->setParameter('fecha_elegida',$fecha)
            ->setParameter('sede_elegida',$sede)
+           ->setParameter('horario_elegido',$horario)
+           ->getQuery()->getResult()
            ;
-        //genero
-        $q = $qb->getQuery();
-        //consulto
-        //$resultado = $q->getResult();
-        $resultado = $q->getArrayResult();
+        if(empty($resultado))
+        {
+            throw $this->createNotFoundException('Error n° - Turno no encontrado');
+        }
         //retorno
-        return new JsonResponse($resultado);
-    }
-    
-    
-    public function eliminarTurno($sede,$fecha,$horario)
-    {
-        
-    }
-    
-    //retorna un objeto del tipo solicitud
-    public function obtenerTurnoSolicitud($dni,$nroSolicitud)
-    {
-        /*
-        $db = $this->getDoctrine()->getEntityManager();
-        $qb = $db->createQueryBuilder();
-        $qb->select('t.horario,t.cupo')
-           ->     
-        */
-        
-    }
-    
-    public function cambiarTurno($sede_anterior,$fecha_anterior,$horario_anterior,
-                                 $sede_nueva,$fecha_nueva,$horario_nuevo,$dni,$nroSolicitud)
-    {
-        
+        return $resultado;
     }
 }
