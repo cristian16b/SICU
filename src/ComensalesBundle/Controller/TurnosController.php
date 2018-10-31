@@ -129,6 +129,21 @@ class TurnosController extends Controller{
         }
     }
     
+    /**
+    * @Route("/eliminar/solicitante",name="eliminar_solicitante_turno")     
+    * @Method({"GET"}) 
+    */
+    public function eliminarSolicitantesTurnos(Request $request)
+    {
+        if($request->isXmlHttpRequest())
+        {
+            //leo el request
+            $listaSolicitantes = $request->query->get('listaSolicitantes');
+            $servicio = $this->get('gestor_turnos');
+            return $servicio->eliminarSolicitanteHorarios($listaSolicitantes);
+        }
+    }
+    
     ///////////////////////////
     /**
     * @Route("/obtener-turno",name="obtener-turno")     

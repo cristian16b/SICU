@@ -163,15 +163,15 @@ function cargarFilasSolicitantesTurnos(datos)
     var i;
     for(i= 0;i < datos.length; i++)
     {
-            Check = '<td><input type="checkbox" class=' + '"form-control fila-solicitantes"' + '/></td>';
-            dni = '<td>' + datos[i].dni+'</td>';
-            nombreApellido = '<td>'+ datos[i].apellido + ' , ' + datos[i].nombre +'</td>';
-            facultad = '<td>' + datos[i].nombreFacultad+'</td>';
-            tipoComensal = '<td>' + datos[i].nombreComensal + '</td>';
-            
-            fila = '<tr>' + Check + dni + nombreApellido + facultad + tipoComensal +  '</tr>';
-            var renglon = document.createElement('TR');
-            renglon.innerHTML = fila;
-            document.getElementById('tabla-turnos-solicitantes').appendChild(renglon);
+        Check = '<td><input type="checkbox" class=' + '"form-control fila-solicitantes"' + '/></td>';
+        dni = '<td>' + datos[i].dni+'</td>';
+        nombreApellido = '<td>'+ datos[i].apellido + ' , ' + datos[i].nombre +'</td>';
+        facultad = '<td>' + datos[i].nombreFacultad+'</td>';
+        tipoComensal = '<td>' + datos[i].nombreComensal + '</td>';
+
+        fila = '<tr>' + Check + dni + nombreApellido + facultad + tipoComensal +  '</tr>';
+        var renglon = document.createElement('TR');
+        renglon.innerHTML = fila;
+        document.getElementById('tabla-turnos-solicitantes').appendChild(renglon);
     }
 }

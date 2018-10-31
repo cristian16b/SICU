@@ -187,12 +187,9 @@ class SolicitudController extends Controller {
                ->where('s.id = :id_elegido')
                ->setParameter('id_elegido',$id)
             ;
-            
-            $q = $qb->getQuery();
-            
             //consulto
             //$resultado = $q->getResult();
-            $resultado = $q->getArrayResult();
+            $resultado = $qb->getQuery()->getArrayResult();
             
             //recupero la imagen en base64
             //accedo al elemento [0] y luego seteo [fotobase64]

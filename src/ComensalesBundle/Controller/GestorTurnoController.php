@@ -183,7 +183,6 @@ class GestorTurnoController extends Controller
     
     public function eliminarHorarios($sede,$fecha,$listaHorarios)
     {
-//        var_dump($listaHorarios);die;
         $cantidadElem = count($listaHorarios);
         for($i=0;$i<$cantidadElem;$i++)
         {
@@ -219,5 +218,54 @@ class GestorTurnoController extends Controller
         }
         //retorno
         return $resultado;
+    }
+    
+    public function eliminarSolicitanteHorarios($listaSolicitantes)
+    {
+//        var_dump($listaSolicitantes);die;
+        $cantidadElem = count($listaSolicitantes);
+        for($i=0;$i<$cantidadElem;$i++)
+        {
+            $solicitud = $this->obtenerSolicitud($listaSolicitantes[$i]);
+//            var_dump($solicitud);die;
+            $turnoAsignado = $solicitud[0]->getTurno();
+//            var_dump($turnoAsignado);die;
+            if($turnoAsignado != NULL)
+            {
+                $sede = $turnoAsignado->getSede()->getNombreSede();
+                $fecha = $turnoAsignado->getDia();
+                $horario = $turnoAsignado->getHorario();
+                
+                $this->modificarUnCupo($sede,
+                                       $fecha, 
+                                       $horario, 
+                                       1);
+                //asigno turno null
+                $solicitud[0]->setTurno(NULL);
+                $this->entityManager->flush();
+            }
+        }
+        return new JsonResponse(array('resultado' => '1'));
+    }
+    
+    private function obtenerSolicitud($dni)
+    {
+        $fecha = new \DateTime();
+        $fecha->setDate(date("Y"), 1,1);
+        $solicitud =
+                $this->entityManager->createQueryBuilder()
+           ->select('s')
+           ->from('ComensalesBundle:Solicitud','s')
+           ->innerJoin('s.persona','p')
+           ->where('p.dni = :dni')
+           ->andWhere('s.fechaIngreso > :fecha')
+           ->setParameter('dni',$dni)
+           ->setParameter('fecha',$fecha)->getQuery()->getResult()
+            ;
+        if(empty($solicitud))
+        {
+            throw $this->createNotFoundException('Error n° - Solicitud no encontrado');
+        }
+        return $solicitud;
     }
 }

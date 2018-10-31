@@ -71,6 +71,9 @@ $( function() {
       {
         Confirmar: function() 
         {
+            eliminarHorariosSolicitantes();
+            buscarTurnos();
+            borrarFilasSolicitantesTurnos();
             $( this ).dialog( "close" );
         }
         ,
@@ -89,17 +92,13 @@ $(function()
     $("#boton-eliminar-solicitante-horario").on("click",function()
     {
         var i=0;
-        var horario,cupo;
         var lista = [];
         //obtengo el dni y cuento cuantas filas fueron seleccionadas por el usuario
-        $(".fila-turnos:checked").each(function()
+        $(".fila-solicitantes:checked").each(function()
         {
-            //leo el id,dni,apellido y nombre en ese orden
-            horario = $(this).parent().parent().find('td').eq(1).html();
-            cupo = $(this).parent().parent().find('td').eq(2).html();
             //guardo
-            lista[i] = horario;
-
+            lista[i] = $(this).parent().parent().find('td').eq(1).html();
+            alert('sss');
             //cuento
             i++;
         });
@@ -112,7 +111,7 @@ $(function()
             $("#modal-eliminar-solicitante-horario").dialog('open');
             $("#modal-eliminar-solicitante-horario").dialog('option', 'title', 'Eliminar');
             //fuente: https://gist.github.com/nrojas13/bfb6edfedd9178333486b8a2b94ea46f
-            sessionStorage.setItem('listaHorarios',JSON.stringify(lista));
+            sessionStorage.setItem('listaSolicitantes',JSON.stringify(lista));
         }
     });
 });
@@ -158,5 +157,39 @@ function eliminarHorarios()
 
 function eliminarHorariosSolicitantes()
 {
+//    var sede = $("#sede-turno").val();
+//    var fecha = obtengoFecha();
+    var listaSolicitantes = sessionStorage.getItem('listaSolicitantes');
     //
+    var datos = {};
+//    datos.sede = sede;
+//    datos.fecha = fecha;
+    datos.listaSolicitantes = JSON.parse(listaSolicitantes);
+    
+    $.ajax
+    ({
+        async:true,
+        method: 'GET',
+        url: "{{ path('turnos_eliminar_solicitante_turno') }}",
+        data: datos,
+        dataType: 'json',
+        beforeSend: function()
+        {
+            $.blockUI({ message: '<img src="/img/cargando.gif"><h3>Cargando ...</h3>' });
+        },
+        success: function()
+        {
+            $.unblockUI();
+        },
+        timeout:11500,
+        error : function() 
+        {
+            //desbloqueo la pagina
+            $.unblockUI();
+
+            var errores = 'Error de conexión, intente nuevamente';
+
+            alert(errores);
+        }
+    });
 }
