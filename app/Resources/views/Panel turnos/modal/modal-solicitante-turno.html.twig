@@ -4,6 +4,18 @@
 <div id="noScrollHorizontal">
     <div class="row">
         <div class="col-lg-6 col-md-6">
+            <p>DNI</p>
+        </div>
+        <div class="col-lg-6 col-md-6">
+            <input class="form-control"
+                      type="text"
+                      disabled
+                      id ="dni-solicitante"
+                      />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6 col-md-6">
             <p>Nombre y Apellido</p>
         </div>
         <div class="col-lg-6 col-md-6">
@@ -75,9 +87,9 @@
                                 required
                                 id="sede-turno">
                         <option value="sede" disabled selected hidden>Sede</option>
-                  {#      {% for sede in sedes %}
-                            <option>{{sede.nombreSede}}</option>
-                        {% endfor %}#}
+                        <option>Predio</option>
+                        <option>Fcjs</option>
+                        <option>Esperanza</option>
                     </select>
                 </div>
             </div>
@@ -99,13 +111,9 @@
                                 required
                                 id="horario-turno">
                         <option value="horario" disabled selected hidden>Horario</option>
-                  {#      {% for sede in sedes %}
-                            <option>{{sede.nombreSede}}</option>
-                        {% endfor %}#}
                     </select>
                 </div>
             </div>
-            
     </div>
 </div>
 </div>    
