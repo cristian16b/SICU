@@ -5,7 +5,7 @@ $(function(){
     {
         var sede =  $('#sede-turno').val();
         var fecha = $("#calendario").val();
-        var hora;
+        var hora = $("horario-clickeado").val();
         var sFileName = "Listado de turnos  - " + sede + " - " + fecha + " - " + hora + " hs";
         $('#tablaSolicitantes').tableExport({type:'excel',
             fileName: sFileName,
@@ -18,7 +18,7 @@ $(function(){
     {
         var sede =  $('#sede-turno').val();
         var fecha = $("#calendario").val();
-        var hora;
+        var hora = $("#horario-clickeado").val();
         var sFileName = "Listado de turnos  - " + sede + " - " + fecha + " - " + hora + " hs";
         function DoCellData(cell, row, col, data) {}
         function DoBeforeAutotable(table, headers, rows, AutotableSettings) {}

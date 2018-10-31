@@ -14,7 +14,7 @@ $(function()
        var horario = $(this).parents('TR').find('TD').eq(1).html();
        var sede = $("#sede-turno").val();
        var fecha = obtengoFecha();
-       
+       $("#horario-clickeado").val(horario);
        buscarSolicitantesPorTurno(sede,fecha,horario);
    }); 
 });
