@@ -1,0 +1,65 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+<div id="modal-solicitante-turno">
+<div id="noScrollHorizontal">
+    <div class="row">
+        <div class="col-lg-6 col-md-6">
+            <div class="row">
+                <p>Nombre y Apellido</p>
+            </div>
+            <div class="row">
+                <p>Tipo de comensal</p>
+            </div>
+            <div class="row">
+                <p>Sede</p>
+            </div>
+            <div class="row">
+                <p>Fecha</p>
+            </div>
+            <div class="row">
+                <p>Horario</p>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6 col-md-6">
+            <div class="row">
+                <input class="form-control"
+                      type="text"
+                      disabled
+                      id ="nombre-apellido-solicitante"
+                      />
+            </div>
+            <div class="row">
+                <input class="form-control"
+                      type="text"
+                      disabled
+                      id ="tipo-comensal-solicitante"
+                      />
+            </div>
+            <div class="row">
+                <input class="form-control"
+                      type="text"
+                      disabled
+                      id ="sede-solicitante"
+                      />
+            </div>
+            <div class="row">
+                <input class="form-control"
+                      type="text"
+                      disabled
+                      id ="fecha-solicitante"
+                      />
+            </div>
+            <div class="row">
+                <input class="form-control"
+                      type="text"
+                      disabled
+                      id ="hora-solicitante"
+                      />
+            </div>
+        </div>
+    </div>
+</div>
+</div>    
+{% endblock%}
