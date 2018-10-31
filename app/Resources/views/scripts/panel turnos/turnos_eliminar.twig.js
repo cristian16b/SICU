@@ -98,7 +98,6 @@ $(function()
         {
             //guardo
             lista[i] = $(this).parent().parent().find('td').eq(1).html();
-            alert('sss');
             //cuento
             i++;
         });
