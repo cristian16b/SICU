@@ -24,15 +24,14 @@
                                     <!--<p>FILTRAR:</p>-->
                                 </div>
                                 <div class="col-lg-3 col-md-3">
-                                {#  #}
-                                <select class="form-control"
-                                            required
-                                            id="sede-turno">
-                                    <option value="sede" disabled selected hidden>Sede</option>
-                                {% for sede in sedes %}
-                                    <option>{{sede.nombreSede}}</option>
-                                {% endfor %}
-                                </select>
+                                    <select class="form-control"
+                                                required
+                                                id="sede-turno">
+                                        <option value="sede" disabled selected hidden>Sede</option>
+                                    {% for sede in sedes %}
+                                        <option>{{sede.nombreSede}}</option>
+                                    {% endfor %}
+                                    </select>
                                 </div>
                                 <div class="col-lg-3 col-md-3">
                                     <input class="form-control"
@@ -204,12 +203,14 @@
     {% include 'Panel turnos/modal/modal-modificar-varios-cupos.html.twig' %}
     {% include 'Panel turnos/modal/modal-eliminar-horario.html.twig' %}
     {% include 'Panel turnos/modal/modal-eliminar-solicitante.html.twig' %}
+    {% include 'Panel turnos/modal/modal-solicitante-turno.html.twig' %}
     {% block javascripts %}
         <script>
             {% include 'scripts/panel turnos/turnos_eliminar.twig.js' %}
             {% include 'scripts/panel turnos/turnos_filtrar.twig.js' %}
             {% include 'scripts/panel turnos/turnos_nuevo_modificarCupo.twig.js' %}
             {% include 'scripts/panel turnos/turnos_generar_pdfs.twig.js' %}
+            {% include 'scripts/panel turnos/turnos_cambiar_buscar.twig.js' %}
         </script>
     {% endblock %}    
 {% endblock%}

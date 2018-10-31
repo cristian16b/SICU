@@ -60,6 +60,43 @@
             </div>
         </div>
     </div>
+    <div class="row">
+        <div class="col-lg-12 col-md-12">
+            <p>Seleccione el nuevo turno:</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12 col-md-12">
+            <p>Seleccione el nuevo turno:</p>
+        </div>
+    </div>
+    <div class="row" id="divCambioTurno">
+        <div class="col-lg-3 col-md-3">
+            <select class="form-control"
+                        required
+                        id="sede-turno">
+                <option value="sede" disabled selected hidden>Sede</option>
+          {#      {% for sede in sedes %}
+                    <option>{{sede.nombreSede}}</option>
+                {% endfor %}#}
+            </select>
+        </div>
+        <div class="col-lg-3 col-md-3">
+            <input class="form-control"
+                           type="text"
+                           align="center"
+                           name="fecha-dia-mes-anio"
+                           id ="calendario"
+                           required=""
+                           placeholder="Seleccione la fecha"
+                           />
+        </div>
+        <div class="col-lg-3 col-md-3">
+{#            {% for horario in sedes %}
+                    <option>{{sede.nombreSede}}</option>
+            {% endfor %}#}
+        </div>
+    </div>
 </div>
 </div>    
 {% endblock%}
