@@ -38,8 +38,11 @@ services:
         class: ComensalesBundle\Controller\GestorTurnoController
         arguments: ["@doctrine.orm.entity_manager"]
         public: true
-#        autowire: true
-#        autoconfigure: true
-
+        
+    gestor_solicitudes:
+        class: ComensalesBundle\Controller\GestorSolicitudController
+        arguments: ["@doctrine.orm.entity_manager"]
+        public: true
+        
 
 

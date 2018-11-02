@@ -226,7 +226,10 @@ class GestorTurnoController extends Controller
         $cantidadElem = count($listaSolicitantes);
         for($i=0;$i<$cantidadElem;$i++)
         {
-            $solicitud = $this->obtenerSolicitud($listaSolicitantes[$i]);
+            //accedo al servicio 
+            $servicio = $this->container->get('gestor_solicitudes');
+            //
+            $solicitud = $servicio->obtenerSolicitud($listaSolicitantes[$i]);
 //            var_dump($solicitud);die;
             $turnoAsignado = $solicitud[0]->getTurno();
 //            var_dump($turnoAsignado);die;
@@ -246,5 +249,30 @@ class GestorTurnoController extends Controller
             }
         }
         return new JsonResponse(array('resultado' => '1'));
+    }
+    
+    public function obtenerHorarios($sede,$fecha)
+    {
+//        var_dump($sede . $fecha);
+        //escribo la consuLta
+        //TODO revisar consulta
+        $resultado = 
+           $this->entityManager->createQueryBuilder()
+           ->select('t.horario')
+           ->from('ComensalesBundle:Turno','t')
+           ->innerJoin('ComensalesBundle:Sede','s')
+           ->where('t.dia = :fecha_elegida')
+           ->andWhere('s.nombreSede = :sede_elegida')
+           ->setParameter('fecha_elegida',$fecha)
+           ->setParameter('sede_elegida',$sede)
+           ->getQuery()->getResult()
+           ;
+//           var_dump($resultado);die;
+        if(empty($resultado))
+        {
+            throw $this->createNotFoundException('Error n° - Turno no encontrado');
+        }
+        //retorno
+        return  new JsonResponse($resultado);
     }
 }

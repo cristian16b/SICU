@@ -25,7 +25,7 @@ class GestorSolicitudController extends Controller{
         $this->entityManager = $entityManager;
     }
     
-    private function obtenerSolicitud($dni)
+    public function obtenerSolicitud($dni)
     {
         $fecha = new \DateTime();
         $fecha->setDate(date("Y"), 1,1);

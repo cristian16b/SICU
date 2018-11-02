@@ -144,9 +144,8 @@ class TurnosController extends Controller{
         }
     }
     
-    ///////////////////////////
     /**
-    * @Route("/listar-horario",name="listar_horario")     
+    * @Route("/listar-horarios",name="listar_horarios")     
     * @Method({"GET"}) 
     */
     public function obtenerHorarios(Request $request)
@@ -154,13 +153,24 @@ class TurnosController extends Controller{
         if($request->isXmlHttpRequest())
         {
             //leo el request
-            $sede = $request->query->get('sede-obtener');
-            $fecha = $request->query->get('fecha-obtener');
+            $sede = $request->query->get('sede');
+            $fecha = $request->query->get('fecha');
             
             $servicio = $this->container->get('gestor_turnos');
-            return $servicio->obtenerHorarios();
+            return $servicio->obtenerHorarios($sede,$fecha);
         }
     }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    ///////////////////////////
+    
     
     /**
     * @Route("/agregar-turno",name="actualizar_s")     
