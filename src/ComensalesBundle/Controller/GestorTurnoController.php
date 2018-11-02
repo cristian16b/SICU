@@ -247,25 +247,4 @@ class GestorTurnoController extends Controller
         }
         return new JsonResponse(array('resultado' => '1'));
     }
-    
-    private function obtenerSolicitud($dni)
-    {
-        $fecha = new \DateTime();
-        $fecha->setDate(date("Y"), 1,1);
-        $solicitud =
-                $this->entityManager->createQueryBuilder()
-           ->select('s')
-           ->from('ComensalesBundle:Solicitud','s')
-           ->innerJoin('s.persona','p')
-           ->where('p.dni = :dni')
-           ->andWhere('s.fechaIngreso > :fecha')
-           ->setParameter('dni',$dni)
-           ->setParameter('fecha',$fecha)->getQuery()->getResult()
-            ;
-        if(empty($solicitud))
-        {
-            throw $this->createNotFoundException('Error n° - Solicitud no encontrado');
-        }
-        return $solicitud;
-    }
 }
