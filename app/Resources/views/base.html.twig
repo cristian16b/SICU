@@ -118,7 +118,13 @@ $.datepicker.regional['es'] = {
                 }
                 );
         });
-    
+    $(function() 
+        {
+                $('#nueva-fecha').datepicker({ 
+                beforeShowDay: noExcursion
+                }
+                );
+        });
 </script>
     
     
