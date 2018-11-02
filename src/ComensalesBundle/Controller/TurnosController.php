@@ -146,7 +146,7 @@ class TurnosController extends Controller{
     
     ///////////////////////////
     /**
-    * @Route("/obtener-turno",name="obtener-turno")     
+    * @Route("/listar-horario",name="listar_horario")     
     * @Method({"GET"}) 
     */
     public function obtenerHorarios(Request $request)
@@ -158,7 +158,7 @@ class TurnosController extends Controller{
             $fecha = $request->query->get('fecha-obtener');
             
             $servicio = $this->container->get('gestor_turnos');
-            return $servicio->listar();
+            return $servicio->obtenerHorarios();
         }
     }
     

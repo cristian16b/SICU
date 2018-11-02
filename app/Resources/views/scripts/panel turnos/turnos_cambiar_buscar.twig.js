@@ -95,7 +95,7 @@ $(function()
             ({
                 async:true,
                 method: 'GET',
-                url: "{{ path('turnos_listar') }}",
+                url: "{{ path('turnos_listar_horarios') }}",
                 data: datos,
                 dataType: 'json',
                 beforeSend:inicioEnvioTurnos,
