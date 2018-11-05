@@ -12,9 +12,11 @@
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/xampp/htdocs/SICU/app/Resources/views/scripts/panel%20turnos/turnos_eliminar.twig.js</file>
+            <file>file:/C:/xampp/htdocs/SICU/src/ComensalesBundle/Controller/TurnosController.php</file>
             <file>file:/C:/xampp/htdocs/SICU/app/Resources/views/Panel%20turnos/panelTurnos.html.twig</file>
             <file>file:/C:/xampp/htdocs/SICU/app/Resources/views/Panel%20turnos/modal/modal-solicitante-turno.html.twig</file>
+            <file>file:/C:/xampp/htdocs/SICU/src/ComensalesBundle/Controller/GestorTurnoController.php</file>
+            <file>file:/C:/xampp/htdocs/SICU/app/Resources/views/scripts/panel%20turnos/turnos_filtrar.twig.js</file>
             <file>file:/C:/xampp/htdocs/SICU/app/Resources/views/scripts/panel%20turnos/turnos_cambiar_buscar.twig.js</file>
         </group>
     </open-files>

@@ -258,21 +258,21 @@ class GestorTurnoController extends Controller
         //TODO revisar consulta
         $resultado = 
            $this->entityManager->createQueryBuilder()
-           ->select('t.horario')
+           ->select('t')
            ->from('ComensalesBundle:Turno','t')
            ->innerJoin('ComensalesBundle:Sede','s')
            ->where('t.dia = :fecha_elegida')
            ->andWhere('s.nombreSede = :sede_elegida')
            ->setParameter('fecha_elegida',$fecha)
            ->setParameter('sede_elegida',$sede)
-           ->getQuery()->getResult()
+           ->getQuery()
+           ->getArrayResult()
            ;
-//           var_dump($resultado);die;
         if(empty($resultado))
         {
             throw $this->createNotFoundException('Error n° - Turno no encontrado');
         }
         //retorno
-        return  new JsonResponse($resultado);
+        return new JsonResponse($resultado);
     }
 }

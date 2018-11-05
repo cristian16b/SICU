@@ -98,7 +98,9 @@ $(function()
                 url: "{{ path('turnos_listar_horarios') }}",
                 data: datos,
                 dataType: 'json',
-                beforeSend:inicioEnvioTurnos,
+                beforeSend:function(){
+                     $.blockUI({ message: '<img src="/img/cargando.gif"><h3>Cargando ...</h3>' });
+                },
                 success: cargarHorarios,
                 timeout:11500,
                 error : function() 
@@ -112,7 +114,7 @@ $(function()
                     //error.innerHTML = '<p>Error de conexión, por favor intente registrarse nuevamente más tarde</p>';
                     //muestro
                     //$('#error-turno').show();
-                    alert('ERROR DE CONEXIÓN, INTENTE NUEVAMENTE MAS TARDE');
+                    alert('No se encontraron horarios disponibles o no estan definidos turnos en dicha fecha');
                 }
             });
        }
@@ -122,10 +124,23 @@ $(function()
 
 function borrarHorarios()
 {
-    
+    var select = document.getElementById("nuevo-horario");
+    select.innerHTML = '<option disabled selected hidden>Horario</option>';
 }
 
-function cargarHorarios(datos)
+function cargarHorarios(lista)
 {
+    //desbloqueo la pagina
+    $.unblockUI();
     
+    borrarHorarios();
+    var select = document.getElementById("nuevo-horario");
+    var i=0;
+    while(lista[i].horario !== undefined)
+    {
+        var option = document.createElement('option');
+        option.innerHTML = lista[i].horario;
+        select.appendChild(option);
+        i++;
+    }
 }
