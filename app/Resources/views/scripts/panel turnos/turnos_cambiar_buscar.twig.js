@@ -11,7 +11,15 @@ $( function() {
       {
         Confirmar: function() 
         {
-            $( this ).dialog( "close" );
+//            alert('click');
+            if(enviarCambioTurno())
+            {
+                $( this ).dialog("close");
+            }
+            else
+            {
+                alert('Fallo la modificacion');
+            }
         }
         ,
         Cancelar: function() 
@@ -143,4 +151,66 @@ function cargarHorarios(lista)
         select.appendChild(option);
         i++;
     }
+}
+
+function enviarCambioTurno()
+{
+//    alert('entra enviarcambioturno');
+    var salida = false;
+    var fecha = obtengoFechaNueva();
+    var sede =  $("#nueva-sede").val();
+    var horario = $("#nuevo-horario").val();
+    var dni = $("#dni-solicitante").val();
+//    alert(dni+fecha+sede+horario);
+    if(fecha === null || sede === null || horario === null || dni === null)
+    {
+        alert('No es posible continuar con la operación, intente nuevamente');
+    }
+    else
+    {
+//        alert('else');
+        salida = guardarCambiosTurnos(fecha,sede,horario,dni);
+    }
+    
+    return salida;
+}
+
+function guardarCambiosTurnos(fecha,sede,horario,dni)
+{
+    alert('entra en la prellamada');
+    var datos = {};
+    datos.sede = sede;
+    datos.fecha = fecha;
+    datos.horario = horario;
+    datos.dni = dni;
+    var salida = false;
+    $.ajax
+    ({
+        async:true,
+        method: 'GET',
+        url: "{{ path('turnos_cambiar_turno') }}",
+        data: datos,
+        dataType: 'json',
+        beforeSend:function(){
+             $.blockUI({ message: '<img src="/img/cargando.gif"><h3>Cargando ...</h3>' });
+        },
+        success: function(){
+            salida = true;
+        },
+        timeout:11500,
+        error : function() 
+        {
+            //desbloqueo la pagina
+            $.unblockUI();
+
+            //accedo al alert
+            //var error = document.getElementById('error-turno');
+            //seteo el msj
+            //error.innerHTML = '<p>Error de conexión, por favor intente registrarse nuevamente más tarde</p>';
+            //muestro
+            //$('#error-turno').show();
+            alert('No se encontraron horarios disponibles o no estan definidos turnos en dicha fecha');
+        }
+    });
+    return salida;
 }

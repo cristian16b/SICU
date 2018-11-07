@@ -160,40 +160,9 @@ class TurnosController extends Controller{
             return $servicio->obtenerHorarios($sede,$fecha);
         }
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    ///////////////////////////
-    
-    
+
     /**
-    * @Route("/agregar-turno",name="actualizar_s")     
-    * @Method({"GET"}) 
-    */
-    public function agregarCupo(Request $request)
-    {
-        if($request->isXmlHttpRequest())
-        {
-            //leo el request
-            $sede = $request->query->get('sede-agregar');
-            $fecha = $request->query->get('fecha-agregar');
-            $horario = $request->query->get('horario-agregar');
-            $cantidad = $request->query->get('cantidad-nuevos-cupos');
-            
-            $servicio = $this->get('gestor_turnos');
-            return $servicio->modificarCupo($sede,$fecha,$horario,$cantidad);
-        }
-    }
-    
-    //cancelar y reasignar el turno
-    /**
-    * @Route("/cambiar-turno",name="cambiar-turno")     
+    * @Route("/cambiar-turno",name="cambiar_turno")     
     * @Method({"GET"}) 
     */
     public function cambiarTurno(Request $request)
@@ -201,16 +170,13 @@ class TurnosController extends Controller{
         if($request->isXmlHttpRequest())
         {
             //leo el request
-            $sede = $request->query->get('sede-cambiar');
-            $fecha = $request->query->get('fecha-cambiar');
-            $horario = $request->query->get('horario-cambiar');
+            $sede = $request->query->get('sede');
+            $fecha = $request->query->get('fecha');
+            $horario = $request->query->get('horario');
             $dni = $request->query->get('dni');
-            $nroSolicitud = $request->query->get('nro-solicitud');
             
-            $servicio = $this->get('gestor_turnos');
-            return $servicio->cambiarTurno($sede, $fecha, $horario, $dni, $nroSolicitud);
+            $servicio = $this->container->get('gestor_turnos');
+            return $servicio->cambiarTurno($sede,$fecha,$horario,$dni);
         }
     }
-    
-    
 }

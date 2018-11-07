@@ -253,9 +253,7 @@ class GestorTurnoController extends Controller
     
     public function obtenerHorarios($sede,$fecha)
     {
-//        var_dump($sede . $fecha);
         //escribo la consuLta
-        //TODO revisar consulta
         $resultado = 
            $this->entityManager->createQueryBuilder()
            ->select('t')
@@ -275,4 +273,39 @@ class GestorTurnoController extends Controller
         //retorno
         return new JsonResponse($resultado);
     }
+    
+    public function cambiarTurno($sede,$fecha,$horario,$dni)
+    {
+        var_dump($dni);die;
+        //acceder al elemento 
+        //accedo al servicio 
+        $servicio = $this->container->get('gestor_solicitudes');
+        //
+        $solicitud = $servicio->obtenerSolicitud($dni);
+//            var_dump($solicitud);die;
+        $turnoAsignado = $solicitud[0]->getTurno();
+//            var_dump($turnoAsignado);die;
+        if($turnoAsignado != NULL)
+        {
+            $sede = $turnoAsignado->getSede()->getNombreSede();
+            $fecha = $turnoAsignado->getDia();
+            $horario = $turnoAsignado->getHorario();
+
+            $this->modificarUnCupo($sede,
+                                   $fecha, 
+                                   $horario, 
+                                   1);
+            //creo el nuevo turno
+            $nuevoTurno = $this->obtenerHorario($fecha, $sede, $horario);
+            $solicitud[0]->setTurno($nuevoTurno);
+            
+            $this->entityManager->flush();
+        }
+    }
+    
+    public function asignarTurno($sede,$fecha,$horario)
+    {
+        //to-do pasar la func de solicitud a este servicio
+    }        
+            
 }
