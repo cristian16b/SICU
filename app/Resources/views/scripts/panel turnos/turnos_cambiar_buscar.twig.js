@@ -12,14 +12,9 @@ $( function() {
         Confirmar: function() 
         {
 //            alert('click');
-            if(enviarCambioTurno())
-            {
-                $( this ).dialog("close");
-            }
-            else
-            {
-                alert('Fallo la modificacion');
-            }
+            enviarCambioTurno();
+            $( this ).dialog("close");
+            
         }
         ,
         Cancelar: function() 
@@ -177,7 +172,7 @@ function enviarCambioTurno()
 
 function guardarCambiosTurnos(fecha,sede,horario,dni)
 {
-    alert('entra en la prellamada');
+//    alert('entra en la prellamada');
     var datos = {};
     datos.sede = sede;
     datos.fecha = fecha;
@@ -195,6 +190,8 @@ function guardarCambiosTurnos(fecha,sede,horario,dni)
              $.blockUI({ message: '<img src="/img/cargando.gif"><h3>Cargando ...</h3>' });
         },
         success: function(){
+            //desbloqueo la pagina
+            $.unblockUI();
             salida = true;
         },
         timeout:11500,

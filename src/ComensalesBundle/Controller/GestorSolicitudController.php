@@ -37,7 +37,8 @@ class GestorSolicitudController extends Controller{
            ->where('p.dni = :dni')
            ->andWhere('s.fechaIngreso > :fecha')
            ->setParameter('dni',$dni)
-           ->setParameter('fecha',$fecha)->getQuery()->getResult()
+           ->setParameter('fecha',$fecha)
+            ->getQuery()->getResult()
             ;
         if(empty($solicitud))
         {

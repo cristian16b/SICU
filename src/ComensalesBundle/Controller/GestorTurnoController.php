@@ -23,10 +23,12 @@ use ComensalesBundle\Entity\Turno;
 class GestorTurnoController extends Controller
 {
     protected $entityManager;
+    protected $solicitudes;
 
     public function __construct($entityManager)
     {
         $this->entityManager = $entityManager;
+        $this->solicitudes = new GestorSolicitudController($entityManager);
     }
     
     public function obtenerSedes()
@@ -198,6 +200,7 @@ class GestorTurnoController extends Controller
     
     private function obtenerHorario($fecha,$sede,$horario)
     {
+//        var_dump($fecha);
         //escribo la consuLta
         $resultado = 
            $this->entityManager->createQueryBuilder()
@@ -276,31 +279,28 @@ class GestorTurnoController extends Controller
     
     public function cambiarTurno($sede,$fecha,$horario,$dni)
     {
-        var_dump($dni);die;
-        //acceder al elemento 
-        //accedo al servicio 
-        $servicio = $this->container->get('gestor_solicitudes');
-        //
+//        $servicio = $this->container->get('gestor_solicitudes');
+        $servicio = $this->solicitudes;
         $solicitud = $servicio->obtenerSolicitud($dni);
-//            var_dump($solicitud);die;
         $turnoAsignado = $solicitud[0]->getTurno();
-//            var_dump($turnoAsignado);die;
         if($turnoAsignado != NULL)
         {
-            $sede = $turnoAsignado->getSede()->getNombreSede();
-            $fecha = $turnoAsignado->getDia();
-            $horario = $turnoAsignado->getHorario();
+            $sedeAnterior = $turnoAsignado->getSede()->getNombreSede();
+            $fechaAnterior = $turnoAsignado->getDia();
+            $horarioAnterior = $turnoAsignado->getHorario();
 
-            $this->modificarUnCupo($sede,
-                                   $fecha, 
-                                   $horario, 
+            $this->modificarUnCupo($sedeAnterior,
+                                   $fechaAnterior, 
+                                   $horarioAnterior, 
                                    1);
-            //creo el nuevo turno
+//            //creo el nuevo turno
             $nuevoTurno = $this->obtenerHorario($fecha, $sede, $horario);
-            $solicitud[0]->setTurno($nuevoTurno);
-            
+            $solicitud[0]->setTurno($nuevoTurno[0]);
+            $this->modificarUnCupo($sede, $fecha, $horario, -1);
+//            
             $this->entityManager->flush();
         }
+        return new JsonResponse(array('resultado' => '1'));
     }
     
     public function asignarTurno($sede,$fecha,$horario)
