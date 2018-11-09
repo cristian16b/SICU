@@ -46,17 +46,8 @@ $(function()
         });
         if(i === 1)
         {
-            //seteo los inputs
-            $("#nombre-apellido-solicitante").val(apellidoNombre);
-            $("#dni-solicitante").val(dni);
-            $("#tipo-comensal-solicitante").val(tipo);
-            $("#sede-solicitante").val($("#sede-turno").val());
-            $("#horario-solicitante").val($("#horario-clickeado").val());
-            $("#fecha-solicitante").val($("#calendario").val());
-            
-            //abro
-            $("#modal-solicitante-turno").dialog('open');
-            $("#modal-solicitante-turno").dialog('option', 'title', 'Cambiar turno');
+            var titulo = 'Cambiar turno';
+            mostrarModalCambioBusqueda(dni,apellidoNombre,tipo,titulo);
         }
         else if(i > 0 || i === 0 )
         {
@@ -64,6 +55,21 @@ $(function()
         }
     });
 });
+
+function mostrarModalCambioBusqueda(dni,apellidoNombre,tipo,titulo)
+{
+    //seteo los inputs
+    $("#nombre-apellido-solicitante").val(apellidoNombre);
+    $("#dni-solicitante").val(dni);
+    $("#tipo-comensal-solicitante").val(tipo);
+    $("#sede-solicitante").val($("#sede-turno").val());
+    $("#horario-solicitante").val($("#horario-clickeado").val());
+    $("#fecha-solicitante").val($("#calendario").val());
+
+    //abro
+    $("#modal-solicitante-turno").dialog('open');
+    $("#modal-solicitante-turno").dialog('option', 'title',titulo);
+}
 
 function obtengoFechaNueva()
 {
@@ -110,19 +116,28 @@ $(function()
                 {
                     //desbloqueo la pagina
                     $.unblockUI();
-
-                    //accedo al alert
-                    //var error = document.getElementById('error-turno');
-                    //seteo el msj
-                    //error.innerHTML = '<p>Error de conexión, por favor intente registrarse nuevamente más tarde</p>';
-                    //muestro
-                    //$('#error-turno').show();
                     alert('No se encontraron horarios disponibles o no estan definidos turnos en dicha fecha');
                 }
             });
        }
        
    }); 
+});
+
+$(function()
+{
+   $("#boton-buscar-turno").on("click",function(){
+        var opcion = $("#select-buscar-turnos").val();
+        var datoIngresado = $("#input-buscar-turnos").val();
+        if(opcion === null || datoIngresado === null)
+        {
+            alert('Seleccione un filtro de busqueda');
+        }
+        else
+        {
+            solicitarSolicitanteTurno(opcion,datoIngresado);
+        }
+   });
 });
 
 function borrarHorarios()
@@ -150,20 +165,17 @@ function cargarHorarios(lista)
 
 function enviarCambioTurno()
 {
-//    alert('entra enviarcambioturno');
     var salida = false;
     var fecha = obtengoFechaNueva();
     var sede =  $("#nueva-sede").val();
     var horario = $("#nuevo-horario").val();
     var dni = $("#dni-solicitante").val();
-//    alert(dni+fecha+sede+horario);
     if(fecha === null || sede === null || horario === null || dni === null)
     {
         alert('No es posible continuar con la operación, intente nuevamente');
     }
     else
     {
-//        alert('else');
         salida = guardarCambiosTurnos(fecha,sede,horario,dni);
     }
     
@@ -172,7 +184,6 @@ function enviarCambioTurno()
 
 function guardarCambiosTurnos(fecha,sede,horario,dni)
 {
-//    alert('entra en la prellamada');
     var datos = {};
     datos.sede = sede;
     datos.fecha = fecha;
@@ -199,15 +210,42 @@ function guardarCambiosTurnos(fecha,sede,horario,dni)
         {
             //desbloqueo la pagina
             $.unblockUI();
-
-            //accedo al alert
-            //var error = document.getElementById('error-turno');
-            //seteo el msj
-            //error.innerHTML = '<p>Error de conexión, por favor intente registrarse nuevamente más tarde</p>';
-            //muestro
-            //$('#error-turno').show();
             alert('No se encontraron horarios disponibles o no estan definidos turnos en dicha fecha');
         }
     });
     return salida;
+}
+
+function solicitarSolicitanteTurno(opcion,datoIngresado)
+{
+    var datos = {};
+    datos.dato = datoIngresado;
+    $.ajax
+    ({
+        async:true,
+        method: 'GET',
+        url: "{{ path('turnos_buscar_turno') }}",
+        data: datos,
+        dataType: 'json',
+        beforeSend:function(){
+             $.blockUI({ message: '<img src="/img/cargando.gif"><h3>Cargando ...</h3>' });
+        },
+        success: mostrarResultadoBusqueda,
+        timeout:11500,
+        error : function() 
+        {
+            //desbloqueo la pagina
+            $.unblockUI();
+            alert('No fue encontrado el solicitante, verifique los datos ingresados e intente nuevamente');
+        }
+    });
+}
+
+function mostrarResultadoBusqueda(datos)
+{
+    //desbloqueo la pagina
+    $.unblockUI();
+    var titulo = 'Cambiar turno';
+    //to-do continuar...
+    mostrarModalCambioBusqueda(datos.,apellidoNombre,tipo,titulo);
 }
