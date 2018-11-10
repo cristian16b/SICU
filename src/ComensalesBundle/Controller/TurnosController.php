@@ -187,10 +187,16 @@ class TurnosController extends Controller{
         if($request->isXmlHttpRequest())
         {
             //leo el request
-            $dni = $request->query->get('dni');
+            $dni = $request->query->get('dato');
+            $opcion = $request->query->get('opcion');
             
-            $servicio = $this->container->get('gestor_turnos');
-            return $servicio->buscarTurno($dni);
+            $retorno = NULL;
+            if($opcion === 'Dni')
+            {
+                $servicio = $this->container->get('gestor_turnos');
+                $retorno =  $servicio->buscarTurnoDni($dni);
+            }
+            return $retorno;
         }
     }
 }

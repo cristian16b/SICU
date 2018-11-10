@@ -11,10 +11,8 @@ $( function() {
       {
         Confirmar: function() 
         {
-//            alert('click');
             enviarCambioTurno();
             $( this ).dialog("close");
-            
         }
         ,
         Cancelar: function() 
@@ -47,7 +45,10 @@ $(function()
         if(i === 1)
         {
             var titulo = 'Cambiar turno';
-            mostrarModalCambioBusqueda(dni,apellidoNombre,tipo,titulo);
+            var sede = $("#sede-turno").val();
+            var fecha = $("#calendario").val();
+            var horario = $("#horario-clickeado").val();
+            mostrarModalCambioBusqueda(dni,apellidoNombre,tipo,sede,fecha,horario,titulo);
         }
         else if(i > 0 || i === 0 )
         {
@@ -56,15 +57,15 @@ $(function()
     });
 });
 
-function mostrarModalCambioBusqueda(dni,apellidoNombre,tipo,titulo)
+function mostrarModalCambioBusqueda(dni,apellidoNombre,tipo,sede,fecha,horario,titulo)
 {
     //seteo los inputs
     $("#nombre-apellido-solicitante").val(apellidoNombre);
     $("#dni-solicitante").val(dni);
     $("#tipo-comensal-solicitante").val(tipo);
-    $("#sede-solicitante").val($("#sede-turno").val());
-    $("#horario-solicitante").val($("#horario-clickeado").val());
-    $("#fecha-solicitante").val($("#calendario").val());
+    $("#sede-solicitante").val(sede);
+    $("#horario-solicitante").val(horario);
+    $("#fecha-solicitante").val(fecha);
 
     //abro
     $("#modal-solicitante-turno").dialog('open');
@@ -219,6 +220,7 @@ function guardarCambiosTurnos(fecha,sede,horario,dni)
 function solicitarSolicitanteTurno(opcion,datoIngresado)
 {
     var datos = {};
+    datos.opcion = opcion;
     datos.dato = datoIngresado;
     $.ajax
     ({
@@ -243,9 +245,18 @@ function solicitarSolicitanteTurno(opcion,datoIngresado)
 
 function mostrarResultadoBusqueda(datos)
 {
-    //desbloqueo la pagina
-    $.unblockUI();
-    var titulo = 'Cambiar turno';
-    //to-do continuar...
-//    mostrarModalCambioBusqueda(datos,apellidoNombre,tipo,titulo);
+    if(datos.length > 0)
+    {
+       //desbloqueo la pagina
+       $.unblockUI();
+       var titulo = 'Cambiar turno';
+       var apellidoNombre = datos[0].apellido + ' , ' + datos[0].nombre;
+       mostrarModalCambioBusqueda(datos[0].dni,
+                                  apellidoNombre,
+                                  datos[0].nombreComensal,
+                                  obtenerFecha(datos[0].nombreSede),
+                                  datos[0].dia.date,
+                                  datos[0].horario,
+                                  titulo);   
+    }
 }

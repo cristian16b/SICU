@@ -282,7 +282,7 @@ class GestorTurnoController extends Controller
 //        $servicio = $this->container->get('gestor_solicitudes');
         $servicio = $this->solicitudes;
         //accedo al servicio 
-        $solicitud = $servicio->obtenerSolicitud($dni);
+        $solicitud = $servicio->obtenerSolicitudActual($dni);
             
         $turnoAsignado = $solicitud[0]->getTurno();
         if($turnoAsignado != NULL)
@@ -299,15 +299,35 @@ class GestorTurnoController extends Controller
             $nuevoTurno = $this->obtenerHorario($fecha, $sede, $horario);
             $solicitud[0]->setTurno($nuevoTurno[0]);
             $this->modificarUnCupo($sede, $fecha, $horario, -1);
-//            
             $this->entityManager->flush();
         }
         return new JsonResponse(array('resultado' => '1'));
     }
     
-    public function buscarTurno($dni)
+    public function buscarTurnoDni($dni)
     {
+        $fecha = new \DateTime();
+        $fecha->setDate(date("Y"), 1,1);
+        $resultado =
+                $this->entityManager->createQueryBuilder()
+           ->select('p.dni,p.apellido,p.nombre,sede.nombreSede,t.dia,t.horario,tc.nombreComensal')
+           ->from('ComensalesBundle:Solicitud','s')
+           ->innerJoin('s.persona','p')
+           ->innerJoin('s.turno','t')
+           ->innerJoin('t.sede','sede')
+           ->innerJoin('s.tipo_comensal','tc')
+           ->where('p.dni = :dni')
+           ->andWhere('s.fechaIngreso > :fecha')
+           ->setParameter('dni',$dni)
+           ->setParameter('fecha',$fecha)
+           ->getQuery()->getArrayResult()
+            ;
+        if(empty($resultado))
+        {
+            throw $this->createNotFoundException('Error n° - Solicitud no encontrado');
+        }
         
+        return new JsonResponse($resultado);
     }
 
     public function asignarTurno($sede,$fecha,$horario)
