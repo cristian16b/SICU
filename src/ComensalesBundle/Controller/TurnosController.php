@@ -13,8 +13,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use ComensalesBundle\Controller\GestorTurnoController;
 
 
 /**
@@ -177,6 +175,22 @@ class TurnosController extends Controller{
             
             $servicio = $this->container->get('gestor_turnos');
             return $servicio->cambiarTurno($sede,$fecha,$horario,$dni);
+        }
+    }
+    
+    /**
+    * @Route("/buscar-turno",name="buscar_turno")     
+    * @Method({"GET"}) 
+    */
+    public function buscarTurno(Request $request)
+    {
+        if($request->isXmlHttpRequest())
+        {
+            //leo el request
+            $dni = $request->query->get('dni');
+            
+            $servicio = $this->container->get('gestor_turnos');
+            return $servicio->buscarTurno($dni);
         }
     }
 }

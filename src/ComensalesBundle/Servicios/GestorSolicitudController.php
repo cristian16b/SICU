@@ -9,7 +9,6 @@
 namespace ComensalesBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
  * Description of GestorSolicitudController
@@ -25,7 +24,10 @@ class GestorSolicitudController extends Controller{
         $this->entityManager = $entityManager;
     }
     
-    public function obtenerSolicitud($dni)
+    //busco la solicitud segun el dni del presente año
+    //param: dni del usuario (string)
+    //retorna: solicitud del usuario
+    public function obtenerSolicitudActual($dni)
     {
         $fecha = new \DateTime();
         $fecha->setDate(date("Y"), 1,1);

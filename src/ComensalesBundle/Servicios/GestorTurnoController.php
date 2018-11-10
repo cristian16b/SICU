@@ -10,9 +10,6 @@ namespace ComensalesBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use ComensalesBundle\Entity\Sede;
-use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\Query;
 use ComensalesBundle\Entity\Turno;
 
 /**
@@ -23,6 +20,8 @@ use ComensalesBundle\Entity\Turno;
 class GestorTurnoController extends Controller
 {
     protected $entityManager;
+    //usamos injeccion de dependencias porque no puedo usar un servicio en otro
+    //to-do ver como resolverlo
     protected $solicitudes;
 
     public function __construct($entityManager)
@@ -232,7 +231,7 @@ class GestorTurnoController extends Controller
             //accedo al servicio 
             $servicio = $this->container->get('gestor_solicitudes');
             //
-            $solicitud = $servicio->obtenerSolicitud($listaSolicitantes[$i]);
+            $solicitud = $servicio->obtenerSolicitudActual($listaSolicitantes[$i]);
 //            var_dump($solicitud);die;
             $turnoAsignado = $solicitud[0]->getTurno();
 //            var_dump($turnoAsignado);die;
@@ -280,8 +279,11 @@ class GestorTurnoController extends Controller
     public function cambiarTurno($sede,$fecha,$horario,$dni)
     {
 //        $servicio = $this->container->get('gestor_solicitudes');
-        $servicio = $this->solicitudes;
+//        $servicio = $this->solicitudes;
+        //accedo al servicio 
+        $servicio = $this->container->get('gestor_solicitudes');
         $solicitud = $servicio->obtenerSolicitud($dni);
+            
         $turnoAsignado = $solicitud[0]->getTurno();
         if($turnoAsignado != NULL)
         {
@@ -303,6 +305,11 @@ class GestorTurnoController extends Controller
         return new JsonResponse(array('resultado' => '1'));
     }
     
+    public function buscarTurno($dni)
+    {
+        
+    }
+
     public function asignarTurno($sede,$fecha,$horario)
     {
         //to-do pasar la func de solicitud a este servicio
