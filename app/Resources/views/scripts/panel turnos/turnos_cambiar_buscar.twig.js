@@ -254,8 +254,8 @@ function mostrarResultadoBusqueda(datos)
        mostrarModalCambioBusqueda(datos[0].dni,
                                   apellidoNombre,
                                   datos[0].nombreComensal,
-                                  obtenerFecha(datos[0].nombreSede),
-                                  datos[0].dia.date,
+                                  datos[0].nombreSede,
+                                  obtenerFecha(datos[0].dia.date),
                                   datos[0].horario,
                                   titulo);   
     }
