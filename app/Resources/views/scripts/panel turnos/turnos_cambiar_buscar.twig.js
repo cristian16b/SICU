@@ -247,5 +247,5 @@ function mostrarResultadoBusqueda(datos)
     $.unblockUI();
     var titulo = 'Cambiar turno';
     //to-do continuar...
-    mostrarModalCambioBusqueda(datos.,apellidoNombre,tipo,titulo);
+//    mostrarModalCambioBusqueda(datos,apellidoNombre,tipo,titulo);
 }

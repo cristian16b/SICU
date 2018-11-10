@@ -35,12 +35,12 @@ services:
     #         $someArgument: 'some_value'
        
     gestor_turnos:
-        class: ComensalesBundle\Controller\GestorTurnoController
+        class: ComensalesBundle\Servicios\GestorTurnoController
         arguments: ["@doctrine.orm.entity_manager"]
         public: true
         
     gestor_solicitudes:
-        class: ComensalesBundle\Controller\GestorSolicitudController
+        class: ComensalesBundle\Servicios\GestorSolicitudController
         arguments: ["@doctrine.orm.entity_manager"]
         public: true
         

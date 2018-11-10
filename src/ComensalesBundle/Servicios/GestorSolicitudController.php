@@ -6,7 +6,7 @@
  * and open the template in the editor.
  */
 
-namespace ComensalesBundle\Controller;
+namespace ComensalesBundle\Servicios;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 

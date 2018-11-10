@@ -6,7 +6,7 @@
  * and open the template in the editor.
  */
 
-namespace ComensalesBundle\Controller;
+namespace ComensalesBundle\Servicios;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -229,7 +229,8 @@ class GestorTurnoController extends Controller
         for($i=0;$i<$cantidadElem;$i++)
         {
             //accedo al servicio 
-            $servicio = $this->container->get('gestor_solicitudes');
+//            $servicio = $this->container->get('gestor_solicitudes');
+            $servicio = $this->solicitudes;
             //
             $solicitud = $servicio->obtenerSolicitudActual($listaSolicitantes[$i]);
 //            var_dump($solicitud);die;
@@ -279,9 +280,8 @@ class GestorTurnoController extends Controller
     public function cambiarTurno($sede,$fecha,$horario,$dni)
     {
 //        $servicio = $this->container->get('gestor_solicitudes');
-//        $servicio = $this->solicitudes;
+        $servicio = $this->solicitudes;
         //accedo al servicio 
-        $servicio = $this->container->get('gestor_solicitudes');
         $solicitud = $servicio->obtenerSolicitud($dni);
             
         $turnoAsignado = $solicitud[0]->getTurno();
