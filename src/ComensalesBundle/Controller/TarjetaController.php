@@ -19,13 +19,13 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
  * Description of TarjetaController
- *
+ * * @Route("/panel",name="panel")
  * @author Cristian B
  */
 class TarjetaController extends Controller{
     
     /**
-    * @Route("/tarjetas",name="tarjetas")     * 
+    * @Route("/panel",name="panel")     * 
     */
     public function mostrarPanel()
     {
