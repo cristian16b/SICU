@@ -8,11 +8,32 @@
 
 namespace ComensalesBundle\Servicios;
 
+
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
+
 /**
  * Description of GestorOrganismoController
  *
  * @author Cristian B
  */
 class OrganismoController {
-    //put your code here
+    
+    protected $entityManager;
+    
+    public function __construct($entityManager)
+    {
+        $this->entityManager = $entityManager;
+    }
+    
+    public function obtenerOrganismos()
+    {
+        $qb = $this->entityManager->createQueryBuilder()
+                   ->select('o.id,o.nombreFacultad')
+                   ->from('ComensalesBundle:Facultad','o')
+                   ->orderBy('o.nombreFacultad','ASC')
+                   ->getQuery()->getArrayResult()
+        ;
+        return $qb;
+    }
 }

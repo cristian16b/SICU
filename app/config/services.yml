@@ -48,5 +48,9 @@ services:
         class: ComensalesBundle\Servicios\SedeController
         arguments: ["@doctrine.orm.entity_manager"]
         public: true    
-
+    
+    organismos:
+        class: ComensalesBundle\Servicios\OrganismoController
+        arguments: ["@doctrine.orm.entity_manager"]
+        public: true
 

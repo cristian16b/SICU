@@ -29,6 +29,9 @@ class TarjetaController extends Controller{
     */
     public function mostrarPanel()
     {
-        return $this->render('Panel tarjetas/panelTarjetas.html.twig');
+        $organismos = $this->container->get('organismos')->obtenerOrganismos();
+        return $this->render('Panel tarjetas/panelTarjetas.html.twig',
+                array('organismos' => $organismos,
+                     ));
     }
 }
