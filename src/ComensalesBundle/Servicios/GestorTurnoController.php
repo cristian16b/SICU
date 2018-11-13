@@ -29,17 +29,7 @@ class GestorTurnoController extends Controller
         $this->entityManager = $entityManager;
         $this->solicitudes = new GestorSolicitudController($entityManager);
     }
-    
-    public function obtenerSedes()
-    {
-        $qb = $this->entityManager->createQueryBuilder();
-        $qb->select('s.id,s.nombreSede')
-           ->from('ComensalesBundle:Sede','s')
-           ->orderBy('s.nombreSede','ASC')
-        ;
-        return $qb->getQuery()->getArrayResult();
-    }
-    
+   
     public function listar($sede,$fecha_elegida)
     {
         $qb = $this->entityManager->createQueryBuilder();

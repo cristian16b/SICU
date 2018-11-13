@@ -27,7 +27,7 @@ class TurnosController extends Controller{
     */
     public function mostrarPanel()
     {
-        $sedes = $this->container->get('gestor_turnos')->obtenerSedes();
+        $sedes = $this->container->get('sedes')->obtenerSedes();
         return $this->render('Panel turnos/panelTurnos.html.twig',
                 array('sedes' => $sedes,
                      ));        

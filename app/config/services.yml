@@ -43,6 +43,10 @@ services:
         class: ComensalesBundle\Servicios\GestorSolicitudController
         arguments: ["@doctrine.orm.entity_manager"]
         public: true
-        
+    
+    sedes:
+        class: ComensalesBundle\Servicios\SedeController
+        arguments: ["@doctrine.orm.entity_manager"]
+        public: true    
 
 
