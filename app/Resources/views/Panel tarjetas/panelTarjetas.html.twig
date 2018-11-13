@@ -27,35 +27,29 @@
                                     <select class="form-control"
                                                 required
                                                 id="organismo">
+                                        <option disabled selected hidden>Opción</option>
+                                        <option>Saldo negativo</option>
+                                        <option>Saldo positivo</option>
+                                        <option>No entregadas</option>
+                                        <option>Activas</option>
+                                        <option>Canceladas</option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-3 col-md-3">
+                                    <select class="form-control"
+                                                required
+                                                id="organismo">
                                         <option value="sede" disabled selected hidden>Facultad y/o Secretaría</option>
                                     {% for organismo in organismos %}
                                         <option>{{organismo.nombreFacultad}}</option>
                                     {% endfor %}
                                     </select>
                                 </div>
-                                <div class="col-lg-3 col-md-3">
-                                    <input class="form-control"
-                                                   type="text"
-                                                   align="center"
-                                                   name="fecha-dia-mes-anio"
-                                                   id ="calendario"
-                                                   required=""
-                                                   placeholder="Seleccione la fecha"
-                                                   />
-                                </div>
-                                {#
-                                <div class="col-lg-2 col-md-2">
-                                    <select class="form-control"
-                                            id="estado">
-                                        <option value="horario" disabled selected hidden>Horario</option>
-                                    </select>
-                                </div>
-                                #}
                                 <div class="col-lg-1 col-md-1">
                                     <button 
                                         class="btn btn-default"
                                         type="button"
-                                        id="boton-filtrar-turnos"
+                                        id="boton-filtrar-tarjetas"
                                         >MOSTRAR 
                                     </button>
                                 </div>
@@ -69,43 +63,29 @@
                     <div class="row">
                         <div class="col-lg-5 col-md-5">
                             <div class="btn-group" role="group">
+                                <button class="btn btn-danger" 
+                                   type="button" 
+                                   id="boton-cancelar-tarjeta">CANCELAR</button>
                                 <button class="btn btn-default" 
                                    type="button" 
-                                   id="boton-agregar-turnos">AGREGAR</button>
-                                <button class="btn btn-default" 
-                                   type="button" 
-                                   id="boton-modificar-cupo">MODIFICAR CUPO</button>
+                                   id="boton-generar-tarjeta">GENERAR</button>
                                 <button class="btn btn-default" 
                                         type="button" 
-                                        id="boton-eliminar-horario">QUITAR HORARIO</button>
+                                        id="boton-eliminar-horario">MARCAR RETIRO</button>
                             </div>
                         </div>
-                        {#<div class="col-lg-3 col-md-3">
-                            <div class="btn-group" role="group">
-                                <button class="btn btn-primary" 
-                                        id="boton-filtrar-turnos"
-                                        type="button">CAMBIAR TURNO
-                                </button>
-                            </div>
-                        </div>#}
                         <div class="col-lg-5 col-md-5 col-lg-offset-1">
                             <div class="btn-group" role="group">
                                 <button class="btn btn-primary" 
-                                        id="boton-cambiar-turno"
-                                        type="button">CAMBIAR TURNO
-                                </button>
-                                <button class="btn btn-default" 
-                                        id="boton-eliminar-solicitante-horario"
-                                        type="button">ELIMINAR
-                                </button>
+                                        id="boton-resumen-tarjeta"
+                                        type="button">RESUMEN</button>
                                 <button class="btn btn-default" 
                                         type="button" 
-                                        id="boton-exportar-turnos-pdf"
-                                        >PDF
-                                </button>
+                                        id="boton-exportar-tarjetas-pdf"
+                                        >PDF</button>
                                 <button class="btn btn-default" 
                                         type="button" 
-                                        id="boton-exportar-turnos-xls"
+                                        id="boton-exportar-tarjetas-xls"
                                         >XLS
                                 </button>
                             </div>
@@ -117,37 +97,24 @@
                         </div>
                     </div>
                     <div class="row" id="tablaEstilo">
-                        <div class="col-lg-6 col-md-6">
+                        <div class="col-lg-11 col-md-11">
                             <div class="table-responsive">
-                                <table id="tablaTurnos"
+                                <table id="tablaTarjetas"
                                     class="table table-hover table-striped">
                                     <thead>
                                         <tr>
                                             <th>#</th>
-                                            <th>Horario</th>
-                                            <th>Cupos disponibles</th>
-                                            <th>Ver</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody  id="tabla-turnos" align="center">
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6">
-                            <div class="table-responsive">
-                                <table id="tablaSolicitantes"
-                                    class="table table-hover table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th>#</th>
+                                            <th>Nro</th>
                                             <th>Dni</th>
-                                            <th>Apellido&Nombre</th>
-                                            <th>Facultad</th>
-                                            <th>Tipo</th>
+                                            <th>Nombre Apellido</th>
+                                            <th>Estado</th>
+                                            <th>Fecha Entrega</th>
+                                            <th>Saldo</th>
+                                            <th>PDF</th>
+                                            <th>HC</th>
                                         </tr>
                                     </thead>
-                                    <tbody  id="tabla-turnos-solicitantes" align="center">
+                                    <tbody  id="tabla-tarjetas" align="center">
                                     </tbody>
                                 </table>
                             </div>
@@ -167,22 +134,24 @@
                                     </div>
                                     <div class="col-lg-3 col-lg-push-0 col-lg-pull-0 col-md-3">
                                         <select 
-                                            id="select-buscar-turnos"
+                                            id="select-buscar-tarjeta"
                                             class="form-control"
                                                 requiered>
                                             <option disabled selected hidden>Elija filtro de busqueda</option>
 {#                                            <option value="Apellido">Apellido</option>#}
-                                            <option value="Dni">DNI</option>
+                                            <option>DNI</option>
+                                            <option>Nombre y apellido</option>
+                                            <option>Nro Tarjeta</option>
                                         </select>
                                     </div>
                                     <div class="col-lg-2 col-lg-pull-0 col-md-2">
-                                        <input id="input-buscar-turnos"
+                                        <input id="input-buscar-tarjeta"
                                                class="form-control" 
                                                >
                                     </div>
                                     <div class="col-lg-1 col-md-1">
                                         <button class="btn btn-default" 
-                                                id="boton-buscar-turno"
+                                                id="boton-buscar-tarjeta"
                                                 type="button">BUSCAR</button>
                                     </div>
                                 </div>
