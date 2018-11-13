@@ -20,12 +20,17 @@ class SedeController extends Controller{
     
     protected $entityManager;
     
+    public function __construct($entityManager)
+    {
+        $this->entityManager = $entityManager;
+    }
+    
     public function obtenerSedes()
     {
-        $qb = $this->entityManager->createQueryBuilder();
-        $qb->select('s.id,s.nombreSede')
-           ->from('ComensalesBundle:Sede','s')
-           ->orderBy('s.nombreSede','ASC')
+        $qb = $this->entityManager->createQueryBuilder()
+                   ->select('s.id,s.nombreSede')
+                   ->from('ComensalesBundle:Sede','s')
+                   ->orderBy('s.nombreSede','ASC')
         ;
         return $qb->getQuery()->getArrayResult();
     }
