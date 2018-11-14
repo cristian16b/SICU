@@ -24,10 +24,13 @@ class GestorTurnoController extends Controller
     //to-do ver como resolverlo
     protected $solicitudes;
 
-    public function __construct($entityManager)
+    public function __construct($entityManager,$gestor_solicitudes)
+//            , 
+// \ComensalesBundle\Servicios\GestorSolicitudController $injeccionServicio)
     {
         $this->entityManager = $entityManager;
-        $this->solicitudes = new GestorSolicitudController($entityManager);
+//        $this->solicitudes = new GestorSolicitudController($entityManager);
+        $this->solicitudes = $gestor_solicitudes;
     }
    
     public function listar($sede,$fecha_elegida)
@@ -72,10 +75,8 @@ class GestorTurnoController extends Controller
 
     public function crearTurno($nombreSede,$fecha,$horaInicio,$horaFin,$cupo)
     {
-//        var_dump($nombreSede);die;
         $db = $this->entityManager;
         $sede = $db->getRepository('ComensalesBundle:Sede')->findBynombreSede($nombreSede);
-//        var_dump($sede);
         
         if(empty($sede))
         {
@@ -140,7 +141,6 @@ class GestorTurnoController extends Controller
         
         //sete
         $resultado[0]->setCupo($resultado[0]->getCupo()+$cantidad);
-//        var_dump($resultado[0]->getCupo());
         //guardo
         $this->entityManager->flush();
         
@@ -214,7 +214,6 @@ class GestorTurnoController extends Controller
     
     public function eliminarSolicitanteHorarios($listaSolicitantes)
     {
-//        var_dump($listaSolicitantes);die;
         $cantidadElem = count($listaSolicitantes);
         for($i=0;$i<$cantidadElem;$i++)
         {
@@ -269,7 +268,7 @@ class GestorTurnoController extends Controller
     
     public function cambiarTurno($sede,$fecha,$horario,$dni)
     {
-//        $servicio = $this->container->get('gestor_solicitudes');
+ //       $servicio = $this->container->get('gestor_solicitudes');
         $servicio = $this->solicitudes;
         //accedo al servicio 
         $solicitud = $servicio->obtenerSolicitudActual($dni);
