@@ -43,7 +43,6 @@ services:
         class: ComensalesBundle\Servicios\GestorSolicitudController
         arguments: ["@doctrine.orm.entity_manager"]
         public: true
-        autowire: true
     
     sedes:
         class: ComensalesBundle\Servicios\SedeController

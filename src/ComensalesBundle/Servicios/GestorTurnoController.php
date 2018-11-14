@@ -24,12 +24,12 @@ class GestorTurnoController extends Controller
     //to-do ver como resolverlo
     protected $solicitudes;
 
+    //referencia de inyeccion de dependencias
+    //https://librosweb.es/libro/symfony_2_x/capitulo_16/inyectando_servicios.html
+    //https://openwebinars.net/blog/symfony2-tutorial-servicios-e-inyeccion-de-dependencias/
     public function __construct($entityManager,$gestor_solicitudes)
-//            , 
-// \ComensalesBundle\Servicios\GestorSolicitudController $injeccionServicio)
     {
         $this->entityManager = $entityManager;
-//        $this->solicitudes = new GestorSolicitudController($entityManager);
         $this->solicitudes = $gestor_solicitudes;
     }
    
