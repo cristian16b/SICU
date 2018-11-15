@@ -5,18 +5,35 @@ $(function()
     {
         buscarTurnos();
     });
-});
-
-//funcion para obtener los solicitantes que deben asistir dicho dia
-$(function()
-{
-   $("#tabla-turnos").on("click",".boton-ver-solicitantes",function(){
-       var horario = $(this).parents('TR').find('TD').eq(1).html();
-       var sede = $("#sede-turno").val();
-       var fecha = obtengoFecha();
-       $("#horario-clickeado").val(horario);
-       buscarSolicitantesPorTurno(sede,fecha,horario);
-   }); 
+    
+    $(document).on("ready",function () {
+    $('#tablaTurnos').DataTable({
+             "oLanguage": 
+                    {
+              "sProcessing":     "Procesando...",
+              "sLengthMenu":     "No. Registros _MENU_ ",
+              "sZeroRecords":    "No se encontraron resultados",
+              "sEmptyTable":     "Ningún dato disponible en esta tabla",
+              "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+              "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
+              "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+              "sInfoPostFix":    "",
+              "sSearch":         "Buscar:",
+              "sUrl":            "",
+              "sInfoThousands":  ",",
+              "sLoadingRecords": "Cargando...",
+              "oPaginate": {
+                  "sFirst":    "Primero",
+                  "sLast":     "Último",
+                  "sNext":     "Siguiente",
+                  "sPrevious": "Anterior"
+              },
+              "oAria": {
+                  "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+                  "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+              }
+        }});
+    });
 });
 
 function obtengoFecha()
@@ -95,20 +112,30 @@ function cargarFilasTurnos(datos)
     $.unblockUI();
     
     borrarFilasTurnos();
-    
-    var fila,horario,cupo,boton,Check;
+    var tabla = $('#tablaTurnos').DataTable();
+    var horario,cupo,boton,Check;
     var i;
-    for(i= 0;i < datos.length; i++)
+    var tamanio = datos.length;
+    for(i= 0;i < tamanio; i++)
     {
             Check = '<td><input type="checkbox" class=' + '"form-control fila-turnos"' + '/></td>';
             horario = '<td>'+datos[i].horario+'</td>';
             cupo = '<td>'+datos[i].cupo+'</td>';
             boton = '<td> <input class="boton-ver-solicitantes btn btn-info btn-sm"  type="button" value=">>" /></td>';
-            
-            fila = '<tr>' + Check + horario + cupo + boton + '</tr>';
-            var renglon = document.createElement('TR');
-            renglon.innerHTML = fila;
-            document.getElementById('tabla-turnos').appendChild(renglon);
+//            
+//            fila = '<tr>' + Check + horario + cupo + boton + '</tr>';
+//            var renglon = document.createElement('TR');
+//            renglon.innerHTML = fila;
+//            document.getElementById('tabla-turnos').appendChild(renglon);
+    
+             tabla.row.add( 
+                    [
+                        Check,
+                        horario,
+                        cupo,
+                        boton
+                    ]).draw(false);
+                i++;
     }
 }
     
