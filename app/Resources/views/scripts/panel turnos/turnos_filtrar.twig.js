@@ -33,6 +33,33 @@ $(function()
                   "sSortDescending": ": Activar para ordenar la columna de manera descendente"
               }
         }});
+    $('#tablaSolicitantes').DataTable({
+             "oLanguage": 
+                    {
+              "sProcessing":     "Procesando...",
+              "sLengthMenu":     "No. Registros _MENU_ ",
+              "sZeroRecords":    "No se encontraron resultados",
+              "sEmptyTable":     "Ningún dato disponible en esta tabla",
+              "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+              "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
+              "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+              "sInfoPostFix":    "",
+              "sSearch":         "Buscar:",
+              "sUrl":            "",
+              "sInfoThousands":  ",",
+              "sLoadingRecords": "Cargando...",
+              "oPaginate": {
+                  "sFirst":    "Primero",
+                  "sLast":     "Último",
+                  "sNext":     "Siguiente",
+                  "sPrevious": "Anterior"
+              },
+              "oAria": {
+                  "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+                  "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+              }
+        }});
+    
     });
 });
 
@@ -101,9 +128,11 @@ function inicioEnvioTurnos()
 
 function borrarFilasTurnos()
 {
-//    document.getElementById('tabla-turnos').innerHtml = '';
-    var Tabla = document.getElementById("tabla-turnos");
-    Tabla.innerHTML = "";
+//    var Tabla = document.getElementById("tabla-turnos");
+//    Tabla.innerHTML = "";
+    var table = $('#tablaTurnos').DataTable();
+ 
+    table.clear().draw();
 }
 
 function cargarFilasTurnos(datos)
@@ -135,7 +164,6 @@ function cargarFilasTurnos(datos)
                         cupo,
                         boton
                     ]).draw(false);
-                i++;
     }
 }
     
@@ -186,8 +214,9 @@ function cargarFilasSolicitantesTurnos(datos)
     
     borrarFilasSolicitantesTurnos();
     
-    var fila,Check,dni,nombreApellido,facultad,tipoComensal;
+    var Check,dni,nombreApellido,facultad,tipoComensal;
     var i;
+    var tabla = $('#tablaSolicitudes').DataTable();
     for(i= 0;i < datos.length; i++)
     {
         Check = '<td><input type="checkbox" class=' + '"form-control fila-solicitantes"' + '/></td>';
@@ -196,9 +225,16 @@ function cargarFilasSolicitantesTurnos(datos)
         facultad = '<td>' + datos[i].nombreFacultad+'</td>';
         tipoComensal = '<td>' + datos[i].nombreComensal + '</td>';
 
-        fila = '<tr>' + Check + dni + nombreApellido + facultad + tipoComensal +  '</tr>';
-        var renglon = document.createElement('TR');
-        renglon.innerHTML = fila;
-        document.getElementById('tabla-turnos-solicitantes').appendChild(renglon);
+//        fila = '<tr>' + Check + dni + nombreApellido + facultad + tipoComensal +  '</tr>';
+//        var renglon = document.createElement('TR');
+//        renglon.innerHTML = fila;
+//        document.getElementById('tabla-turnos-solicitantes').appendChild(renglon);
+          tabla.row.add( 
+                    [
+                        Check,
+                        horario,
+                        cupo,
+                        boton
+                    ]).draw(false);
     }
 }
