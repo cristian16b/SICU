@@ -1,0 +1,24 @@
+{% block librerias %}
+    <link rel="stylesheet" href="{{ asset('bootstrap/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/misEstilos.css') }}">
+    {# a futuro descargar la version actualizada de jquery y jquery ui   #}
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> 
+    <script type="text/javascript" src="{{ asset('js/panel/panel_filtros.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/panel/panel_exportar.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/panel/panel_abm.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/panel/panel_modificarMostrar.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/complementos/BlockUi.js') }} "></script>
+    <script type="text/javascript" src="{{ asset('js/formulario_fotos.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/formulario_select.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/complementos/tableExport/libs/FileSaver/FileSaver.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/complementos/tableExport/libs/jsPDF/jspdf.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/complementos/tableExport/libs/jsPDF-AutoTable/jspdf.plugin.autotable.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/complementos/tableExport/tableExport.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/complementos/tablePaginacionSort/scripts/jQuery.sortpaginate.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/complementos/tablePaginacionSort/css/jQuery.sortpaginate.css') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/complementos/DataTables/datatables.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/complementos/DataTables/datatables.min.css') }}"></script>    
+{% endblock %}
