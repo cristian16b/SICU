@@ -1,0 +1,39 @@
+{% block botones %}
+<div class="row">
+    <div class="col-lg-5 col-md-5">
+        <div class="btn-group" role="group">
+            <button class="btn btn-default" 
+               type="button" 
+               id="boton-agregar-turnos">AGREGAR</button>
+            <button class="btn btn-default" 
+               type="button" 
+               id="boton-modificar-cupo">MODIFICAR CUPO</button>
+            <button class="btn btn-default" 
+                    type="button" 
+                    id="boton-eliminar-horario">QUITAR HORARIO</button>
+        </div>
+    </div>
+    <div class="col-lg-5 col-md-5 col-lg-offset-1">
+        <div class="btn-group" role="group">
+            <button class="btn btn-primary" 
+                    id="boton-cambiar-turno"
+                    type="button">CAMBIAR TURNO
+            </button>
+            <button class="btn btn-default" 
+                    id="boton-eliminar-solicitante-horario"
+                    type="button">ELIMINAR
+            </button>
+            <button class="btn btn-default" 
+                    type="button" 
+                    id="boton-exportar-turnos-pdf"
+                    >PDF
+            </button>
+            <button class="btn btn-default" 
+                    type="button" 
+                    id="boton-exportar-turnos-xls"
+                    >XLS
+            </button>
+        </div>
+    </div>
+</div>
+{% endblock %}

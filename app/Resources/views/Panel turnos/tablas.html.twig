@@ -1,0 +1,35 @@
+{% block tablas %}
+<div class="row" id="tablaEstilo">
+<div class="col-lg-6 col-md-6">
+        <table id="tablaTurnos"
+            class="table table-hover table-striped">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Horario</th>
+                    <th>Cupos disponibles</th>
+                    <th>Ver</th>
+                </tr>
+            </thead>
+            <tbody  id="tabla-turnos" align="center">
+            </tbody>
+        </table>
+</div>
+<div class="col-lg-6 col-md-6">
+        <table id="tablaSolicitantes"
+            class="table table-hover table-striped">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Dni</th>
+                    <th>Apellido&Nombre</th>
+                    <th>Facultad</th>
+                    <th>Tipo</th>
+                </tr>
+            </thead>
+            <tbody  id="tabla-turnos-solicitantes" align="center">
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

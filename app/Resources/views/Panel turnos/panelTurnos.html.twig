@@ -17,180 +17,39 @@
                     </div>
             <div class="row" id="tablaEstilo">
                 <div class="col-lg-12 col-md-12">
-                    <div class="row" >
-                        <div class="col-lg-11 col-md-11">
-                                <div class="col-lg-1 col-md-1">
-                                    FILTRAR
-                                    <!--<p>FILTRAR:</p>-->
-                                </div>
-                                <div class="col-lg-3 col-md-3">
-                                    <select class="form-control"
-                                                required
-                                                id="sede-turno">
-                                        <option value="sede" disabled selected hidden>Sede</option>
-                                    {% for sede in sedes %}
-                                        <option>{{sede.nombreSede}}</option>
-                                    {% endfor %}
-                                    </select>
-                                </div>
-                                <div class="col-lg-3 col-md-3">
-                                    <input class="form-control"
-                                                   type="text"
-                                                   align="center"
-                                                   name="fecha-dia-mes-anio"
-                                                   id ="calendario"
-                                                   required=""
-                                                   placeholder="Seleccione la fecha"
-                                                   />
-                                </div>
-                                {#
-                                <div class="col-lg-2 col-md-2">
-                                    <select class="form-control"
-                                            id="estado">
-                                        <option value="horario" disabled selected hidden>Horario</option>
-                                    </select>
-                                </div>
-                                #}
-                                <div class="col-lg-1 col-md-1">
-                                    <button 
-                                        class="btn btn-default"
-                                        type="button"
-                                        id="boton-filtrar-turnos"
-                                        >MOSTRAR 
-                                    </button>
-                                </div>
-                        </div>
-                    </div>
+                    {% block filtros %}
+                        {{ include('Panel turnos/filtros.html.twig') }}
+                    {% endblock %}
                     <div class="row">
                         <div class="col-md-12">
                             <p> </p>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-lg-5 col-md-5">
-                            <div class="btn-group" role="group">
-                                <button class="btn btn-default" 
-                                   type="button" 
-                                   id="boton-agregar-turnos">AGREGAR</button>
-                                <button class="btn btn-default" 
-                                   type="button" 
-                                   id="boton-modificar-cupo">MODIFICAR CUPO</button>
-                                <button class="btn btn-default" 
-                                        type="button" 
-                                        id="boton-eliminar-horario">QUITAR HORARIO</button>
-                            </div>
-                        </div>
-                        {#<div class="col-lg-3 col-md-3">
-                            <div class="btn-group" role="group">
-                                <button class="btn btn-primary" 
-                                        id="boton-filtrar-turnos"
-                                        type="button">CAMBIAR TURNO
-                                </button>
-                            </div>
-                        </div>#}
-                        <div class="col-lg-5 col-md-5 col-lg-offset-1">
-                            <div class="btn-group" role="group">
-                                <button class="btn btn-primary" 
-                                        id="boton-cambiar-turno"
-                                        type="button">CAMBIAR TURNO
-                                </button>
-                                <button class="btn btn-default" 
-                                        id="boton-eliminar-solicitante-horario"
-                                        type="button">ELIMINAR
-                                </button>
-                                <button class="btn btn-default" 
-                                        type="button" 
-                                        id="boton-exportar-turnos-pdf"
-                                        >PDF
-                                </button>
-                                <button class="btn btn-default" 
-                                        type="button" 
-                                        id="boton-exportar-turnos-xls"
-                                        >XLS
-                                </button>
-                            </div>
-                        </div>
-                    </div>
+                    {% block botones %}
+                        {{ include('Panel turnos/botones.html.twig') }}
+                    {% endblock %}
                     <div class="row">
                         <div class="col-lg-6 col-md-6">
                             <p> </p>
                         </div>
                     </div>
-                    <div class="row" id="tablaEstilo">
-                        <div class="col-lg-6 col-md-6">
-{#                            <div class="table-responsive">#}
-                                <table id="tablaTurnos"
-                                    class="table table-hover table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>Horario</th>
-                                            <th>Cupos disponibles</th>
-                                            <th>Ver</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody  id="tabla-turnos" align="center">
-                                    </tbody>
-                                </table>
-{#                            </div>#}
-                        </div>
-                        <div class="col-lg-6 col-md-6">
-{#                            <div class="table-responsive">#}
-                                <table id="tablaSolicitantes"
-                                    class="table table-hover table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>Dni</th>
-                                            <th>Apellido&Nombre</th>
-                                            <th>Facultad</th>
-                                            <th>Tipo</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody  id="tabla-turnos-solicitantes" align="center">
-                                    </tbody>
-                                </table>
-                            </div>
-{#                        </div>#}
-                    </div>
-                                
+                    {% block tablas %}
+                        {{ include('Panel turnos/tablas.html.twig') }}
+                    {% endblock %}
                     <div class="row">
                         <div class="col lg-12 col-md-12">
                             <p> </p>
                         </div>
                     </div>
                     <p> </p>
-                    <div class="row">
-                        <div class="col-md-12">
-                                    <div class="col-lg-1 col-md-1">
-                                        <p>BUSCAR POR:</p>
-                                    </div>
-                                    <div class="col-lg-3 col-lg-push-0 col-lg-pull-0 col-md-3">
-                                        <select 
-                                            id="select-buscar-turnos"
-                                            class="form-control"
-                                                requiered>
-                                            <option disabled selected hidden>Elija filtro de busqueda</option>
-{#                                            <option value="Apellido">Apellido</option>#}
-                                            <option value="Dni">DNI</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-lg-2 col-lg-pull-0 col-md-2">
-                                        <input id="input-buscar-turnos"
-                                               class="form-control" 
-                                               >
-                                    </div>
-                                    <div class="col-lg-1 col-md-1">
-                                        <button class="btn btn-default" 
-                                                id="boton-buscar-turno"
-                                                type="button">BUSCAR</button>
-                                    </div>
-                                </div>
-                    </div>
+                    {% block busqueda %}
+                        {{ include('Panel turnos/busqueda.html.twig') }}
+                    {% endblock %}
                 </div>
               </div>
             </div>
-{#    Uso este input para almacenar el horario clickeado y usarlo en otras funcionalidades
+{#  
+    Uso este input para almacenar el horario clickeado y usarlo en otras funcionalidades
     Asi evito el uso de session storage
 #}
     <input class="form-control"
