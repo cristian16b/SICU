@@ -17,44 +17,9 @@
                     </div>
             <div class="row" id="tablaEstilo">
                 <div class="col-lg-12 col-md-12">
-                    <div class="row" >
-                        <div class="col-lg-11 col-md-11">
-                                <div class="col-lg-1 col-md-1">
-                                    FILTRAR
-                                    <!--<p>FILTRAR:</p>-->
-                                </div>
-                                <div class="col-lg-3 col-md-3">
-                                    <select class="form-control"
-                                                required
-                                                id="organismo">
-                                        <option disabled selected hidden>Opción</option>
-                                        <option>Saldo negativo</option>
-                                        <option>Saldo positivo</option>
-                                        <option>No entregadas</option>
-                                        <option>Activas</option>
-                                        <option>Canceladas</option>
-                                    </select>
-                                </div>
-                                <div class="col-lg-3 col-md-3">
-                                    <select class="form-control"
-                                                required
-                                                id="organismo">
-                                        <option value="sede" disabled selected hidden>Facultad y/o Secretaría</option>
-                                    {% for organismo in organismos %}
-                                        <option>{{organismo.nombreFacultad}}</option>
-                                    {% endfor %}
-                                    </select>
-                                </div>
-                                <div class="col-lg-1 col-md-1">
-                                    <button 
-                                        class="btn btn-default"
-                                        type="button"
-                                        id="boton-filtrar-tarjetas"
-                                        >MOSTRAR 
-                                    </button>
-                                </div>
-                        </div>
-                    </div>
+                    {% block filtros %}
+                        {{ include('Panel tarjetas/filtros.html.twig') }}
+                    {% endblock %}
                     <div class="row">
                         <div class="col-md-12">
                             <p> </p>
