@@ -6,6 +6,15 @@ $(function()
         buscarTurnos();
     });
     
+    $("#tablaTurnos").on("click",".boton-ver-solicitantes",function()
+    {
+        var horario = $(this).parents('TR').find('TD').eq(1).html();
+        var sede = $("#sede-turno").val();
+        var fecha = obtengoFecha();
+        $("#horario-clickeado").val(horario);
+        buscarSolicitantesPorTurno(sede,fecha,horario);
+    });
+    
     $(document).on("ready",function () {
     $('#tablaTurnos').DataTable({
              "oLanguage": 
@@ -107,13 +116,6 @@ function buscarTurnos()
             {
                 //desbloqueo la pagina
                 $.unblockUI();
-
-                //accedo al alert
-                //var error = document.getElementById('error-turno');
-                //seteo el msj
-                //error.innerHTML = '<p>Error de conexión, por favor intente registrarse nuevamente más tarde</p>';
-                //muestro
-                //$('#error-turno').show();
                 alert('ERROR DE CONEXIÓN, INTENTE NUEVAMENTE MAS TARDE');
             }
         });
@@ -173,7 +175,6 @@ function buscarSolicitantesPorTurno(sede,fecha,horario)
     datos.sede = sede;
     datos.fecha = fecha;
     datos.horario = horario;
-
     borrarFilasSolicitantesTurnos();
     $.ajax
     ({
@@ -189,13 +190,6 @@ function buscarSolicitantesPorTurno(sede,fecha,horario)
         {
             //desbloqueo la pagina
             $.unblockUI();
-
-            //accedo al alert
-            //var error = document.getElementById('error-turno');
-            //seteo el msj
-            //error.innerHTML = '<p>Error de conexión, por favor intente registrarse nuevamente más tarde</p>';
-            //muestro
-            //$('#error-turno').show();
             alert('ERROR DE CONEXIÓN, INTENTE NUEVAMENTE MAS TARDE');
         }
     });
@@ -203,28 +197,28 @@ function buscarSolicitantesPorTurno(sede,fecha,horario)
 function borrarFilasSolicitantesTurnos()
 {
 //     document.getElementById('tabla-turnos-solicitantes').innerHtml = "";
-    var Tabla = document.getElementById("tabla-turnos-solicitantes");
-    Tabla.innerHTML = "";
+//    var Tabla = document.getElementById("tabla-turnos-solicitantes");
+//    Tabla.innerHTML = "";
+    var table = $('#tablaSolicitantes').DataTable();
+    table.clear().draw();
 }
 
 function cargarFilasSolicitantesTurnos(datos)
 {
     //desbloqueo la pagina
     $.unblockUI();
-    
-    borrarFilasSolicitantesTurnos();
-    
     var Check,dni,nombreApellido,facultad,tipoComensal;
     var i;
-    var tabla = $('#tablaSolicitudes').DataTable();
-    for(i= 0;i < datos.length; i++)
+    var tabla = $('#tablaSolicitantes').DataTable();
+    var tamanio = datos.length;
+    for(i= 0;i < tamanio; i++)
     {
         Check = '<td><input type="checkbox" class=' + '"form-control fila-solicitantes"' + '/></td>';
         dni = '<td>' + datos[i].dni+'</td>';
         nombreApellido = '<td>'+ datos[i].apellido + ' , ' + datos[i].nombre +'</td>';
         facultad = '<td>' + datos[i].nombreFacultad+'</td>';
         tipoComensal = '<td>' + datos[i].nombreComensal + '</td>';
-
+        alert('voy a cargar');
 //        fila = '<tr>' + Check + dni + nombreApellido + facultad + tipoComensal +  '</tr>';
 //        var renglon = document.createElement('TR');
 //        renglon.innerHTML = fila;
@@ -232,9 +226,10 @@ function cargarFilasSolicitantesTurnos(datos)
           tabla.row.add( 
                     [
                         Check,
-                        horario,
-                        cupo,
-                        boton
+                        dni,
+                        nombreApellido,
+                        facultad,
+                        tipoComensal
                     ]).draw(false);
     }
 }
