@@ -44,6 +44,11 @@ services:
         arguments: ["@doctrine.orm.entity_manager"]
         public: true
     
+    gestor_solicitudes:
+        class: ComensalesBundle\Servicios\GestorTarjetasController
+        arguments: ["@doctrine.orm.entity_manager"]
+        public: true
+    
     sedes:
         class: ComensalesBundle\Servicios\SedeController
         arguments: ["@doctrine.orm.entity_manager"]
