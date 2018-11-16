@@ -98,7 +98,6 @@
                     </div>
                     <div class="row" id="tablaEstilo">
                         <div class="col-lg-11 col-md-11">
-                            <div class="table-responsive">
                                 <table id="tablaTarjetas"
                                     class="table table-hover table-striped">
                                     <thead>
@@ -118,7 +117,6 @@
                                     </tbody>
                                 </table>
                             </div>
-                        </div>
                     </div>
                                 
                     <div class="row">
@@ -160,18 +158,10 @@
               </div>
             </div>
 {#    {% include 'Panel turnos/modal/modal-agregar-turno.html.twig' %}
-    {% include 'Panel turnos/modal/modal-modificar-un-cupo.html.twig' %}
-    {% include 'Panel turnos/modal/modal-modificar-varios-cupos.html.twig' %}
-    {% include 'Panel turnos/modal/modal-eliminar-horario.html.twig' %}
-    {% include 'Panel turnos/modal/modal-eliminar-solicitante.html.twig' %}
-    {% include 'Panel turnos/modal/modal-solicitante-turno.html.twig' %}
-#}    {% block javascripts %}
+#}    
+    {% block javascripts %}
         <script>
-{#            {% include 'scripts/panel turnos/turnos_eliminar.twig.js' %}
-            {% include 'scripts/panel turnos/turnos_filtrar.twig.js' %}
-            {% include 'scripts/panel turnos/turnos_nuevo_modificarCupo.twig.js' %}
-            {% include 'scripts/panel turnos/turnos_generar_pdfs.twig.js' %}
-            {% include 'scripts/panel turnos/turnos_cambiar_buscar.twig.js' %}#}
+            {% include 'scripts/panel tarjetas/tarjetas_filtrar.twig.js' %}
         </script>
     {% endblock %}    
 {% endblock%}
