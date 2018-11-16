@@ -25,100 +25,26 @@
                             <p> </p>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-lg-5 col-md-5">
-                            <div class="btn-group" role="group">
-                                <button class="btn btn-danger" 
-                                   type="button" 
-                                   id="boton-cancelar-tarjeta">CANCELAR</button>
-                                <button class="btn btn-default" 
-                                   type="button" 
-                                   id="boton-generar-tarjeta">GENERAR</button>
-                                <button class="btn btn-default" 
-                                        type="button" 
-                                        id="boton-eliminar-horario">MARCAR RETIRO</button>
-                            </div>
-                        </div>
-                        <div class="col-lg-5 col-md-5 col-lg-offset-1">
-                            <div class="btn-group" role="group">
-                                <button class="btn btn-primary" 
-                                        id="boton-resumen-tarjeta"
-                                        type="button">RESUMEN</button>
-                                <button class="btn btn-default" 
-                                        type="button" 
-                                        id="boton-exportar-tarjetas-pdf"
-                                        >PDF</button>
-                                <button class="btn btn-default" 
-                                        type="button" 
-                                        id="boton-exportar-tarjetas-xls"
-                                        >XLS
-                                </button>
-                            </div>
-                        </div>
-                    </div>
+                    {% block botones %}
+                        {{ include('Panel tarjetas/botones.html.twig') }}
+                    {% endblock %}
                     <div class="row">
                         <div class="col-lg-6 col-md-6">
                             <p> </p>
                         </div>
                     </div>
-                    <div class="row" id="tablaEstilo">
-                        <div class="col-lg-11 col-md-11">
-                                <table id="tablaTarjetas"
-                                    class="table table-hover table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>Nro</th>
-                                            <th>Dni</th>
-                                            <th>Nombre Apellido</th>
-                                            <th>Estado</th>
-                                            <th>Fecha Entrega</th>
-                                            <th>Saldo</th>
-                                            <th>PDF</th>
-                                            <th>HC</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody  id="tabla-tarjetas" align="center">
-                                    </tbody>
-                                </table>
-                            </div>
-                    </div>
-                                
+                    {% block tabla %}
+                        {{ include('Panel tarjetas/tabla.html.twig') }}
+                    {% endblock %}
                     <div class="row">
                         <div class="col lg-12 col-md-12">
                             <p> </p>
                         </div>
                     </div>
                     <p> </p>
-                    <div class="row">
-                        <div class="col-md-12">
-                                    <div class="col-lg-1 col-md-1">
-                                        <p>BUSCAR POR:</p>
-                                    </div>
-                                    <div class="col-lg-3 col-lg-push-0 col-lg-pull-0 col-md-3">
-                                        <select 
-                                            id="select-buscar-tarjeta"
-                                            class="form-control"
-                                                requiered>
-                                            <option disabled selected hidden>Elija filtro de busqueda</option>
-{#                                            <option value="Apellido">Apellido</option>#}
-                                            <option>DNI</option>
-                                            <option>Nombre y apellido</option>
-                                            <option>Nro Tarjeta</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-lg-2 col-lg-pull-0 col-md-2">
-                                        <input id="input-buscar-tarjeta"
-                                               class="form-control" 
-                                               >
-                                    </div>
-                                    <div class="col-lg-1 col-md-1">
-                                        <button class="btn btn-default" 
-                                                id="boton-buscar-tarjeta"
-                                                type="button">BUSCAR</button>
-                                    </div>
-                                </div>
-                    </div>
+                    {% block busqueda %}
+                        {{ include('Panel tarjetas/busqueda.html.twig') }}
+                    {% endblock %}
                 </div>
               </div>
             </div>

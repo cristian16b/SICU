@@ -1,0 +1,31 @@
+{% block busqueda %}
+<div class="row">
+        <div class="col-md-12">
+                    <div class="col-lg-1 col-md-1">
+                        <p>BUSCAR POR:</p>
+                    </div>
+                    <div class="col-lg-3 col-lg-push-0 col-lg-pull-0 col-md-3">
+                        <select 
+                            id="select-buscar-tarjeta"
+                            class="form-control"
+                                requiered>
+                            <option disabled selected hidden>Elija filtro de busqueda</option>
+{#                                            <option value="Apellido">Apellido</option>#}
+                            <option>DNI</option>
+                            <option>Nombre y apellido</option>
+                            <option>Nro Tarjeta</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-2 col-lg-pull-0 col-md-2">
+                        <input id="input-buscar-tarjeta"
+                               class="form-control" 
+                               >
+                    </div>
+                    <div class="col-lg-1 col-md-1">
+                        <button class="btn btn-default" 
+                                id="boton-buscar-tarjeta"
+                                type="button">BUSCAR</button>
+                    </div>
+                </div>
+</div>    
+{% endblock %}    
