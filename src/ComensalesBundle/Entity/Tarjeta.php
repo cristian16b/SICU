@@ -13,12 +13,15 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table(name="tarjeta")
  * @ORM\Entity(repositoryClass="ComensalesBundle\Repository\TarjetaRepository")
- * @ORM\Table(indexes={@ORM\Index(name="tarjeta_estado_tarjeta", columns={"estado_tarjeta_id"})})
- * @ORM\Table(indexes={@ORM\Index(name="tarjeta_solicitud", columns={"solicitud_id"})})
+ * @ORM\Table(indexes={
+ *          @ORM\Index(name="tarjeta_estadoTarjeta", columns={"estado_tarjeta_id"}),
+ *          @ORM\Index(name="tarjeta_solicitud", columns={"solicitud_id"})  
+ *           })
  */
 class Tarjeta
 {
     /**
+     * 
      * @var int
      *
      * @ORM\Column(name="id", type="integer")
