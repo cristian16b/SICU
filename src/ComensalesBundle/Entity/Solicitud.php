@@ -9,6 +9,9 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table(name="solicitud")
  * @ORM\Entity(repositoryClass="ComensalesBundle\Repository\SolicitudRepository")
+ * @ORM\Table(indexes={
+ *          @ORM\Index(name="solicitud_tarjeta", columns={"tarjeta_id"})
+ *           })
  */
 class Solicitud
 {
@@ -59,6 +62,12 @@ class Solicitud
     * @ORM\JoinColumn(name="foto_id", referencedColumnName="id")
     */
     private $foto;
+    
+    /**
+    * @ORM\OneToOne(targetEntity="Tarjeta")
+    * @ORM\JoinColumn(name="tarjeta_id", referencedColumnName="id")
+    */
+    private $tarjeta;
     
     /**
     * @ORM\ManyToOne(targetEntity="MotivoRechazo")
@@ -333,5 +342,29 @@ class Solicitud
     public function getTurno()
     {
         return $this->turno;
+    }
+
+    /**
+     * Set tarjeta
+     *
+     * @param \ComensalesBundle\Entity\Tarjeta $tarjeta
+     *
+     * @return Solicitud
+     */
+    public function setTarjeta(\ComensalesBundle\Entity\Tarjeta $tarjeta = null)
+    {
+        $this->tarjeta = $tarjeta;
+
+        return $this;
+    }
+
+    /**
+     * Get tarjeta
+     *
+     * @return \ComensalesBundle\Entity\Tarjeta
+     */
+    public function getTarjeta()
+    {
+        return $this->tarjeta;
     }
 }

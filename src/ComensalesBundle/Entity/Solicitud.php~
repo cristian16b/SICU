@@ -9,6 +9,9 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table(name="solicitud")
  * @ORM\Entity(repositoryClass="ComensalesBundle\Repository\SolicitudRepository")
+ * @ORM\Table(indexes={
+ *          @ORM\Index(name="item_importe", columns={"importe_id"})
+ *           })
  */
 class Solicitud
 {
@@ -43,13 +46,13 @@ class Solicitud
     private $fechaRevision;
     
     /**
-    * @ORM\OneToOne(targetEntity="TipoComensal",cascade={"persist"})
+    * @ORM\ManyToOne(targetEntity="TipoComensal",cascade={"persist"})
     * @ORM\JoinColumn(name="tipo_comensal_id", referencedColumnName="id")
     */
     private $tipo_comensal;
 
     /**
-    * @ORM\OneToOne(targetEntity="TipoEstado")
+    * @ORM\ManyToOne(targetEntity="TipoEstado")
     * @ORM\JoinColumn(name="tipo_estado_id", referencedColumnName="id")
     */
     private $tipo_estado;
@@ -61,7 +64,13 @@ class Solicitud
     private $foto;
     
     /**
-    * @ORM\OneToOne(targetEntity="MotivoRechazo")
+    * @ORM\OneToOne(targetEntity="Tarjeta")
+    * @ORM\JoinColumn(name="tarjeta_id", referencedColumnName="id")
+    */
+    private $tarjeta;
+    
+    /**
+    * @ORM\ManyToOne(targetEntity="MotivoRechazo")
     * @ORM\JoinColumn(name="motivo_rechazo_id", referencedColumnName="id")
     */
     private $motivo_rechazo;
@@ -72,18 +81,19 @@ class Solicitud
      */
     private $persona;
 
-     /**
-    * @ORM\OneToOne(targetEntity="DetalleEnfermedad",cascade={"persist"})
+    /**
+    * @ORM\ManyToOne(targetEntity="DetalleEnfermedad",cascade={"persist"})
     * @ORM\JoinColumn(name="enfermedad_id", referencedColumnName="id")
     */
     private $enfermedad;
     
     /**
-    * @ORM\ManyToOne(targetEntity="Turno",cascade={"persist"})
-    * @ORM\JoinColumn(name="turno_id", referencedColumnName="id")
-    */
+     * @ORM\ManyToOne(targetEntity="Turno")
+     * @ORM\JoinColumn(name="turno_id", referencedColumnName="id")
+     */
     private $turno;
-
+   
+    
     /**
      * Get id
      *
