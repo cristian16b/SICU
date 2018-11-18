@@ -48,11 +48,14 @@
                 </div>
               </div>
             </div>
-{#    {% include 'Panel turnos/modal/modal-agregar-turno.html.twig' %}
+{# refencia:   
+{% include 'Panel turnos/modal/modal-agregar-turno.html.twig' %}
 #}    
+    {% include 'Panel tarjetas/modal/modal-resumen-tarjetas.html.twig' %}
     {% block javascripts %}
         <script>
             {% include 'scripts/panel tarjetas/tarjetas_filtrar.twig.js' %}
+            {% include 'scripts/panel tarjetas/tarjetas_resumen.twig.js' %}
         </script>
     {% endblock %}    
 {% endblock%}
