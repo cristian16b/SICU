@@ -12,14 +12,17 @@
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/xampp/htdocs/SICU/src/ComensalesBundle/Entity/HistorialConsumos.php</file>
-            <file>file:/C:/xampp/htdocs/SICU/src/ComensalesBundle/Entity/HistorialRecargas.php</file>
-            <file>file:/C:/xampp/htdocs/SICU/app/Resources/views/Panel%20tarjetas/modal/modal-informativo.html.twig</file>
-            <file>file:/C:/xampp/htdocs/SICU/app/Resources/views/Panel%20tarjetas/modal/modal-historial.html.twig</file>
-            <file>file:/C:/xampp/htdocs/SICU/src/ComensalesBundle/Entity/ItemConsumo.php</file>
-            <file>file:/C:/xampp/htdocs/SICU/src/ComensalesBundle/Entity/Solicitud.php</file>
-            <file>file:/C:/xampp/htdocs/SICU/app/Resources/views/Panel%20tarjetas/modal/modal-eliminar.html.twig</file>
-            <file>file:/C:/xampp/htdocs/SICU/src/ComensalesBundle/Entity/Tarjeta.php</file>
+            <file>file:/C:/xampp/htdocs/SICU/app/Resources/views/Panel%20tarjetas/modal/modal-historial-tarjetas.html.twig</file>
+            <file>file:/C:/xampp/htdocs/SICU/app/Resources/views/Panel%20tarjetas/modal/modal-cancelar-tarjetas.html.twig</file>
+            <file>file:/C:/xampp/htdocs/SICU/src/ComensalesBundle/Servicios/GestorSolicitudController.php</file>
+            <file>file:/C:/xampp/htdocs/SICU/app/Resources/views/Panel%20tarjetas/modal/modal-resumen-tarjetas.html.twig</file>
+            <file>file:/C:/xampp/htdocs/SICU/src/ComensalesBundle/Servicios/GestorTarjetaController.php</file>
+            <file>file:/C:/xampp/htdocs/SICU/src/ComensalesBundle/Servicios/OrganismoController.php</file>
+            <file>file:/C:/xampp/htdocs/SICU/src/ComensalesBundle/Servicios/SedeController.php</file>
+            <file>file:/C:/xampp/htdocs/SICU/src/ComensalesBundle/Servicios/EstadoSolicitudController.php</file>
+            <file>file:/C:/xampp/htdocs/SICU/src/ComensalesBundle/Servicios/GestorTurnoController.php</file>
+            <file>file:/C:/xampp/htdocs/SICU/src/ComensalesBundle/Controller/TarjetaController.php</file>
+            <file>file:/C:/xampp/htdocs/SICU/src/ComensalesBundle/Servicios/TipoComensalController.php</file>
         </group>
     </open-files>
 </project-private>
