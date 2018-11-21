@@ -47,7 +47,6 @@ class GestorTurnoController extends Controller
            ->setParameter('sede_elegida',$sede)
                ;
 //        la siguiente linea permite obtener la consulta sql
-//        $sql = $qb->getQuery()->getSql();
         return new JsonResponse($qb->getQuery()->getArrayResult());
     }
     
@@ -106,7 +105,6 @@ class GestorTurnoController extends Controller
             $db->flush();
             $resultado = array ('resultado ' => '1');
         }
-        
         return new JsonResponse($resultado);
     }
     
