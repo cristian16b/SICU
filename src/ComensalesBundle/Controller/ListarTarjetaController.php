@@ -65,7 +65,20 @@ class ListarTarjetaController extends Controller{
    
    private function listarSaldoNegativo($organismo)
    {
-       
+        $qb = $this->getDoctrine()->getEntityManager()->createQueryBuilder()
+                   ->select('tarj.id,tarj.fechaAlta,tarj.saldo,est.nombreEstadoTarjeta,'
+                           . 'per.nombre,per.apellido,per.dni')
+                   ->from('ComensalesBundle:Tarjeta','tarj')
+                   ->innerJoin('tarj.estadoTarjeta','est')
+                   ->innerJoin('tarj.solicitud','soli')
+                   ->innerJoin('soli.persona','per')
+                   ->innerJoin('per.facultad','facu')
+                   ->where('facu.nombreFacultad = :organismo')
+                   ->andWhere('tarj.saldo <= 0')
+                   ->setParameter('organismo',$organismo)
+                   ->orderBy('per.apellido','ASC')
+                ;
+        return new JsonResponse($qb->getQuery()->getArrayResult());
    }
    
    private function listarSaldoPositivo($organismo)
@@ -95,12 +108,41 @@ class ListarTarjetaController extends Controller{
    
    private function listarActivas($organismo)
    {
-       
+       $estado = 'Activa';
+        $qb = $this->getDoctrine()->getEntityManager()->createQueryBuilder()
+                   ->select('tarj.id,tarj.fechaAlta,tarj.saldo,est.nombreEstadoTarjeta,'
+                           . 'per.nombre,per.apellido,per.dni')
+                   ->from('ComensalesBundle:Tarjeta','tarj')
+                   ->innerJoin('tarj.estadoTarjeta','est')
+                   ->innerJoin('tarj.solicitud','soli')
+                   ->innerJoin('soli.persona','per')
+                   ->innerJoin('per.facultad','facu')
+                   ->where('facu.nombreFacultad = :organismo')
+                   ->andWhere('est.nombreEstadoTarjeta = :estado')
+                   ->setParameter('organismo',$organismo)
+                   ->setParameter('estado',$estado)
+                   ->orderBy('per.apellido','ASC')
+                ;
+        return new JsonResponse($qb->getQuery()->getArrayResult());
    }
    
    private function listarCanceladas($organismo)
    {
-       
+       $estado = 'Cancelada';
+        $qb = $this->getDoctrine()->getEntityManager()->createQueryBuilder()
+                   ->select('tarj.id,tarj.fechaAlta,tarj.saldo,est.nombreEstadoTarjeta,'
+                           . 'per.nombre,per.apellido,per.dni')
+                   ->from('ComensalesBundle:Tarjeta','tarj')
+                   ->innerJoin('tarj.estadoTarjeta','est')
+                   ->innerJoin('tarj.solicitud','soli')
+                   ->innerJoin('soli.persona','per')
+                   ->innerJoin('per.facultad','facu')
+                   ->where('facu.nombreFacultad = :organismo')
+                   ->andWhere('est.nombreEstadoTarjeta = :estado')
+                   ->setParameter('organismo',$organismo)
+                   ->setParameter('estado',$estado)
+                   ->orderBy('per.apellido','ASC')
+                ;
+        return new JsonResponse($qb->getQuery()->getArrayResult());
    }
-   
 }

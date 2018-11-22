@@ -114,16 +114,24 @@ function cargarFilasTarjetas(datos)
     for(i= 0;i < tamanio; i++)
     {
         fechaAlta = '<td>'+datos[i].fechaAlta.date+'</td>';
-        saldo = '<td>'+datos[i].saldo+'</td>';
         estado = '<td>'+datos[i].nombreEstadoTarjeta+'</td>';
         nombre = '<td>'+datos[i].nombre+'</td>';
         apellido = '<td>'+datos[i].apellido+'</td>'; 
         dni = '<td>'+datos[i].saldo+'</td>';
         id = '<td>'+datos[i].id+'</td>';
+        saldotarj = datos[i].saldo;
         nombreApellido = apellido + ' , ' + nombre;
         boton = '<td> <input class="boton-ver-historial btn btn-info btn-sm"  type="button" value=">>" /></td>';
         check = '<td><input type="checkbox" class=' + '"form-control fila-turnos"' + '/></td>';
 
+        if(saldotarj > 0)
+        {
+            saldo = '<td><b>'+saldotarj+'</b></td>';
+        }
+        else
+        {
+            saldo = '<td><b style="color:red">'+saldotarj+'</b></td>';
+        }
         if(fechaAlta === null)
         {
             fechaAlta = 'No entregada';
