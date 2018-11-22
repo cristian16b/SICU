@@ -9,7 +9,6 @@ $(function()
 //    $("#tablaTurnos").on("click",".boton-ver-solicitantes",function()
     $("#tablaTurnos").on("click",function()
     {
-        alert('click');
         var horario = $(this).parents('TR').find('TD').eq(1).html();
         var sede = $("#sede-turno").val();
         var fecha = obtengoFecha();

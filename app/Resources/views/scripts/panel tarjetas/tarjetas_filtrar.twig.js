@@ -34,6 +34,8 @@ $(function()
         var organismo = $("#organismo").val();
         var tipoFiltro = $("#tipo-filtro").val();
         
+        borrarFilasTarjetas();
+        
         if(organismo === null || tipoFiltro === null)
         {
             alert('Para filtrar debe seleccionar un Organismo y un Filtro, intente nuevamente');
@@ -65,9 +67,63 @@ $(function()
                 });
         }
     });
+    
+    $("#tablaTarjetas").on("click",".boton-ver-historial",function()
+    {
+        var id = $(this).parents('TR').find('TD').eq(1).html();
+        alert('prox historial de consumo de ' + id);
+    });
 });
+
+function borrarFilasTarjetas()
+{
+    var table = $('#tablaTarjetas').DataTable();
+    table.clear().draw();
+}
 
 function cargarFilasTarjetas(datos)
 {
+    //desbloqueo la pagina
+    $.unblockUI();
     
+    borrarFilasTarjetas();
+    var tabla = $('#tablaTarjetas').DataTable();
+    var id,fechaAlta,saldo,estado,nombre,apellido,dni,nombreApellido,check,fecha;
+    var i;
+    var tamanio = datos.length;
+    for(i= 0;i < tamanio; i++)
+    {
+        fechaAlta = '<td>'+datos[i].fechaAlta.date+'</td>';
+        saldo = '<td>'+datos[i].saldo+'</td>';
+        estado = '<td>'+datos[i].nombreEstadoTarjeta+'</td>';
+        nombre = '<td>'+datos[i].nombre+'</td>';
+        apellido = '<td>'+datos[i].apellido+'</td>'; 
+        dni = '<td>'+datos[i].saldo+'</td>';
+        id = '<td>'+datos[i].id+'</td>';
+        nombreApellido = apellido + ' , ' + nombre;
+        boton = '<td> <input class="boton-ver-historial btn btn-info btn-sm"  type="button" value=">>" /></td>';
+        check = '<td><input type="checkbox" class=' + '"form-control fila-turnos"' + '/></td>';
+
+        if(fechaAlta === null)
+        {
+            fechaAlta = 'No entregada';
+        }
+        else
+        {
+            fecha = fechaAlta.split(' ');
+        }
+        
+
+        tabla.row.add( 
+                [
+                    check,
+                    id,
+                    dni,
+                    nombreApellido,
+                    estado,
+                    fecha[0],
+                    saldo,
+                    boton
+                ]).draw(false);
+    }
 }
