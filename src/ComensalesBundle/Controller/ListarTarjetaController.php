@@ -8,14 +8,20 @@
 
 namespace ComensalesBundle\Controller;
 
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
+
 /**
  * Description of ListarTarjetaController
  * @author Cristian B
  */
-class ListarTarjetaController {
+class ListarTarjetaController extends Controller{
     
     /**
-    * @Route("/listar",name="listar")     
+    * @Route("/listar-tarjetas",name="listar_tarjetas")     
     * @Method({"GET"}) 
     */
    public function listar(Request $request)
@@ -30,28 +36,31 @@ class ListarTarjetaController {
                 $this->selectorFiltros($organismo,$tipoFiltro);
             }
        }
+       return null;
    }
    
    private function selectorFiltros($organismo,$tipoFiltro)
    {
+       $salida = Null;
        switch ($tipoFiltro)
        {
            CASE "Saldo negativo":
-               $this->listarSaldoNegativo($organismo);
+               $salida = $this->listarSaldoNegativo($organismo);
                break;
            CASE "Saldo positivo":
-               $this->listarSaldoPositivo($organismo);
+               $salida = $this->listarSaldoPositivo($organismo);
                break;
            CASE "No entregadas":
-               $this->listarNoEntregadas($organismo);
+               $salida = $this->listarNoEntregadas($organismo);
                break;
            CASE "Activas":
-               $this->listarActivas($organismo);
+               $salida = $this->listarActivas($organismo);
                break;
            CASE "Canceladas":
-               $this->listarCanceladas($organismo);
+               $salida = $this->listarCanceladas($organismo);
                break;
        }
+       return $salida;
    }
    
    private function listarSaldoNegativo($organismo)
@@ -66,7 +75,24 @@ class ListarTarjetaController {
    
    private function listarNoEntregadas($organismo)
    {
-       
+        $estado = 'Pendiente';
+        $qb = $this->getDoctrine()->getEntityManager()->createQueryBuilder()
+                   ->select('tarj.id,tarj.fechaAlta,tarj.saldo,est.nombreEstadoTarjeta,'
+                           . 'per.nombre,per.apellido,per.dni')
+                   ->from('ComensalesBundle:Tarjeta','tarj')
+                   ->innerJoin('tarj.estadoTarjeta','est')
+                   ->innerJoin('tarj.solicitud','soli')
+                   ->innerJoin('soli.persona','per')
+                   ->innerJoin('per.facultad','facu')
+//                   ->where('facu.nombreFacultad = :organismo')
+//                   ->andWhere('est.nombreEstadoTarjeta = :estado')
+//                   ->setParameter('organismo',$organismo)
+//                   ->setParameter('estado',$estado)
+//                   ->orderBy('per.apellido','ASC')
+                ;
+                var_dump($qb->getDql());
+                
+        return new JsonResponse($qb->getQuery()->getArrayResult());
    }
    
    private function listarActivas($organismo)
