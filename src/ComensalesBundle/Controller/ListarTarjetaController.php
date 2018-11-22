@@ -33,7 +33,7 @@ class ListarTarjetaController extends Controller{
             
             if(isset($organismo) && isset($tipoFiltro))
             {
-                $this->selectorFiltros($organismo,$tipoFiltro);
+                return  $this->selectorFiltros($organismo,$tipoFiltro);
             }
        }
        return null;
@@ -84,14 +84,12 @@ class ListarTarjetaController extends Controller{
                    ->innerJoin('tarj.solicitud','soli')
                    ->innerJoin('soli.persona','per')
                    ->innerJoin('per.facultad','facu')
-//                   ->where('facu.nombreFacultad = :organismo')
-//                   ->andWhere('est.nombreEstadoTarjeta = :estado')
-//                   ->setParameter('organismo',$organismo)
-//                   ->setParameter('estado',$estado)
-//                   ->orderBy('per.apellido','ASC')
+                   ->where('facu.nombreFacultad = :organismo')
+                   ->andWhere('est.nombreEstadoTarjeta = :estado')
+                   ->setParameter('organismo',$organismo)
+                   ->setParameter('estado',$estado)
+                   ->orderBy('per.apellido','ASC')
                 ;
-                var_dump($qb->getDql());
-                
         return new JsonResponse($qb->getQuery()->getArrayResult());
    }
    
