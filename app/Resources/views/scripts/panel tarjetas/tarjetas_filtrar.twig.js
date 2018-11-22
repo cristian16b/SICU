@@ -71,8 +71,28 @@ $(function()
     $("#tablaTarjetas").on("click",".boton-ver-historial",function()
     {
         var id = $(this).parents('TR').find('TD').eq(1).html();
-        alert('prox historial de consumo de ' + id);
+        mostrarHistorial(id);
     });
+    
+    $( "#modal-historial-tarjetas" ).dialog({
+        autoOpen: false,
+        resizable: false,
+        height: "auto",
+        width: "auto",
+        modal: true,
+        buttons: 
+        {
+//                Confirmar: function() 
+//                {
+//                    $( this ).dialog( "close" );
+//                }
+//                ,
+                Salir: function() 
+                {
+                   $( this ).dialog( "close" );
+                }
+       }
+       }); 
 });
 
 function borrarFilasTarjetas()
@@ -126,4 +146,10 @@ function cargarFilasTarjetas(datos)
                     boton
                 ]).draw(false);
     }
+}
+
+function mostrarHistorial(id)
+{
+    $("#modal-historial-tarjetas").dialog('open');
+    $("#modal-historial-tarjetas").dialog('option', 'title', 'Historial Consumos y Recargas');
 }
