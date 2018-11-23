@@ -39,6 +39,25 @@ class ListarTarjetaController extends Controller{
        return null;
    }
    
+   /**
+    * @Route("/buscar-tarjetas",name="buscar_tarjetas")     
+    * @Method({"GET"}) 
+    */
+   public function buscar(Request $request)
+   {
+       if($request->isXmlHttpRequest())
+       {
+            $datoIngresado = $request->query->get('datoIngresado');
+            $tipoFiltro  = $request->query->get('tipoFiltro');
+            
+            if(isset($datoIngresado) && isset($tipoFiltro))
+            {
+                return  $this->selectorBusqueda($datoIngresado,$tipoFiltro);
+            }
+       }
+       return null;
+   }
+   
    private function selectorFiltros($organismo,$tipoFiltro)
    {
        $salida = Null;
@@ -58,6 +77,21 @@ class ListarTarjetaController extends Controller{
                break;
            CASE "Canceladas":
                $salida = $this->listarCanceladas($organismo);
+               break;
+       }
+       return $salida;
+   }
+   
+   private function selectorBusqueda($dato,$tipoFiltro)
+   {
+       $salida = Null;
+       switch ($tipoFiltro)
+       {
+           CASE "Nro tarjeta":
+               $salida = $this->buscarCodigo($dato);
+               break;
+           CASE "DNI":
+               $salida = $this->buscarDni($dato);
                break;
        }
        return $salida;
@@ -83,7 +117,20 @@ class ListarTarjetaController extends Controller{
    
    private function listarSaldoPositivo($organismo)
    {
-       
+       $qb = $this->getDoctrine()->getEntityManager()->createQueryBuilder()
+                   ->select('tarj.id,tarj.fechaAlta,tarj.saldo,est.nombreEstadoTarjeta,'
+                           . 'per.nombre,per.apellido,per.dni')
+                   ->from('ComensalesBundle:Tarjeta','tarj')
+                   ->innerJoin('tarj.estadoTarjeta','est')
+                   ->innerJoin('tarj.solicitud','soli')
+                   ->innerJoin('soli.persona','per')
+                   ->innerJoin('per.facultad','facu')
+                   ->where('facu.nombreFacultad = :organismo')
+                   ->andWhere('tarj.saldo > 0')
+                   ->setParameter('organismo',$organismo)
+                   ->orderBy('per.apellido','ASC')
+                ;
+        return new JsonResponse($qb->getQuery()->getArrayResult());
    }
    
    private function listarNoEntregadas($organismo)
@@ -144,5 +191,15 @@ class ListarTarjetaController extends Controller{
                    ->orderBy('per.apellido','ASC')
                 ;
         return new JsonResponse($qb->getQuery()->getArrayResult());
+   }
+   
+   private function buscarDni($dato)
+   {
+       
+   }
+   
+   private function buscarCodigo($dato)
+   {
+       
    }
 }

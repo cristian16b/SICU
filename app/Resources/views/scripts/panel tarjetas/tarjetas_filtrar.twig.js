@@ -42,6 +42,7 @@ $(function()
         }
         else
         {
+            borrarFilasTarjetas();
             datos = {};
             datos.organismo = organismo;
             datos.tipoFiltro = tipoFiltro;
@@ -132,6 +133,7 @@ function cargarFilasTarjetas(datos)
         {
             saldo = '<td><b style="color:red">'+saldotarj+'</b></td>';
         }
+        
         if(fechaAlta === null)
         {
             fechaAlta = 'No entregada';
