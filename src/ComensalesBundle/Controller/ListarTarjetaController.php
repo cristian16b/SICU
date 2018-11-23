@@ -19,11 +19,11 @@ use Symfony\Component\HttpFoundation\JsonResponse;
  * @author Cristian B
  */
 class ListarTarjetaController extends Controller{
-    
-    /**
-    * @Route("/listar-tarjetas",name="listar_tarjetas")     
-    * @Method({"GET"}) 
-    */
+   
+   /**
+   * @Route("tarjetas/filtrar",name="tarjeta_filtrar")     
+   * @Method({"GET"}) 
+   */
    public function listar(Request $request)
    {
        if($request->isXmlHttpRequest())
@@ -40,9 +40,9 @@ class ListarTarjetaController extends Controller{
    }
    
    /**
-    * @Route("/buscar-tarjetas",name="buscar_tarjetas")     
-    * @Method({"GET"}) 
-    */
+   * @Route("tarjetas/buscar",name="tarjeta_buscar")     
+   * @Method({"GET"}) 
+   */
    public function buscar(Request $request)
    {
        if($request->isXmlHttpRequest())

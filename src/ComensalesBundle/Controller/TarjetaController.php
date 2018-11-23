@@ -19,11 +19,11 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
  * Description of TarjetaController
- * * @Route("/tarjetas",name="tarjetas")
+ * * @Route("/tarjetas",name="tarjetas_")
  * @author Cristian B
  */
 class TarjetaController extends Controller{
-    
+   
     /**
     * @Route("/panel",name="panel")     * 
     */
@@ -51,6 +51,11 @@ class TarjetaController extends Controller{
     }
     
     public function marcarRetiro()
+    {
+        
+    }
+    
+    public function eliminarTarjeta()
     {
         
     }

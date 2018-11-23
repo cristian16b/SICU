@@ -48,7 +48,7 @@ $(function()
                 ({
                     async:true,
                     method: 'GET',
-                    url: "{{ path('listar_tarjetas') }}",
+                    url: "{{ path('tarjetas_filtrar') }}",
                     data: datos,
                     dataType: 'json',
                     beforeSend: function()
