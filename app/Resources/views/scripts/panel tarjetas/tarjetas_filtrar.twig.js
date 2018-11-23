@@ -33,9 +33,7 @@ $(function()
     {
         var organismo = $("#organismo").val();
         var tipoFiltro = $("#tipo-filtro").val();
-        
-        borrarFilasTarjetas();
-        
+                
         if(organismo === null || tipoFiltro === null)
         {
             alert('Para filtrar debe seleccionar un Organismo y un Filtro, intente nuevamente');
@@ -58,7 +56,7 @@ $(function()
                         $.blockUI({ message: '<img src="/img/cargando.gif"><h3>Cargando ...</h3>' });  
                     },
                     success: cargarFilasTarjetas,
-                    timeout:11500,
+                    timeout:12500,
                     error : function() 
                     {
                         //desbloqueo la pagina
@@ -118,7 +116,7 @@ function cargarFilasTarjetas(datos)
         estado = '<td>'+datos[i].nombreEstadoTarjeta+'</td>';
         nombre = '<td>'+datos[i].nombre+'</td>';
         apellido = '<td>'+datos[i].apellido+'</td>'; 
-        dni = '<td>'+datos[i].saldo+'</td>';
+        dni = '<td>'+datos[i].dni+'</td>';
         id = '<td>'+datos[i].id+'</td>';
         saldotarj = datos[i].saldo;
         nombreApellido = apellido + ' , ' + nombre;

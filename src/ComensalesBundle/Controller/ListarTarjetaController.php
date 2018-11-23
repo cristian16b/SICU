@@ -87,7 +87,7 @@ class ListarTarjetaController extends Controller{
        $salida = Null;
        switch ($tipoFiltro)
        {
-           CASE "Nro tarjeta":
+           CASE "Nro Tarjeta":
                $salida = $this->buscarCodigo($dato);
                break;
            CASE "DNI":
@@ -176,7 +176,7 @@ class ListarTarjetaController extends Controller{
    private function listarCanceladas($organismo)
    {
        $estado = 'Cancelada';
-        $qb = $this->getDoctrine()->getEntityManager()->createQueryBuilder()
+       $qb = $this->getDoctrine()->getEntityManager()->createQueryBuilder()
                    ->select('tarj.id,tarj.fechaAlta,tarj.saldo,est.nombreEstadoTarjeta,'
                            . 'per.nombre,per.apellido,per.dni')
                    ->from('ComensalesBundle:Tarjeta','tarj')
@@ -195,11 +195,33 @@ class ListarTarjetaController extends Controller{
    
    private function buscarDni($dato)
    {
-       
+        $qb = $this->getDoctrine()->getEntityManager()->createQueryBuilder()
+                   ->select('tarj.id,tarj.fechaAlta,tarj.saldo,est.nombreEstadoTarjeta,'
+                           . 'per.nombre,per.apellido,per.dni')
+                   ->from('ComensalesBundle:Tarjeta','tarj')
+                   ->innerJoin('tarj.estadoTarjeta','est')
+                   ->innerJoin('tarj.solicitud','soli')
+                   ->innerJoin('soli.persona','per')
+                   ->innerJoin('per.facultad','facu')
+                   ->where('per.dni = :dni')
+                   ->setParameter('dni',$dato)
+                ;
+        return new JsonResponse($qb->getQuery()->getArrayResult());
    }
    
    private function buscarCodigo($dato)
    {
-       
+        $qb = $this->getDoctrine()->getEntityManager()->createQueryBuilder()
+                   ->select('tarj.id,tarj.fechaAlta,tarj.saldo,est.nombreEstadoTarjeta,'
+                           . 'per.nombre,per.apellido,per.dni')
+                   ->from('ComensalesBundle:Tarjeta','tarj')
+                   ->innerJoin('tarj.estadoTarjeta','est')
+                   ->innerJoin('tarj.solicitud','soli')
+                   ->innerJoin('soli.persona','per')
+                   ->innerJoin('per.facultad','facu')
+                   ->where('tarj.id = :id')
+                   ->setParameter('id',$dato)
+                ;
+        return new JsonResponse($qb->getQuery()->getArrayResult());
    }
 }

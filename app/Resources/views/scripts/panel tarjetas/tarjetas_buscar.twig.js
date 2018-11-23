@@ -1,10 +1,10 @@
 $(function()
 {
-   $('#boton-filtrar-tarjetas').on("click",function() 
+    $('#boton-buscar-tarjeta').on("click",function() 
     {
         var tipoFiltro = $("#select-buscar-tarjeta").val();
         var datoIngresado = $("#input-buscar-tarjeta").val();
-        
+                
         if(tipoFiltro === null || datoIngresado === null)
         {
             alert('Debe seleccionar una opción de busqueda e ingresar el dato, intente nuevamente');
