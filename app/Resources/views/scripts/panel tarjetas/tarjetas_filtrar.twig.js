@@ -121,7 +121,7 @@ function cargarFilasTarjetas(datos)
         saldotarj = datos[i].saldo;
         nombreApellido = apellido + ' , ' + nombre;
         boton = '<td> <input class="boton-ver-historial btn btn-info btn-sm"  type="button" value=">>" /></td>';
-        check = '<td><input type="checkbox" class=' + '"form-control fila-turnos"' + '/></td>';
+        check = '<td><input type="checkbox" class=' + '"form-control fila-tarjetas"' + '/></td>';
 
         if(saldotarj > 0)
         {
