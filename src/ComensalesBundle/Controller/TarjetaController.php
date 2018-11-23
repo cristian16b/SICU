@@ -34,4 +34,24 @@ class TarjetaController extends Controller{
                 array('organismos' => $organismos,
                      ));
     }
+    
+    public function crearTarjeta()
+    {
+        
+    }
+    
+    public function cancelarTarjeta()
+    {
+        
+    }
+    
+    public function obtenerSaldo()
+    {
+        
+    }
+    
+    public function marcarRetiro()
+    {
+        
+    }
 }
