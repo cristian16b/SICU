@@ -21,7 +21,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 class ListarTarjetaController extends Controller{
    
    /**
-   * @Route("tarjetas/filtrar",name="tarjeta_filtrar")     
+   * @Route("tarjetas/filtrar",name="tarjetas_filtrar")     
    * @Method({"GET"}) 
    */
    public function listar(Request $request)
@@ -40,7 +40,7 @@ class ListarTarjetaController extends Controller{
    }
    
    /**
-   * @Route("tarjetas/buscar",name="tarjeta_buscar")     
+   * @Route("tarjetas/buscar",name="tarjetas_buscar")     
    * @Method({"GET"}) 
    */
    public function buscar(Request $request)
