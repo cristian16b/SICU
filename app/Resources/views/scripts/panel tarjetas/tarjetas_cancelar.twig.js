@@ -40,7 +40,8 @@ $(function()
         }
         else if(i === 1 )
         {
-            
+            //guardo el valor en la modal
+            $("#id-tarjeta").val(id);
             $("#modal-cancelar-tarjeta").dialog('open');
             $("#modal-cancelar-tarjeta").dialog('option', 'title', 'Cancelar');
         }
@@ -66,10 +67,11 @@ function cancelarTarjeta()
         },
         success: function(){
             $.unblockUI();
-            var table = $('#tableTarjetas').DataTable();
-            table.row( $(this).parents('tr') ).remove().draw();
+//            var table = $('#tableTarjetas').DataTable();
+//            table.row( $(this).parents('tr') ).remove().draw();
         },
         timeout:12500,
+
         error : function() 
         {
             //desbloqueo la pagina

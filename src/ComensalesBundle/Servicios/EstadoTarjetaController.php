@@ -8,11 +8,51 @@
 
 namespace ComensalesBundle\Servicios;
 
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+
 /**
  * Description of EstadoTarjetaController
  *
  * @author Cristian B
  */
-class EstadoTarjetaController {
-    //put your code here
+class EstadoTarjetaController extends Controller 
+{
+    protected $entityManager;
+
+    public function __construct($entityManager)
+    {
+        $this->entityManager = $entityManager;
+    }
+    
+    public function obtenerEstados()
+    {
+        //to-do implementar func que retorna un json con los nombres de todos los estado
+        //opcional que retorne las entidades
+    }
+    
+    public function obtenerEstadoActiva()
+    {
+        $nombreEstado = 'Activa';
+        $estadoActiva = $this->entityManager
+                         ->getRepository('ComensalesBundle:EstadoTarjeta')
+                         ->findBynombreEstadoTarjeta($nombreEstado);
+        if(empty($estadoActiva))
+        {
+            $estadoActiva = null;
+        }
+        return $estadoActiva[0];
+    }
+
+    public function obtenerEstadoCancelado()
+    {
+        $nombreEstado = 'Cancelada';
+        $estadoCancelado = $this->entityManager
+                         ->getRepository('ComensalesBundle:EstadoTarjeta')
+                         ->findBynombreEstadoTarjeta($nombreEstado);
+        if(empty($estadoCancelado))
+        {
+            $estadoCancelado = null;
+        }
+        return $estadoCancelado[0];
+    }
 }

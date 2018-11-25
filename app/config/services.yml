@@ -34,6 +34,7 @@ services:
     #     arguments:
     #         $someArgument: 'some_value'
        
+    # to-do ver la factibilidad de moverlos al service.yml de resources/confi en el comensalesbundle    
     gestor_turnos:
         class: ComensalesBundle\Servicios\GestorTurnoController
         arguments: ["@doctrine.orm.entity_manager","@gestor_solicitudes"]
@@ -56,6 +57,11 @@ services:
     
     organismos:
         class: ComensalesBundle\Servicios\OrganismoController
+        arguments: ["@doctrine.orm.entity_manager"]
+        public: true
+        
+    estadosTarjeta:
+        class: ComensalesBundle\Servicios\EstadoTarjetaController
         arguments: ["@doctrine.orm.entity_manager"]
         public: true
 

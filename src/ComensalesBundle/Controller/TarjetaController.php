@@ -37,17 +37,45 @@ class TarjetaController extends Controller{
     
     public function crearTarjeta()
     {
-        
+      //to-do en refactorizacion del code fuente de solicitud   
     }
     
-    public function cancelarTarjeta()
+    public function obtenerTarjeta($id)
     {
-        
+        $tarjeta = $this->getDoctrine()->getEntityManager()
+                        ->getRepository('ComensalesBundle:Tarjeta')->find($id);
+        return $tarjeta;
+    }
+    
+    /**
+    * @Route("/cancelar",name="cancelar")     
+    * @Method({"GET"}) 
+    */
+    public function cancelarTarjeta(Request $request)
+    {
+        $retorno = null;
+        if($request->isXmlHttpRequest())
+        {
+            $idTarjeta = $request->query->get('idTarjeta');
+            //obtengo la entidad tarjeta
+            $tarjeta = $this->obtenerTarjeta($idTarjeta);
+            if(!empty($tarjeta))
+            {
+                //cambio 
+                $estadoCancelado = $this->container->get('estadosTarjeta')->obtenerEstadoCancelado();
+                //actualizo tarjeta y guardo
+                $tarjeta->setEstadoTarjeta($estadoCancelado);
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->flush();
+                $retorno = true;
+            }
+        }
+        return new JsonResponse($retorno);
     }
     
     public function obtenerSaldo()
     {
-        
+        //to-do para el webservice
     }
     
     public function marcarRetiro()
