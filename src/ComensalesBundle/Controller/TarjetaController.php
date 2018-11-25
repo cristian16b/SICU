@@ -78,13 +78,35 @@ class TarjetaController extends Controller{
         //to-do para el webservice
     }
     
-    public function marcarRetiro()
+    /**
+    * @Route("/activar",name="activar")     
+    * @Method({"GET"}) 
+    */
+    public function marcarRetiro(Request $request)
     {
-        
+        $retorno = null;
+        if($request->isXmlHttpRequest())
+        {
+            $idTarjeta = $request->query->get('idTarjeta');
+            //obtengo la entidad tarjeta
+            $tarjeta = $this->obtenerTarjeta($idTarjeta);
+            if(!empty($tarjeta))
+            {
+                //cambio 
+                $estadoActiva = $this->container->get('estadosTarjeta')->obtenerEstadoActiva();
+                //actualizo tarjeta y guardo
+                $tarjeta->setEstadoTarjeta($estadoActiva);
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->flush();
+                $retorno = true;
+            }
+        }
+        return new JsonResponse($retorno);
     }
     
     public function eliminarTarjeta()
     {
-        
+        //to-do para refactor de solicitud controller
+        //una tarje se elimina si se elimina la solicitud a la que esta asociada
     }
 }

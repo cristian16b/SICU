@@ -40,30 +40,7 @@ $(function()
         }
         else
         {
-            borrarFilasTarjetas();
-            datos = {};
-            datos.organismo = organismo;
-            datos.tipoFiltro = tipoFiltro;
-            $.ajax
-                ({
-                    async:true,
-                    method: 'GET',
-                    url: "{{ path('tarjetas_filtrar') }}",
-                    data: datos,
-                    dataType: 'json',
-                    beforeSend: function()
-                    {
-                        $.blockUI({ message: '<img src="/img/cargando.gif"><h3>Cargando ...</h3>' });  
-                    },
-                    success: cargarFilasTarjetas,
-                    timeout:12500,
-                    error : function() 
-                    {
-                        //desbloqueo la pagina
-                        $.unblockUI();
-                        alert('ERROR DE CONEXIÓN, INTENTE NUEVAMENTE MAS TARDE');
-                    }
-                });
+            obtenerTarjetas(organismo,tipoFiltro);
         }
     });
     
@@ -93,6 +70,34 @@ $(function()
        }
        }); 
 });
+
+function obtenerTarjetas(organismo,tipoFiltro)
+{
+    borrarFilasTarjetas();
+    datos = {};
+    datos.organismo = organismo;
+    datos.tipoFiltro = tipoFiltro;
+    $.ajax
+        ({
+            async:true,
+            method: 'GET',
+            url: "{{ path('tarjetas_filtrar') }}",
+            data: datos,
+            dataType: 'json',
+            beforeSend: function()
+            {
+                $.blockUI({ message: '<img src="/img/cargando.gif"><h3>Cargando ...</h3>' });  
+            },
+            success: cargarFilasTarjetas,
+            timeout:12500,
+            error : function() 
+            {
+                //desbloqueo la pagina
+                $.unblockUI();
+                alert('ERROR DE CONEXIÓN, INTENTE NUEVAMENTE MAS TARDE');
+            }
+        });
+}
 
 function borrarFilasTarjetas()
 {
