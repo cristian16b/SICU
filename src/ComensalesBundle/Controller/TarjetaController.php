@@ -82,7 +82,7 @@ class TarjetaController extends Controller{
     * @Route("/activar",name="activar")     
     * @Method({"GET"}) 
     */
-    public function marcarRetiro(Request $request)
+    public function actiarUnaTarjeta(Request $request)
     {
         $retorno = null;
         if($request->isXmlHttpRequest())
@@ -108,5 +108,6 @@ class TarjetaController extends Controller{
     {
         //to-do para refactor de solicitud controller
         //una tarje se elimina si se elimina la solicitud a la que esta asociada
+        //no existe otro caso en el que se pueda eliminar
     }
 }

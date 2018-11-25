@@ -11,6 +11,7 @@ $(function()
         {
             //leo el id
             id = $(this).parent().parent().find('td').eq(1).html();
+            
             //guardo
             lista[i] = id;
             //cuento
@@ -18,18 +19,17 @@ $(function()
         });
         if(i === 0)
         {
-            alert('Debe seleccionar solo una tarjeta para dar de baja');
+            alert('Debe seleccionar una o mas tarjetas para activar');
         }
-        else if(i > 1 )
+        else if(i > 0 )
         {
-            activarTarjeta(id);//provisorio
+            activarTarjeta(id);//provisorio, se deberia poder mandar la lista
         }
    });
 });
 
 function activarTarjeta(id)
 {
-    var id = $("#id-tarjeta").val();
     borrarFilasTarjetas();
     datos = {};
     datos.idTarjeta = id;
