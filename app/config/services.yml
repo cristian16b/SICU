@@ -65,3 +65,7 @@ services:
         arguments: ["@doctrine.orm.entity_manager"]
         public: true
 
+    historialCR:
+        class: ComensalesBundle\Servicios\HistorialCRController
+        arguments: ["@doctrine.orm.entity_manager"]
+        public: true

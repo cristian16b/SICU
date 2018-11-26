@@ -25,12 +25,6 @@ use ComensalesBundle\Controller\HistorialCRController;
  */
 class TarjetaController extends Controller{
    
-    private $historial;
-    
-    public function __construct() 
-    {
-        $this->historial = new HistorialCRController();
-    }
 
     /**
     * @Route("/panel",name="panel")     * 
@@ -139,8 +133,7 @@ class TarjetaController extends Controller{
         if($request->isXmlHttpRequest())
         {
             $id = $request->query->get('id');
-            $retorno = $this->
-                    historial
+            $retorno = $this->container->get('historialCR')
                     ->obtenerHistorialTarjeta($this->obtenerTarjeta($id));
         }
         return  $retorno;

@@ -6,7 +6,8 @@
  * and open the template in the editor.
  */
 
-namespace ComensalesBundle\Controller;
+namespace ComensalesBundle\Servicios;
+
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -22,7 +23,14 @@ use Symfony\Component\HttpFoundation\JsonResponse;
  */
 class HistorialCRController extends Controller
 {
-    public function obtenerHistorialTarjeta($tarjeta)
+    private $entityManager;
+
+
+    public function __construct($entityManager) {
+        $this->entityManager = $entityManager;
+    }
+
+        public function obtenerHistorialTarjeta($tarjeta)
     {
         $retorno = null;
         if(!empty($tarjeta))
@@ -31,7 +39,7 @@ class HistorialCRController extends Controller
             $id = $tarjeta->getId();
             //armo el historial de consumo y recarga
             //consulto
-            $db = $this->getDoctrine()->getEntityManager();
+            $db = $this->entityManager;
             $consumos = $db->getRepository('ComensalesBundle:HistorialConsumos')->find($id);
             $recargas = $db->getRepository('ComensalesBundle:HistorialRecargas')->find($id);
             var_dump($recargas);

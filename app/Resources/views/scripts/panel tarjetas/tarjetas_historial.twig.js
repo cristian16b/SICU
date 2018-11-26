@@ -37,13 +37,12 @@ $(function()
 function mostrarHistorial(id)
 {
     datos = {};
-    datos.organismo = organismo;
-    datos.tipoFiltro = tipoFiltro;
+    datos.id = id;
     $.ajax
     ({
         async:true,
         method: 'GET',
-        url: "{{ path('tarjetas_filtrar') }}",
+        url: "{{ path('tarjetas_historial') }}",
         data: datos,
         dataType: 'json',
         beforeSend: function()
