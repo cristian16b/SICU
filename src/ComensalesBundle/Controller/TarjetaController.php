@@ -15,6 +15,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use ComensalesBundle\Controller\HistorialCRController;
 
 
 /**
@@ -24,6 +25,13 @@ use Symfony\Component\HttpFoundation\JsonResponse;
  */
 class TarjetaController extends Controller{
    
+    private $historial;
+    
+    public function __construct() 
+    {
+        $this->historial = new HistorialCRController();
+    }
+
     /**
     * @Route("/panel",name="panel")     * 
     */
@@ -119,5 +127,22 @@ class TarjetaController extends Controller{
         //to-do para refactor de solicitud controller
         //una tarje se elimina si se elimina la solicitud a la que esta asociada
         //no existe otro caso en el que se pueda eliminar
+    }
+    
+    /**
+    * @Route("/historial",name="historial")     
+    * @Method({"GET"}) 
+    */
+    public function obtenerHistorial(Request $request)
+    {
+        $retorno = null;
+        if($request->isXmlHttpRequest())
+        {
+            $id = $request->query->get('id');
+            $retorno = $this->
+                    historial
+                    ->obtenerHistorialTarjeta($this->obtenerTarjeta($id));
+        }
+        return  $retorno;
     }
 }

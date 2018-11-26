@@ -18,23 +18,27 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
  * Description of HistorialTarjetaController
- * @Route("/historial",name="historial_")
  * @author Cristian B
  */
 class HistorialCRController extends Controller
 {
-    public function obtenerHistorialTarjeta(Request $request)
+    public function obtenerHistorialTarjeta($tarjeta)
     {
+        $retorno = null;
+        if(!empty($tarjeta))
+        {
+            //obtengo el id
+            $id = $tarjeta->getId();
+            //armo el historial de consumo y recarga
+            //consulto
+            $db = $this->getDoctrine()->getEntityManager();
+            $consumos = $db->getRepository('ComensalesBundle:HistorialConsumos')->find($id);
+            $recargas = $db->getRepository('ComensalesBundle:HistorialRecargas')->find($id);
+            var_dump($recargas);
+            var_dump($consumos);
+            die;
+        }
         
-    }
-    
-    public function obtenerMenusConsumidos(Request $request)
-    {
-        
-    }
-    
-    public function obtenerRecargas(Request $request)
-    {
-        
+        return new JsonResponse($retorno);
     }
 }

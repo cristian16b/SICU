@@ -161,8 +161,3 @@ function cargarFilasTarjetas(datos)
     }
 }
 
-function mostrarHistorial(id)
-{
-    $("#modal-historial-tarjetas").dialog('open');
-    $("#modal-historial-tarjetas").dialog('option', 'title', 'Historial Consumos y Recargas');
-}
