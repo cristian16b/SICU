@@ -99,28 +99,5 @@ class Importe
     {
         return $this->precio;
     }
-
-    /**
-     * Set fechaAcualizacion
-     *
-     * @param \DateTime $fechaAcualizacion
-     *
-     * @return Importe
-     */
-    public function setFechaAcualizacion($fechaAcualizacion)
-    {
-        $this->fechaAcualizacion = $fechaAcualizacion;
-
-        return $this;
-    }
-
-    /**
-     * Get fechaAcualizacion
-     *
-     * @return \DateTime
-     */
-    public function getFechaAcualizacion()
-    {
-        return $this->fechaAcualizacion;
-    }
 }
+
