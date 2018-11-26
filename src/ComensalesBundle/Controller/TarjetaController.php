@@ -82,26 +82,36 @@ class TarjetaController extends Controller{
     * @Route("/activar",name="activar")     
     * @Method({"GET"}) 
     */
-    public function actiarUnaTarjeta(Request $request)
+    public function activarTarjetas(Request $request)
     {
         $retorno = null;
         if($request->isXmlHttpRequest())
         {
-            $idTarjeta = $request->query->get('idTarjeta');
-            //obtengo la entidad tarjeta
-            $tarjeta = $this->obtenerTarjeta($idTarjeta);
-            if(!empty($tarjeta))
+            $lista = $request->query->get('lista');
+            $tamanio = count($lista);
+            for($i=0;$i<$tamanio;$i++)
             {
-                //cambio 
-                $estadoActiva = $this->container->get('estadosTarjeta')->obtenerEstadoActiva();
-                //actualizo tarjeta y guardo
-                $tarjeta->setEstadoTarjeta($estadoActiva);
-                $entityManager = $this->getDoctrine()->getManager();
-                $entityManager->flush();
-                $retorno = true;
+                $this->activarUnaTarjeta($lista[$i]);
             }
+            $retorno = true;
         }
+        
         return new JsonResponse($retorno);
+    }
+    
+    private function activarUnaTarjeta($idTarjeta)
+    {
+        //obtengo la entidad tarjeta
+        $tarjeta = $this->obtenerTarjeta($idTarjeta);
+        if(!empty($tarjeta))
+        {
+            //cambio 
+            $estadoActiva = $this->container->get('estadosTarjeta')->obtenerEstadoActiva();
+            //actualizo tarjeta y guardo
+            $tarjeta->setEstadoTarjeta($estadoActiva);
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->flush();
+        }
     }
     
     public function eliminarTarjeta()

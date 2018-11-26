@@ -23,7 +23,8 @@ $(function()
         }
         else if(i > 0 )
         {
-            activarTarjeta(id);//provisorio, se deberia poder mandar la lista
+            activarTarjeta(lista);
+//            activarTarjeta(id);//provisorio, se deberia poder mandar la lista
         }
    });
 });
@@ -32,7 +33,7 @@ function activarTarjeta(id)
 {
     borrarFilasTarjetas();
     datos = {};
-    datos.idTarjeta = id;
+    datos.lista = id;
     $.ajax
     ({
         async:true,
