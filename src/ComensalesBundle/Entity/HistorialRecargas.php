@@ -54,7 +54,7 @@ class HistorialRecargas
     private $tarjeta;
 
     /**
-    * @ORM\ManyToOne(targetEntity="ItemConsumo")
+    * @ORM\ManyToOne(targetEntity="ItemRecarga")
     * @ORM\JoinColumn(name="item_recarga_id", referencedColumnName="id")
     */
     private $itemRecarga;
