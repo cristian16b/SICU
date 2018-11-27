@@ -30,6 +30,8 @@ class HistorialCRController extends Controller
         $this->entityManager = $entityManager;
     }
 
+    //to-do terminar este metodo en una refactorizacion posterior
+    //por el momento no es relevante
     public function obtenerHistorialTarjeta($tarjeta)
     {
         $retorno = null;
@@ -50,6 +52,11 @@ class HistorialCRController extends Controller
     
     public function obtenerConsumos($id)
     {
+        //variable auxiliar para comparar fecha
+        //genero una fecha generica (1-1-año actual)
+        $fecha = new \DateTime();
+        $fecha->setDate(date("Y"), 1,1);
+        
         return     
            $this->entityManager->createQueryBuilder()
            ->select('hc.fechaConsumo as fecha,sede.nombreSede,item.nombreItemConsumo,importe.precio')
@@ -59,13 +66,20 @@ class HistorialCRController extends Controller
            ->innerJoin('item.importe','importe')
            ->innerJoin('hc.sedeConsumo','sede')
            ->where('tarj.id = :id')
+           ->andWhere('hc.fechaConsumo > :fechaActual')
            ->setParameter('id',$id)
+           ->setParameter('fechaActual',$fecha)
            ->getQuery()
            ->getArrayResult();
     }
     
     public function obtenerRecargas($id)
     {
+        //variable auxiliar para comparar fecha
+        //genero una fecha generica (1-1-año actual)
+        $fecha = new \DateTime();
+        $fecha->setDate(date("Y"), 1,1);
+        
         return     
            $this->entityManager->createQueryBuilder()
            ->select('hr.fechaRecarga as fecha,hr.montoRecarga,sede.nombreSede,item.nombreItemRecarga')
@@ -74,7 +88,9 @@ class HistorialCRController extends Controller
            ->innerJoin('hr.itemRecarga','item')
            ->innerJoin('hr.sedeRecarga','sede')
            ->where('tarj.id = :id')
+           ->andWhere('hc.fechaConsumo > :fechaActual')
            ->setParameter('id',$id)
+           ->setParameter('fechaActual',$fecha)
            ->getQuery()
            ->getArrayResult();
     }
