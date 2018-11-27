@@ -31,7 +31,7 @@ class HistorialRecargas
      *
      * @ORM\Column(name="montonRecarga", type="decimal", precision=10, scale=2)
      */
-    private $montonRecarga;
+    private $montoRecarga;
 
     /**
      * @var \DateTime
@@ -83,9 +83,9 @@ class HistorialRecargas
      *
      * @return HistorialRecargas
      */
-    public function setMontonRecarga($montonRecarga)
+    public function setMontoRecarga($montonRecarga)
     {
-        $this->montonRecarga = $montonRecarga;
+        $this->montoRecarga = $montoRecarga;
 
         return $this;
     }
@@ -95,9 +95,9 @@ class HistorialRecargas
      *
      * @return string
      */
-    public function getMontonRecarga()
+    public function getMontoRecarga()
     {
-        return $this->montonRecarga;
+        return $this->montoRecarga;
     }
 
     /**

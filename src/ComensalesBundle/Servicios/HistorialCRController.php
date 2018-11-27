@@ -30,23 +30,52 @@ class HistorialCRController extends Controller
         $this->entityManager = $entityManager;
     }
 
-        public function obtenerHistorialTarjeta($tarjeta)
+    public function obtenerHistorialTarjeta($tarjeta)
     {
         $retorno = null;
         if(!empty($tarjeta))
         {
-            //obtengo el id
             $id = $tarjeta->getId();
             //armo el historial de consumo y recarga
             //consulto
             $db = $this->entityManager;
-            $consumos = $db->getRepository('ComensalesBundle:HistorialConsumos')->find($id);
-            $recargas = $db->getRepository('ComensalesBundle:HistorialRecargas')->find($id);
-            var_dump($recargas);
-            var_dump($consumos);
-            die;
+            $consumos = $this->obtenerConsumos($id);
+            $recargas = $this->obtenerRecargas($id);
+            $merge = array_merge($consumos,$recargas);
+            $retorno = $merge;
         }
         
         return new JsonResponse($retorno);
+    }
+    
+    public function obtenerConsumos($id)
+    {
+        return     
+           $this->entityManager->createQueryBuilder()
+           ->select('hc.fechaConsumo as fecha,sede.nombreSede,item.nombreItemConsumo,importe.precio')
+           ->from('ComensalesBundle:HistorialConsumos','hc')
+           ->innerJoin('hc.tarjeta','tarj')
+           ->innerJoin('hc.itemConsumo','item')
+           ->innerJoin('item.importe','importe')
+           ->innerJoin('hc.sedeConsumo','sede')
+           ->where('tarj.id = :id')
+           ->setParameter('id',$id)
+           ->getQuery()
+           ->getArrayResult();
+    }
+    
+    public function obtenerRecargas($id)
+    {
+        return     
+           $this->entityManager->createQueryBuilder()
+           ->select('hr.fechaRecarga as fecha,hr.montoRecarga,sede.nombreSede,item.nombreItemRecarga')
+           ->from('ComensalesBundle:HistorialRecargas','hr')
+           ->innerJoin('hr.tarjeta','tarj')
+           ->innerJoin('hr.itemRecarga','item')
+           ->innerJoin('hr.sedeRecarga','sede')
+           ->where('tarj.id = :id')
+           ->setParameter('id',$id)
+           ->getQuery()
+           ->getArrayResult();
     }
 }
