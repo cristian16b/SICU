@@ -27,11 +27,25 @@
             <p>Tipo historial:</p>
         </div>
         <div class="col-lg-5 col-md-5">
+            <select class="form-control"
+                            required
+                            id="tipo-historial">
+                    <option disabled selected hidden>Opción</option>
+                    <option>Consumos</option>
+                    <option>Recargas</option>
+            </select>
         </div>
         <div class="col-lg-2 col-md-2">
-            <p>Periodo:</p>
+            <p>Año:</p>
         </div>
         <div class="col-lg-3 col-md-3">
+            <select class="form-control"
+                            required
+                            id="anio">
+                    <option disabled selected hidden>Opción</option>
+                    {# provisorio, generar funcionalidad #}
+                    <option>2018</option>
+            </select>
         </div>
     </div>
     <div class="row">
@@ -52,6 +66,14 @@
             </table>
         </div>
     </div>
+{#
+uso este input oculto para guardar el id de la tarjeta
+#}
+    <input class="form-control"
+                      type="hidden"
+                      disabled
+                      id ="id-tarjeta"
+                      />
 </div>
 </div>    
 {% endblock%}

@@ -12,9 +12,8 @@
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/xampp/htdocs/SICU/app/Resources/views/Panel%20tarjetas/panelTarjetas.html.twig</file>
-            <file>file:/C:/xampp/htdocs/SICU/src/ComensalesBundle/Controller/TarjetaController.php</file>
-            <file>file:/C:/xampp/htdocs/SICU/app/Resources/views/scripts/panel%20tarjetas/tarjetas_activar.twig.js</file>
+            <file>file:/C:/xampp/htdocs/SICU/app/Resources/views/Panel%20tarjetas/modal/modal-historial-tarjetas.html.twig</file>
+            <file>file:/C:/xampp/htdocs/SICU/app/Resources/views/scripts/panel%20tarjetas/tarjetas_historial.twig.js</file>
         </group>
     </open-files>
 </project-private>
