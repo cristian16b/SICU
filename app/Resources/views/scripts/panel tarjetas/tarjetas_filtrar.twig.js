@@ -42,33 +42,7 @@ $(function()
         {
             obtenerTarjetas(organismo,tipoFiltro);
         }
-    });
-    
-    $("#tablaTarjetas").on("click",".boton-ver-historial",function()
-    {
-        var id = $(this).parents('TR').find('TD').eq(1).html();
-        mostrarHistorial(id);
-    });
-    
-    $( "#modal-historial-tarjetas" ).dialog({
-        autoOpen: false,
-        resizable: false,
-        height: "auto",
-        width: "auto",
-        modal: true,
-        buttons: 
-        {
-//                Confirmar: function() 
-//                {
-//                    $( this ).dialog( "close" );
-//                }
-//                ,
-                Salir: function() 
-                {
-                   $( this ).dialog( "close" );
-                }
-       }
-       }); 
+    }); 
 });
 
 function obtenerTarjetas(organismo,tipoFiltro)

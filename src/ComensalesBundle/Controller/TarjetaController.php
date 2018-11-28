@@ -133,11 +133,20 @@ class TarjetaController extends Controller{
         if($request->isXmlHttpRequest())
         {
             $id = $request->query->get('id');
-            $retorno = $this->container->get('historialCR')
-                    ->obtenerHistorialTarjeta($this->obtenerTarjeta($id));
+            $anio = $request->query->get('anio');
+            $tipoHistorial = $request->query->get('tipoHistorial');
+            
+            if($tipoHistorial == 'Recargas')
+            {
+                $retorno = $this->container->get('historialCR')
+                    ->obtenerRecargas($id,$anio);
+            }
+            else if($tipoHistorial == 'Consumos')
+            {
+                $retorno = $this->container->get('historialCR')
+                    ->obtenerConsumos($id,$anio);
+            }
         }
-        return  $retorno;
+        return new JsonResponse($retorno);
     }
-    
-    
 }

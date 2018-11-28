@@ -50,21 +50,24 @@ class HistorialCRController extends Controller
         return new JsonResponse($retorno);
     }
     
-    public function obtenerConsumos($id)
+    public function obtenerConsumos($id,$anio)
     {
         //variable auxiliar para comparar fecha
         //genero una fecha generica (1-1-año actual)
         $fecha = new \DateTime();
-        $fecha->setDate(date("Y"), 1,1);
+        $fecha->setDate($anio, 1,1);
         
-        return     
-           $this->entityManager->createQueryBuilder()
-           ->select('hc.fechaConsumo as fecha,sede.nombreSede,item.nombreItemConsumo,importe.precio')
+        return $this->entityManager->createQueryBuilder()
+           ->select('tarj.id as id,'
+                   . 'hc.fechaConsumo as fecha,'
+                   . 'sed.nombreSede as sede,'
+                   . 'item.nombreItemConsumo as concepto,'
+                   . 'imp.precio as importe')
            ->from('ComensalesBundle:HistorialConsumos','hc')
            ->innerJoin('hc.tarjeta','tarj')
            ->innerJoin('hc.itemConsumo','item')
-           ->innerJoin('item.importe','importe')
-           ->innerJoin('hc.sedeConsumo','sede')
+           ->innerJoin('item.importe','imp')
+           ->innerJoin('hc.sedeConsumo','sed')
            ->where('tarj.id = :id')
            ->andWhere('hc.fechaConsumo > :fechaActual')
            ->setParameter('id',$id)
@@ -73,16 +76,19 @@ class HistorialCRController extends Controller
            ->getArrayResult();
     }
     
-    public function obtenerRecargas($id)
+    public function obtenerRecargas($id,$anio)
     {
         //variable auxiliar para comparar fecha
-        //genero una fecha generica (1-1-año actual)
+        //genero una fecha generica (1-1-añio)
         $fecha = new \DateTime();
-        $fecha->setDate(date("Y"), 1,1);
+        $fecha->setDate($anio, 1,1);
         
         return     
            $this->entityManager->createQueryBuilder()
-           ->select('hr.fechaRecarga as fecha,hr.montoRecarga,sede.nombreSede,item.nombreItemRecarga')
+           ->select('hr.fechaRecarga as fecha,'
+                   . 'hr.montoRecarga,'
+                   . 'sede.nombreSede,'
+                   . 'item.nombreItemRecarga')
            ->from('ComensalesBundle:HistorialRecargas','hr')
            ->innerJoin('hr.tarjeta','tarj')
            ->innerJoin('hr.itemRecarga','item')

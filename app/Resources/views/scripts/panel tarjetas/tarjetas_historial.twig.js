@@ -40,7 +40,27 @@ $(function()
               }
    }});
    
-   $("#anio").on("change",function()
+       $( "#modal-historial-tarjetas" ).dialog({
+        autoOpen: false,
+        resizable: false,
+        height: "auto",
+        width: "auto",
+        modal: true,
+        buttons: 
+        {
+//                Confirmar: function() 
+//                {
+//                    $( this ).dialog( "close" );
+//                }
+//                ,
+                Salir: function() 
+                {
+                   $( this ).dialog( "close" );
+                }
+       }
+       });
+   
+   $("#boton-historial-tarjeta").on("click",function()
    {
        var anio =  $("#anio").val();
        var tipoHistorial =  $("#tipo-historial").val();
@@ -79,6 +99,8 @@ function mostrarHistorial(id,tipoHistorial,anio)
 
 function cargarFilasHistorial(datos)
 {     
+    //desbloqueo la pagina
+    $.unblockUI();
     var tabla = $('#tablaTarjetas').DataTable();
     var fecha,sede,concepto,monto,saldo;
     var i;
