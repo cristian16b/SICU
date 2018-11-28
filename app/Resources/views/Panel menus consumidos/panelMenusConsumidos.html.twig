@@ -26,16 +26,19 @@
                             <p> </p>
                         </div>
                     </div>
-                    {% block botones %}
-                        {{ include('Panel menus consumidos/botones.html.twig') }}
+                    {% block titulosTabla %}
+                        {{ include('Panel menus consumidos/titulosTabla.html.twig') }}
+                    {% endblock %} 
+                    {% block tabla %}
+                        {{ include('Panel menus consumidos/tabla.html.twig') }}
                     {% endblock %}
                     <div class="row">
                         <div class="col-lg-6 col-md-6">
                             <p> </p>
                         </div>
                     </div>
-                    {% block tabla %}
-                        {{ include('Panel menus consumidos/tabla.html.twig') }}
+                    {% block botones %}
+                        {{ include('Panel menus consumidos/botones.html.twig') }}
                     {% endblock %}
                 </div>
               </div>
