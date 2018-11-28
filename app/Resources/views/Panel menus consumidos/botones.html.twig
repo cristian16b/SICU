@@ -1,0 +1,35 @@
+{% block botones %}
+<div class="row">
+    <div class="col-lg-5 col-md-5">
+        <div class="btn-group" role="group">
+            <button class="btn btn-danger" 
+               type="button" 
+               id="boton-cancelar-tarjeta">CANCELAR</button>
+{#
+            <button class="btn btn-default" 
+               type="button" 
+               id="boton-generar-tarjeta">GENERAR</button>
+#}
+            <button class="btn btn-default" 
+                    type="button" 
+                    id="boton-retiro-tarjeta">MARCAR RETIRO</button>
+        </div>
+    </div>
+    <div class="col-lg-5 col-md-5 col-lg-offset-1">
+        <div class="btn-group" role="group">
+            <button class="btn btn-primary" 
+                    id="boton-resumen-tarjeta"
+                    type="button">RESUMEN</button>
+            <button class="btn btn-default" 
+                    type="button" 
+                    id="boton-exportar-tarjetas-pdf"
+                    >PDF</button>
+            <button class="btn btn-default" 
+                    type="button" 
+                    id="boton-exportar-tarjetas-xls"
+                    >XLS
+            </button>
+        </div>
+    </div>
+</div>    
+{% endblock %}
