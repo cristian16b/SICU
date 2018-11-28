@@ -75,6 +75,7 @@ function mostrarHistorial(id,tipoHistorial,anio)
     datos.id = id;
     datos.tipoHistorial = tipoHistorial;
     datos.anio = anio;
+    borrarFilasHistorial();
     $.ajax
     ({
         async:true,
@@ -101,18 +102,33 @@ function cargarFilasHistorial(datos)
 {     
     //desbloqueo la pagina
     $.unblockUI();
-    var tabla = $('#tablaTarjetas').DataTable();
-    var fecha,sede,concepto,monto,saldo;
+    var tabla = $('#tablaHistorial').DataTable();
+    var fecha,sede,concepto,monto,saldo,fechatmp;
     var i;
     var tamanio = datos.length;
     for(i= 0;i < tamanio; i++)
     {
-        fecha     = '<td>'+datos[i].fecha.date+'</td>';
+        fechatmp   =       datos[i].fecha.date;
         saldotarj =        datos[i].saldo;
         concepto  = '<td>'+datos[i].concepto+'</td>';
-        monto     = '<td>'+datos[i].monto+'</td>';
+        monto     = '<td>'+datos[i].importe+'</td>';
         saldo     = '<td>'+datos[i].saldo+'</td>';
+        sede      = '<td>'+datos[i].sede+'</td>';
 
+        
+        if(fechatmp == null )
+        {
+            fecha = '-';
+        }
+        else
+        {
+            var primerparte = fechatmp.split(" ");
+            var f = primerparte[0].split("-");
+            if(f.length > 0)
+            {
+                fecha = f[2] + '-' + f[1] + '-' + f[0];
+            }
+        }
         if(saldotarj > 0)
         {
             saldo = '<td><b>'+saldotarj+'</b></td>';
@@ -127,4 +143,10 @@ function cargarFilasHistorial(datos)
                     fecha,sede,concepto,monto,saldo
                 ]).draw(false);
     }
+}
+
+function borrarFilasHistorial()
+{
+    var table = $('#tablaHistorial').DataTable();
+    table.clear().draw();
 }

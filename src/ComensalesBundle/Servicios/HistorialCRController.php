@@ -58,22 +58,23 @@ class HistorialCRController extends Controller
         $fecha->setDate($anio, 1,1);
         
         return $this->entityManager->createQueryBuilder()
-           ->select('tarj.id as id,'
-                   . 'hc.fechaConsumo as fecha,'
-                   . 'sed.nombreSede as sede,'
-                   . 'item.nombreItemConsumo as concepto,'
-                   . 'imp.precio as importe')
-           ->from('ComensalesBundle:HistorialConsumos','hc')
-           ->innerJoin('hc.tarjeta','tarj')
-           ->innerJoin('hc.itemConsumo','item')
-           ->innerJoin('item.importe','imp')
-           ->innerJoin('hc.sedeConsumo','sed')
-           ->where('tarj.id = :id')
-           ->andWhere('hc.fechaConsumo > :fechaActual')
-           ->setParameter('id',$id)
-           ->setParameter('fechaActual',$fecha)
-           ->getQuery()
-           ->getArrayResult();
+                    ->select('tarj.id as id,'
+                            . 'hc.fechaConsumo as fecha,'
+                            . 'sed.nombreSede as sede,'
+                            . 'item.nombreItemConsumo as concepto,'
+                            . 'imp.precio as importe,'
+                            . 'tarj.saldo')
+                    ->from('ComensalesBundle:HistorialConsumos','hc')
+                    ->innerJoin('hc.tarjeta','tarj')
+                    ->innerJoin('hc.itemConsumo','item')
+                    ->innerJoin('item.importe','imp')
+                    ->innerJoin('hc.sedeConsumo','sed')
+                    ->where('tarj.id = :id')
+                    ->andWhere('hc.fechaConsumo > :fechaActual')
+                    ->setParameter('id',$id)
+                    ->setParameter('fechaActual',$fecha)
+                    ->getQuery()
+                    ->getArrayResult();
     }
     
     public function obtenerRecargas($id,$anio)
@@ -85,19 +86,20 @@ class HistorialCRController extends Controller
         
         return     
            $this->entityManager->createQueryBuilder()
-           ->select('hr.fechaRecarga as fecha,'
-                   . 'hr.montoRecarga,'
-                   . 'sede.nombreSede,'
-                   . 'item.nombreItemRecarga')
-           ->from('ComensalesBundle:HistorialRecargas','hr')
-           ->innerJoin('hr.tarjeta','tarj')
-           ->innerJoin('hr.itemRecarga','item')
-           ->innerJoin('hr.sedeRecarga','sede')
-           ->where('tarj.id = :id')
-           ->andWhere('hc.fechaConsumo > :fechaActual')
-           ->setParameter('id',$id)
-           ->setParameter('fechaActual',$fecha)
-           ->getQuery()
-           ->getArrayResult();
+                ->select('hr.fechaRecarga as fecha,'
+                        . 'hr.montoRecarga as importe,'
+                        . 'sed.nombreSede as sede,'
+                        . 'item.nombreItemRecarga as concepto,'
+                        . 'tarj.saldo')
+                ->from('ComensalesBundle:HistorialRecargas','hr')
+                ->innerJoin('hr.tarjeta','tarj')
+                ->innerJoin('hr.itemRecarga','item')
+                ->innerJoin('hr.sedeRecarga','sed')
+                ->where('tarj.id = :id')
+                ->andWhere('hr.fechaRecarga > :fechaActual')
+                ->setParameter('id',$id)
+                ->setParameter('fechaActual',$fecha)
+                ->getQuery()
+                ->getArrayResult();
     }
 }
