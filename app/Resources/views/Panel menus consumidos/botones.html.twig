@@ -1,32 +1,33 @@
 {% block botones %}
 <div class="row">
-    <div class="col-lg-5 col-md-5">
+    <div class="col-lg-6 col-md-6" align="center">
         <div class="btn-group" role="group">
-            <button class="btn btn-danger" 
-               type="button" 
-               id="boton-cancelar-tarjeta">CANCELAR</button>
-{#
-            <button class="btn btn-default" 
-               type="button" 
-               id="boton-generar-tarjeta">GENERAR</button>
-#}
-            <button class="btn btn-default" 
-                    type="button" 
-                    id="boton-retiro-tarjeta">MARCAR RETIRO</button>
-        </div>
-    </div>
-    <div class="col-lg-5 col-md-5 col-lg-offset-1">
-        <div class="btn-group" role="group">
-            <button class="btn btn-primary" 
+            <button class="btn btn-success" 
                     id="boton-resumen-tarjeta"
-                    type="button">RESUMEN</button>
+                    type="button">Ver VENTAS</button>
             <button class="btn btn-default" 
                     type="button" 
-                    id="boton-exportar-tarjetas-pdf"
+                    id="boton-exportar-ventas-pdf"
                     >PDF</button>
             <button class="btn btn-default" 
                     type="button" 
-                    id="boton-exportar-tarjetas-xls"
+                    id="boton-exportar-ventas-xls"
+                    >XLS
+            </button>
+        </div>
+    </div>
+    <div class="col-lg-6 col-md-6" align="center">
+        <div class="btn-group" role="group">
+            <button class="btn btn-warning" 
+                    id="boton-resumen-tarjeta"
+                    type="button">Ver CONSUMOS</button>
+            <button class="btn btn-default" 
+                    type="button" 
+                    id="boton-exportar-consumos-pdf"
+                    >PDF</button>
+            <button class="btn btn-default" 
+                    type="button" 
+                    id="boton-exportar-consumos-xls"
                     >XLS
             </button>
         </div>
