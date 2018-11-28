@@ -1,0 +1,44 @@
+{% block filtros %}
+ <div class="row" >
+    <div class="col-lg-11 col-md-11">
+            <div class="col-lg-1 col-md-1">
+                FILTRAR
+                <!--<p>FILTRAR:</p>-->
+            </div>
+            <div class="col-lg-4 col-md-4">
+                <select class="form-control"
+                            required
+                            id="organismo">
+                    <option value="sede" disabled selected hidden>Facultad y/o Secretaría</option>
+                {% for organismo in organismos %}
+                    <option>{{organismo.nombreFacultad}}</option>
+                {% endfor %}
+                </select>
+            </div>
+            <div class="col-lg-2 col-md-2">
+                    <input class="form-control"
+                                   type="text"
+                                   align="center"
+                                   id ="fecha-inicio"
+                                   placeholder="Fecha Inicio"
+                                   />
+            </div>
+            <div class="col-lg-2 col-md-2">
+                    <input class="form-control"
+                                   type="text"
+                                   align="center"
+                                   id ="fecha-fin"
+                                   placeholder="Fecha Fin"
+                                   />
+            </div>
+            <div class="col-lg-1 col-md-1">
+                <button 
+                    class="btn btn-default"
+                    type="button"
+                    id="boton-filtrar-menus"
+                    >MOSTRAR 
+                </button>
+            </div>
+    </div>
+</div>
+{% endblock %}
