@@ -5,14 +5,15 @@
                 FILTRAR
                 <!--<p>FILTRAR:</p>-->
             </div>
-            <div class="col-lg-4 col-md-4">
+            <div class="col-lg-2 col-md-2">
                 <select class="form-control"
                             required
                             id="organismo">
-                    <option value="sede" disabled selected hidden>Facultad y/o Secretaría</option>
-                {% for organismo in organismos %}
-                    <option>{{organismo.nombreFacultad}}</option>
+                    <option value="sede" disabled selected hidden>Sede</option>
+                {% for sede in sedes %}
+                    <option>{{sede.nombreSede}}</option>
                 {% endfor %}
+                    <option>Todas</option>
                 </select>
             </div>
             <div class="col-lg-2 col-md-2">

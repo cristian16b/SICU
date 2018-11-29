@@ -8,11 +8,24 @@
 
 namespace ComensalesBundle\Controller;
 
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
+
 /**
  * Description of VentaMenusController
  *
  * @author Cristian B
  */
-class VentaMenusController {
-    //put your code here
+class VentaMenusController extends Controller{
+    public function __construct() {
+    }
+    
+    public function obtenerVentas($fechaInicio,$fechaFin,$sede)
+    {
+        
+    }
 }

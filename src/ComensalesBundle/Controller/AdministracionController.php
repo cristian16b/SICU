@@ -24,14 +24,23 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 
 class AdministracionController extends Controller{
     
-    /**
+    private $recargas;
+    private $consumos;
+
+    public function __construct() 
+    {
+        $this->recargas = new VentaMenusController();
+        $this->consumos = new MenusConsumidosController();
+    }
+
+        /**
      * @Route("/panel",name="panel")
      */
     public function mostrarPanel()
     {
-        $organismos = $this->container->get('organismos')->obtenerOrganismos();
+        $sedes = $this->container->get('sedes')->obtenerSedes();
         return $this->render('Panel menus consumidos/panelMenusConsumidos.html.twig',
-                array('organismos' => $organismos,
+                array('sedes' => $sedes,
                      ));
     }
 }
