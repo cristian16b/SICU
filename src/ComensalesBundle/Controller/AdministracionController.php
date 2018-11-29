@@ -15,6 +15,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use ComensalesBundle\Servicios\VentaMenusController;
 
 /**
  * Description of AdministracionController
@@ -24,23 +25,36 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 
 class AdministracionController extends Controller{
     
-    private $recargas;
-    private $consumos;
-
-    public function __construct() 
-    {
-        $this->recargas = new VentaMenusController();
-        $this->consumos = new MenusConsumidosController();
-    }
-
-        /**
+    /**
      * @Route("/panel",name="panel")
      */
-    public function mostrarPanel()
+    public function mostrarPanel(Request $request)
     {
         $sedes = $this->container->get('sedes')->obtenerSedes();
         return $this->render('Panel menus consumidos/panelMenusConsumidos.html.twig',
                 array('sedes' => $sedes,
                      ));
+    }
+    
+    /**
+     * @Route("/listar",name="listar")
+     */
+    public function obtenerListados(Request $request)
+    {
+        $retorno = null;
+        if($request->isXmlHttpRequest())
+        {
+            $sede = $request->query->get('sede');
+            $fechaInicio = $request->query->get('fechaInicio');
+            $fechaFin = $request->query->get('fechaFin');
+            //
+            if(isset($sede) && isset($fechaInicio))
+            {
+                var_dump('pasa');
+                $retorno = $this->container->get('ventas')
+                                ->obtenerVentas($fechaInicio, $fechaFin, $sede);
+            }
+        }
+        return new JsonResponse($retorno);
     }
 }

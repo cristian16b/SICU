@@ -2,24 +2,26 @@ $(function()
 {
     $('#boton-filtrar-menus').on("click",function() 
     {
-        var organismo = $("#organismo").val();
-        var tipoFiltro = $("#tipo-filtro").val();
+        var sede = $("#organismo").val();
+        var fechaInicio = $("#fecha-inicio").val();
+        var fechaFin = $("#fecha-fin").val();
                 
-        if(organismo === null || tipoFiltro === null)
+        if(organismo === null || fechaInicio === null)
         {
             alert('Para filtrar debe seleccionar un Organismo y un Filtro, intente nuevamente');
         }
         else
         {
-            borrarFilasVentas();
+            borrarFilasRecargas();
             datos = {};
-            datos.organismo = organismo;
-            datos.tipoFiltro = tipoFiltro;
+            datos.sede = sede;
+            datos.fechaInicio = fechaInicio;
+            datos.fechaFin = fechaFin;
             $.ajax
                 ({
                     async:true,
                     method: 'GET',
-                    url: "{{ path('tarjetas_filtrar') }}", //VER A QUE RUTA!!!!
+                    url: "{{ path('administracion_listar') }}", 
                     data: datos,
                     dataType: 'json',
                     beforeSend: function()
@@ -47,6 +49,7 @@ function borrarFilasRecargas()
 
 function cargarFilasRecargas(datos)
 {
+    $.unblockUI();
     var tipo,cantidad,importe,total,fila,renglon;
     var tamanio = datos.length;
     var i = 0;

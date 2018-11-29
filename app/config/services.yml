@@ -69,3 +69,8 @@ services:
         class: ComensalesBundle\Servicios\HistorialCRController
         arguments: ["@doctrine.orm.entity_manager"]
         public: true
+    
+    ventas:
+        class: ComensalesBundle\Servicios\VentaMenusController
+        arguments: ["@doctrine.orm.entity_manager"]
+        public: true

@@ -6,8 +6,7 @@
  * and open the template in the editor.
  */
 
-namespace ComensalesBundle\Controller;
-
+namespace ComensalesBundle\Servicios;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -31,19 +30,7 @@ class MenusConsumidosController {
      */
     public function listarMenusConsumidos(Request $request)
     {
-        $retorno = null;
-        if($request->isXmlHttpRequest())
-        {
-            $sede = $request->query->get('sede');
-            $fechaInicio = $request->query->get('fechaInicio');
-            $fechaFin = $request->query->get('fechaFin');
-            
-            if(isset($sede) && isset($fechaInicio) && isset($fechaFin))
-            {
-                $this->obtenerMenusConsumidos($fechaInicio, $fechaFin, $sede);
-            }
-        }
-        return $retorno;
+        
     }
     
     private function obtenerMenusConsumidos($fechaInicio,$fechaFin,$sede)
