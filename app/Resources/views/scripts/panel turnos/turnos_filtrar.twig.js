@@ -219,7 +219,6 @@ function cargarFilasSolicitantesTurnos(datos)
         nombreApellido = '<td>'+ datos[i].apellido + ' , ' + datos[i].nombre +'</td>';
         facultad = '<td>' + datos[i].nombreFacultad+'</td>';
         tipoComensal = '<td>' + datos[i].nombreComensal + '</td>';
-        alert('voy a cargar');
 //        fila = '<tr>' + Check + dni + nombreApellido + facultad + tipoComensal +  '</tr>';
 //        var renglon = document.createElement('TR');
 //        renglon.innerHTML = fila;
