@@ -36,6 +36,13 @@ class Importe
     private $precio;
     
     /**
+     * @var string
+     *
+     * @ORM\Column(name="costo", type="decimal", precision=10, scale=2)
+     */
+    private $costo;
+    
+    /**
      * @var \Date
      *
      * @ORM\Column(name="fechaActualizacion", type="date")
@@ -99,5 +106,28 @@ class Importe
     {
         return $this->precio;
     }
-}
 
+    /**
+     * Set fechaAcualizacion
+     *
+     * @param \DateTime $fechaAcualizacion
+     *
+     * @return Importe
+     */
+    public function setFechaAcualizacion($fechaAcualizacion)
+    {
+        $this->fechaAcualizacion = $fechaAcualizacion;
+
+        return $this;
+    }
+
+    /**
+     * Get fechaAcualizacion
+     *
+     * @return \DateTime
+     */
+    public function getFechaAcualizacion()
+    {
+        return $this->fechaAcualizacion;
+    }
+}

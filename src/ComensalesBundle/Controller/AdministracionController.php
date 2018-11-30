@@ -46,14 +46,14 @@ class AdministracionController extends Controller{
         {
             $sede = $request->query->get('sede');
             $fechaInicio = $request->query->get('fechaInicio');
-            $fechaFin = $request->query->get('fechaFin');
+            $fechaFin = $request->query->get('fech$fechaInicio, $fechaFin, $sedeaFin');
             //
             if(isset($sede) && isset($fechaInicio))
             {
                 $retorno[0] = $this->container->get('ventas')
                                 ->obtenerVentas($fechaInicio, $fechaFin, $sede);
                 $retorno[1] = $this->container->get('menus_consumidos')
-                                ->obtener($fechaInicio, $fechaFin, $sede);
+                                ->obtenerMenusConsumidos($fechaInicio, $fechaFin, $sede);
             }
         }
         return new JsonResponse($retorno);
