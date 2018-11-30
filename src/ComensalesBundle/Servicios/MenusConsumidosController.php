@@ -17,23 +17,48 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
  * Description of MenusConsumidosController
- * @Route("/menusConsumidos",name="menus_consumidos_")
  * @author Cristian B
  */
-class MenusConsumidosController {
+class MenusConsumidosController extends Controller{
 
-    public function __construct() {
-    }
+    protected $entityManager;
     
-    /**
-     * @Route("/listar",name="listar")
-     */
-    public function listarMenusConsumidos(Request $request)
+    public function __construct($entityManager)
     {
-        
+        $this->entityManager = $entityManager;
     }
     
-    private function obtenerMenusConsumidos($fechaInicio,$fechaFin,$sede)
+    public function obtenerMenusConsumidos(Request $request)
+    {
+        $retorno = null;
+        if($fechaFin == null)
+        {
+            $retorno = $this->obtenerVentasDia($fechaInicio, $sede);
+        }
+        else
+        {
+            $retorno = $this->obtenerVentasPeriodo($fechaInicio, $fechaFin, $sede);
+        }
+        return $retorno;
+    }
+    
+    private function obtenerMenusConsumidosDiario($fecha,$sede)
+    {
+        return $this->entityManager->createQueryBuilder()
+                    ->select('')
+                    ->from('ComensalesBundle:HistorialConsumos','hc')
+                    ->innerJoin('hc.itemConsumo','item')
+                    ->innerJoin('item.importe','imp')
+                    ->innerJoin('hc.sedeConsumo','sed')
+                    ->where('hc.fechaConsumo = :fechaElegida')
+                    ->setParameter('fechaElegida',$fecha)
+                    ->groupBy('')
+                    ->getQuery()
+                    ->getArrayResult();
+
+    }
+    
+    private function obtenerMenusConsumidosPeriodo($fechaInicio,$fechaFin,$sede)
     {
         
     }

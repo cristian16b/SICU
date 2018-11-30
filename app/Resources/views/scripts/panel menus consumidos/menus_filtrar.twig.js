@@ -12,11 +12,18 @@ $(function()
         }
         else
         {
+            var fi = obtengoFechaFormato(fechaInicio);
+            var ff = null;
+            if(ff !== null)
+            {
+                ff = obtengoFechaFormato(fechaFin);
+            }
+            
             borrarFilasRecargas();
             datos = {};
             datos.sede = sede;
-            datos.fechaInicio = fechaInicio;
-            datos.fechaFin = fechaFin;
+            datos.fechaInicio = fi;
+            datos.fechaFin = ff;
             $.ajax
                 ({
                     async:true,
@@ -57,9 +64,9 @@ function cargarFilasRecargas(datos)
     {
         tipo = '<td>' + datos[i].tipo + '</td>';
         cantidad = '<td>' + datos[i].cantidad+'</td>';
-        importe = '<td>' + datos[i].importe+'</td>';
         total = '<td>' + datos[i].total+'</td>';
         
+        alert('ssss');
         fila = '<tr>' + tipo + cantidad + importe + total +  '</tr>';
         renglon = document.createElement('TR');
         renglon.innerHTML = fila;
@@ -67,3 +74,13 @@ function cargarFilasRecargas(datos)
     }
 }
 
+function obtengoFechaFormato(fecha)
+{
+    var array = fecha.split("-");
+    var salida = null;
+    if(array.length > 0)
+    {
+        salida = array[2] + '-' + array[1] + '-' + array[0];
+    }
+    return salida;
+}

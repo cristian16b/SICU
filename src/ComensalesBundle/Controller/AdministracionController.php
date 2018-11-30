@@ -41,7 +41,7 @@ class AdministracionController extends Controller{
      */
     public function obtenerListados(Request $request)
     {
-        $retorno = null;
+        $retorno = array();
         if($request->isXmlHttpRequest())
         {
             $sede = $request->query->get('sede');
@@ -50,9 +50,10 @@ class AdministracionController extends Controller{
             //
             if(isset($sede) && isset($fechaInicio))
             {
-                var_dump('pasa');
-                $retorno = $this->container->get('ventas')
+                $retorno[0] = $this->container->get('ventas')
                                 ->obtenerVentas($fechaInicio, $fechaFin, $sede);
+                $retorno[1] = $this->container->get('menus_consumidos')
+                                ->obtener($fechaInicio, $fechaFin, $sede);
             }
         }
         return new JsonResponse($retorno);

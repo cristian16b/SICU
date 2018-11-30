@@ -49,7 +49,7 @@ class VentaMenusController extends Controller{
             $this->entityManager->createQueryBuilder()
                 ->select('tc.nombreComensal as tipo,'
                         . 'count(hr) as cantidad,'
-                        . 'sum(hr.montoRecarga) as importe'
+                        . 'sum(hr.montoRecarga) as total'
                         )
                 ->from('ComensalesBundle:HistorialRecargas','hr')
                 ->innerJoin('hr.tarjeta','tarj')
@@ -59,6 +59,7 @@ class VentaMenusController extends Controller{
                 ->innerJoin('hr.sedeRecarga','sed')
                 ->where('hr.fechaRecarga = :fechaElegida')
                 ->setParameter('fechaElegida',$fecha)
+                ->groupBy('tc.nombreComensal')
                 ->getQuery()
                 ->getArrayResult();
     }
