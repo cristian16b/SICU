@@ -33,20 +33,34 @@ class MenusConsumidosController extends Controller{
         $retorno = null;
         if($fechaFin == null)
         {
-            $retorno = $this->obtenerMenusConsumidosDiario($fechaInicio, $sede);
+            $retorno = 
+                    $this->obtenerTotales
+                    (
+                        $this->obtenerMenusConsumidosDiario($fechaInicio, $sede)
+                    );
         }
         else
         {
-            $retorno = $this->obtenerVentasPeriodo($fechaInicio, $fechaFin, $sede);
+            $retorno =
+                    $this->obtenerTotales
+                    (
+                        $this->obtenerVentasPeriodo($fechaInicio, $fechaFin, $sede)
+                    );
         }
         return $retorno;
     }
     
+    /*
+     * TO-DO usar el importe con al fecha mas actual con respecto a la actual
+     * para poder conservar el historico de los datos
+     * igualment esto queda para otra instancia y no es incluido
+     * en el presente se supondra que se sobreescriben los importes
+     */
     private function obtenerMenusConsumidosDiario($fecha,$sede)
     {
         return $this->entityManager->createQueryBuilder()
                     ->select('imp.nombreImporte as tipo,'
-                            . 'count(hr) as cantidad,'
+                            . 'count(hc) as cantidad,'
                             . 'imp.costo as importe')
                     ->from('ComensalesBundle:HistorialConsumos','hc')
                     ->innerJoin('hc.itemConsumo','item')
@@ -57,11 +71,32 @@ class MenusConsumidosController extends Controller{
                     ->groupBy('imp.nombreImporte')
                     ->getQuery()
                     ->getArrayResult();
-
     }
     
     private function obtenerMenusConsumidosPeriodo($fechaInicio,$fechaFin,$sede)
     {
         
+    }
+    
+    private function obtenerTotales($retorno)
+    {
+        $cantidad = count($retorno);
+        $acumuladoTotal = 0;
+        $acumuladoCantidad = 0;
+        for($i=0;$i<$cantidad;$i++)
+        {
+            $fila = $retorno[$i];
+            $acumuladoCantidad = $acumuladoCantidad + $fila['cantidad'];
+            $fila['total'] = $fila['cantidad'] * $fila['importe'];
+            $acumuladoTotal = $acumuladoTotal + $fila['total'];
+            $retorno[$i] = $fila;
+        }
+        //agrego una ultima fila para los totales
+        $filaTotales = array();
+        $filaTotales['cantidad'] = $acumuladoCantidad;
+        $filaTotales['total'] = $acumuladoTotal;
+        $retorno[$cantidad] = $filaTotales;
+        
+        return $retorno;
     }
 }

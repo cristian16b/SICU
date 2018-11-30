@@ -33,18 +33,25 @@ class VentaMenusController extends Controller{
         $retorno = null;
         if($fechaFin == null)
         {
-            $retorno = $this->obtenerVentasDia($fechaInicio, $sede);
+            $retorno = 
+                        $this->obtenerTotales
+                            (
+                                $this->obtenerVentasDia($fechaInicio, $sede)
+                            );
         }
         else
         {
-            $retorno = $this->obtenerVentasPeriodo($fechaInicio, $fechaFin, $sede);
+            $retorno = 
+                        $this->obtenerTotales
+                            (
+                                $this->obtenerVentasPeriodo($fechaInicio, $fechaFin, $sede)
+                            );
         }
         return $retorno;
     }
     
     private function obtenerVentasDia($fecha,$sede)
     {
-        
         return     
             $this->entityManager->createQueryBuilder()
                 ->select('tc.nombreComensal as tipo,'
@@ -83,5 +90,25 @@ class VentaMenusController extends Controller{
                 ->setParameter('fechaFin',$fechaFin)
                 ->getQuery()
                 ->getArrayResult();
+    }
+    
+    private function obtenerTotales($retorno)
+    {
+        $cantidad = count($retorno);
+        $acumuladoTotal = 0;
+        $acumuladoCantidad = 0;
+        for($i=0;$i<$cantidad;$i++)
+        {
+            $fila = $retorno[$i];
+            $acumuladoCantidad = $acumuladoCantidad + $fila['cantidad'];
+            $acumuladoTotal = $acumuladoTotal + $fila['total'];
+        }
+        //agrego una ultima fila para los totales
+        $filaTotales = array();
+        $filaTotales['cantidad'] = $acumuladoCantidad;
+        $filaTotales['total'] = $acumuladoTotal;
+        $retorno[$cantidad] = $filaTotales;
+        
+        return $retorno;
     }
 }

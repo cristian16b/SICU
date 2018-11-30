@@ -35,7 +35,15 @@ $(function()
                     {
                         $.blockUI({ message: '<img src="/img/cargando.gif"><h3>Cargando ...</h3>' });  
                     },
-                    success: cargarFilasRecargas,
+                    success: function(datos)
+                    {
+                        if(datos.length === 2)
+                        {
+                            cargarFilasRecargas(datos[0]);
+                            cargarFilasConsumos(datos[1]);
+                            $.unblockUI();
+                        }
+                    },
                     timeout:12500,
                     error : function() 
                     {
@@ -54,23 +62,70 @@ function borrarFilasRecargas()
     Tabla.innerHTML = "";
 }
 
+function borrarFilasConsumos()
+{
+    var Tabla = document.getElementById("tabla-consumos");
+    Tabla.innerHTML = "";
+    alert('borro la tabla');
+}
+
 function cargarFilasRecargas(datos)
 {
-    $.unblockUI();
-    var tipo,cantidad,importe,total,fila,renglon;
+    borrarFilasRecargas();
+    var tipo,cantidad,total,fila,renglon;
     var tamanio = datos.length;
-    var i = 0;
-    for(i=0;i<tamanio;i++)
+    if(tamanio > 0 )
     {
-        tipo = '<td>' + datos[i].tipo + '</td>';
-        cantidad = '<td>' + datos[i].cantidad+'</td>';
-        total = '<td>' + datos[i].total+'</td>';
-        
-        alert('ssss');
-        fila = '<tr>' + tipo + cantidad + importe + total +  '</tr>';
+        var i = 0;
+        for(i=0;i<tamanio-1;i++)
+        {
+            tipo = '<td>' + datos[i].tipo + '</td>';
+            cantidad = '<td>' + datos[i].cantidad+'</td>';
+            total = '<td>' + datos[i].total+'</td>';
+
+            fila = '<tr>' + tipo + cantidad + total +  '</tr>';
+            renglon = document.createElement('TR');
+            renglon.innerHTML = fila;
+            document.getElementById('tabla-recargas').appendChild(renglon);
+        }
+        //agrego la fila de totales
+        //agrego la fila de totales
+        var cantTotal = '<td><b>' +  datos[tamanio-1].cantidad + '</b></td>';
+        var totalTotal = '<td><b>' +  datos[tamanio-1].total + '</b></td>';
+        fila = '<tr>' + '<td><i><b>TOTAL ACUMULADO</i></b></td>' +  cantTotal  + totalTotal +  '</tr>';
         renglon = document.createElement('TR');
         renglon.innerHTML = fila;
         document.getElementById('tabla-recargas').appendChild(renglon);
+    }
+}
+
+function cargarFilasConsumos(datos)
+{
+    borrarFilasConsumos();
+    var tipo,cantidad,importe,total,fila,renglon;
+    var tamanio = datos.length;
+    if(tamanio > 0)
+    {
+        var i = 0;
+        for(i=0;i<tamanio-1;i++)
+        {
+            tipo = '<td>' + datos[i].tipo + '</td>';
+            cantidad = '<td>' + datos[i].cantidad+'</td>';
+            importe = '<td>' + datos[i].importe+'</td>';
+            total = '<td>' + datos[i].total + '</td>';
+
+            fila = '<tr>' + tipo + cantidad + importe +  total +  '</tr>';
+            renglon = document.createElement('TR');
+            renglon.innerHTML = fila;
+            document.getElementById('tabla-consumos').appendChild(renglon);
+        }
+        //agrego la fila de totales
+        var cantTotal = '<td><b>' +  datos[tamanio-1].cantidad + '</b></td>';
+        var totalTotal = '<td><b>' +  datos[tamanio-1].total + '</b></td>';
+        fila = '<tr>' + '<td><i><b>TOTAL ACUMULADO</i></b></td>' +  cantTotal + '<td></td>' + totalTotal +  '</tr>';
+        renglon = document.createElement('TR');
+        renglon.innerHTML = fila;
+        document.getElementById('tabla-consumos').appendChild(renglon);
     }
 }
 
