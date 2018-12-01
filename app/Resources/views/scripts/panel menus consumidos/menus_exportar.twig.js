@@ -10,12 +10,10 @@ $(function(){
             var sFileName;
             if(fechaFin !== '')
             {
-                alert('entra aca');
                 sFileName = "Listado de ventas  - " + sede  + ' -  Del ' + fechaInicio + ' - Al ' + fechaFin ;
             }
             else
             {
-                alert('va por el else');
                 sFileName = "Listado de ventas  - " + sede  + ' - ' + fechaInicio  ;
             }
             $('#tablaRecargas').tableExport({type:'excel',
@@ -28,24 +26,23 @@ $(function(){
         var sede =  $('#organismo').val();
         var fechaInicio = $('#fecha-inicio').val();
         var fechaFin = $('#fecha-fin').val();
-        alert(fechaFin);
         if(fechaInicio !== null && sede !== null)
         {
             //veo si la fecha fin no es nulla, eso impacta en el nombre del archivo
-            var sFileName ='ss';
-//            if(fechaFin === null)
-//            {
-//                sFileName = "Listado de ventas  - " + sede  + ' -  Del ' + fechaInicio + ' - Al ' + fechaFin ;
-//            }
-//            else
-//            {
-//                sFileName = "Listado de ventas  - " + sede  + ' - ' + fechaInicio  ;
-//            }
+            var sFileName;
+            if(fechaFin !== '')
+            {
+                sFileName = "Listado de ventas  - " + sede  + ' -  Del ' + fechaInicio + ' - Al ' + fechaFin ;
+            }
+            else
+            {
+                sFileName = "Listado de ventas  - " + sede  + ' - ' + fechaInicio  ;
+            }
             
             function DoCellData(cell, row, col, data) {}
             function DoBeforeAutotable(table, headers, rows, AutotableSettings) {}
             //alert(facultad);
-            $('#tablarRecargas').tableExport({fileName: sFileName,
+            $('#tablaRecargas').tableExport({fileName: sFileName,
                             type: 'pdf',
                             jspdf: {format: 'bestfit',
                                     margins: {left:20, right:10, top:20, bottom:20},
@@ -67,7 +64,7 @@ $(function(){
         {
             //veo si la fecha fin no es nulla, eso impacta en el nombre del archivo
             var sFileName;
-            if(fechaFin === null)
+            if(fechaFin !== '')
             {
                 sFileName = "Listado de ventas  - " + sede  + ' -  Del ' + fechaInicio + ' - Al ' + fechaFin ;
             }
@@ -89,7 +86,7 @@ $(function(){
         {
             //veo si la fecha fin no es nulla, eso impacta en el nombre del archivo
             var sFileName;
-            if(fechaFin === null)
+            if(fechaFin !== '')
             {
                 sFileName = "Listado de consumos  - " + sede  + ' -  Del ' + fechaInicio + ' - Al ' + fechaFin ;
             }
@@ -101,7 +98,7 @@ $(function(){
             function DoCellData(cell, row, col, data) {}
             function DoBeforeAutotable(table, headers, rows, AutotableSettings) {}
             //alert(facultad);
-            $('#tablarConsumos').tableExport({fileName: sFileName,
+            $('#tablaConsumos').tableExport({fileName: sFileName,
                             type: 'pdf',
                             jspdf: {format: 'bestfit',
                                     margins: {left:20, right:10, top:20, bottom:20},
