@@ -7,6 +7,12 @@
 {
     height: 450px;
 }
+
+#tablaMenusResumen
+{
+    height: 250px;
+}
+
 #noScrollHorizontal
 {
     overflow-x: hidden;

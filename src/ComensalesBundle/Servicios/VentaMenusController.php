@@ -95,8 +95,8 @@ class VentaMenusController extends Controller{
     private function obtenerTotales($retorno)
     {
         $cantidad = count($retorno);
-        $acumuladoTotal = 0;
-        $acumuladoCantidad = 0;
+        $acumuladoTotal = (float)0.00;
+        $acumuladoCantidad = (float)0.00;
         for($i=0;$i<$cantidad;$i++)
         {
             $fila = $retorno[$i];
@@ -106,7 +106,7 @@ class VentaMenusController extends Controller{
         //agrego una ultima fila para los totales
         $filaTotales = array();
         $filaTotales['cantidad'] = $acumuladoCantidad;
-        $filaTotales['total'] = $acumuladoTotal;
+        $filaTotales['total'] = number_format($acumuladoTotal, 2, '.', '');
         $retorno[$cantidad] = $filaTotales;
         
         return $retorno;
