@@ -67,6 +67,7 @@ class VentaMenusController extends Controller{
                 ->where('hr.fechaRecarga = :fechaElegida')
                 ->setParameter('fechaElegida',$fecha)
                 ->groupBy('tc.nombreComensal')
+                ->orderBy('total','DESC')
                 ->getQuery()
                 ->getArrayResult();
     }

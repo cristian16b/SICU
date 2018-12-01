@@ -69,6 +69,7 @@ class MenusConsumidosController extends Controller{
                     ->where('hc.fechaConsumo = :fechaElegida')
                     ->setParameter('fechaElegida',$fecha)
                     ->groupBy('imp.nombreImporte')
+                    ->orderBy('cantidad','DESC')
                     ->getQuery()
                     ->getArrayResult();
     }
@@ -87,14 +88,14 @@ class MenusConsumidosController extends Controller{
         {
             $fila = $retorno[$i];
             $acumuladoCantidad = $acumuladoCantidad + $fila['cantidad'];
-            $fila['total'] = $fila['cantidad'] * $fila['importe'];
+            $fila['total'] = number_format($fila['cantidad'] * $fila['importe'],2,'.','');
             $acumuladoTotal = $acumuladoTotal + $fila['total'];
             $retorno[$i] = $fila;
         }
         //agrego una ultima fila para los totales
         $filaTotales = array();
         $filaTotales['cantidad'] = $acumuladoCantidad;
-        $filaTotales['total'] = $acumuladoTotal;
+        $filaTotales['total'] = number_format($acumuladoTotal, 2, '.', '');
         $retorno[$cantidad] = $filaTotales;
         
         return $retorno;

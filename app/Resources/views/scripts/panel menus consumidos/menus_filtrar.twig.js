@@ -66,7 +66,6 @@ function borrarFilasConsumos()
 {
     var Tabla = document.getElementById("tabla-consumos");
     Tabla.innerHTML = "";
-    alert('borro la tabla');
 }
 
 function cargarFilasRecargas(datos)
