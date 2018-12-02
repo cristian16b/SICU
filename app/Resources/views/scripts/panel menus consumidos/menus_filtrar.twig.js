@@ -14,7 +14,7 @@ $(function()
         {
             var fi = obtengoFechaFormato(fechaInicio);
             var ff = null;
-            if(ff !== '')
+            if(fechaFin !== '')
             {
                 ff = obtengoFechaFormato(fechaFin);
             }

@@ -98,7 +98,27 @@ function cargarFilasTarjetas(datos)
         dni = '<td>'+datos[i].dni+'</td>';
         id = '<td>'+datos[i].id+'</td>';
         saldotarj = datos[i].saldo;
-        nombreApellido = apellido + ' , ' + nombre;
+        if(fechaAlta === null)
+        {
+            fechaAlta = 'No entregada';
+        }
+        else
+        {
+            fecha = fechaAlta.split(' ');
+        }
+        
+
+        tabla.row.add( 
+                [
+                    check,
+                    id,
+                    dni,
+                    nombreApellido,
+                    estado,
+                    fecha[0],
+                    saldo,
+                    boton
+                ]).draw(false);nombreApellido = apellido + ' , ' + nombre;
         boton = '<td> <input class="boton-ver-historial btn btn-info btn-sm"  type="button" value=">>" /></td>';
         check = '<td><input type="checkbox" class=' + '"form-control fila-tarjetas"' + '/></td>';
 
@@ -133,5 +153,6 @@ function cargarFilasTarjetas(datos)
                     boton
                 ]).draw(false);
     }
+    
 }
 

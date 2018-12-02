@@ -43,11 +43,12 @@
                 </div>
               </div>
             </div>
-{#    {% include 'Panel menus consumidos/modal/modal-listado.html.twig' %}#}
+    {% include 'Panel menus consumidos/modal/modal-listado.html.twig' %}
     {% block javascripts %}
         <script>
             {% include 'scripts/panel menus consumidos/menus_filtrar.twig.js' %}
             {% include 'scripts/panel menus consumidos/menus_exportar.twig.js' %}
+            {% include 'scripts/panel menus consumidos/menus_listar_consumos.twig.js' %}
         </script>
     {% endblock %}    
 {% endblock%}

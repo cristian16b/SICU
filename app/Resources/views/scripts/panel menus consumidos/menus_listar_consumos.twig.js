@@ -46,12 +46,11 @@ $(function(){
         {
             var fi = obtengoFechaFormato(fechaInicio);
             var ff = null;
-            if(ff !== '')
+            if(fechaFin !== '')
             {
                 ff = obtengoFechaFormato(fechaFin);
             }
             
-            borrarFilasRecargas();
             datos = {};
             datos.sede = sede;
             datos.fechaInicio = fi;
@@ -102,3 +101,54 @@ $(function(){
            }
     });
 });
+
+function borrarFilas()
+{
+    var table = $('#tabla').DataTable();
+    table.clear().draw();
+}
+
+function cargarModalConsumos(datos)
+{
+    if(datos.length > 0)
+    {
+        var tabla = $('#tabla').DataTable();
+        borrarFilas();
+        var fecha,hora,tipo,tarjeta,sede;
+        var cantidad = datos.length;
+        var i=0;
+        //
+        $("#modal-listar").dialog('open');
+        $("#modal-listar").dialog('option', 'title', 'Listado de menus consumidos');
+        
+        for(i=0;i<cantidad;i++)
+        {
+            fecha = datos[i].fecha.date;
+            hora =  '<td>'+datos[i].hora+'</td>';
+            tipo = '<td>'+datos[i].tipo+'</td>';
+            tarjeta = '<td>'+datos[i].tarjeta+'</td>';
+            sede = '<td>'+datos[i].sede+'</td>';
+            
+            var f;
+            if(fecha === null)
+            {
+                f = '';
+            }
+            else
+            {
+                f = fecha.split(' ');
+            }
+
+
+            tabla.row.add( 
+                    [
+                        f[0],
+                        hora,
+                        tipo,
+                        tarjeta,
+                        sede
+                    ]).draw(false);
+            
+        }
+    }
+}
