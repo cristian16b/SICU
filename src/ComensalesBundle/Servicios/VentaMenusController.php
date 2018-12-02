@@ -76,19 +76,21 @@ class VentaMenusController extends Controller{
     {
         return     
            $this->entityManager->createQueryBuilder()
-                ->select('hr.fechaRecarga as fecha,'
-                        . 'hr.montoRecarga as importe,'
-                        . 'sed.nombreSede as sede,'
-                        . 'item.nombreItemRecarga as concepto,'
-                        . 'tarj.saldo')
+                ->select('tc.nombreComensal as tipo,'
+                        . 'count(hr) as cantidad,'
+                        . 'sum(hr.montoRecarga) as total')
                 ->from('ComensalesBundle:HistorialRecargas','hr')
                 ->innerJoin('hr.tarjeta','tarj')
                 ->innerJoin('hr.itemRecarga','item')
+                ->innerJoin('tarj.solicitud','soli')
+                ->innerJoin('soli.tipo_comensal','tc')
                 ->innerJoin('hr.sedeRecarga','sed')
-                ->where('hr.fechaRecarga > :fechaInicio')
-                ->setParameter('id',$id)
+                ->where('hr.fechaRecarga >= :fechaInicio')
+                ->andWhere('hr.fechaRecarga <= :fechaFin')
                 ->setParameter('fechaInicio',$fechaInicio)
                 ->setParameter('fechaFin',$fechaFin)
+                ->groupBy('tc.nombreComensal')
+                ->orderBy('total','DESC')
                 ->getQuery()
                 ->getArrayResult();
     }

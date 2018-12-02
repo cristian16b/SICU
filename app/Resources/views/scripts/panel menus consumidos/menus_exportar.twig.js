@@ -42,7 +42,8 @@ $(function(){
             function DoCellData(cell, row, col, data) {}
             function DoBeforeAutotable(table, headers, rows, AutotableSettings) {}
             //alert(facultad);
-            $('#tablaRecargas').tableExport({fileName: sFileName,
+            $('#tablaRecargas').tableExport({
+                            fileName: sFileName,
                             type: 'pdf',
                             jspdf: {format: 'bestfit',
                                     margins: {left:20, right:10, top:20, bottom:20},

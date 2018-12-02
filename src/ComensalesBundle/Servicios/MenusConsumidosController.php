@@ -40,11 +40,11 @@ class MenusConsumidosController extends Controller{
                     );
         }
         else
-        {
+        {  
             $retorno =
                     $this->obtenerTotales
                     (
-                        $this->obtenerVentasPeriodo($fechaInicio, $fechaFin, $sede)
+                        $this->obtenerMenusConsumidosPeriodo($fechaInicio, $fechaFin, $sede)
                     );
         }
         return $retorno;
@@ -76,7 +76,22 @@ class MenusConsumidosController extends Controller{
     
     private function obtenerMenusConsumidosPeriodo($fechaInicio,$fechaFin,$sede)
     {
-        
+        return $this->entityManager->createQueryBuilder()
+                    ->select('imp.nombreImporte as tipo,'
+                            . 'count(hc) as cantidad,'
+                            . 'imp.costo as importe')
+                    ->from('ComensalesBundle:HistorialConsumos','hc')
+                    ->innerJoin('hc.itemConsumo','item')
+                    ->innerJoin('item.importe','imp')
+                    ->innerJoin('hc.sedeConsumo','sed')
+                    ->where('hc.fechaConsumo >= :fechaInicio')
+                    ->andWhere('hc.fechaConsumo <= :fechaFin')
+                    ->setParameter('fechaInicio',$fechaInicio)
+                    ->setParameter('fechaFin',$fechaFin)
+                    ->groupBy('imp.nombreImporte')
+                    ->orderBy('cantidad','DESC')
+                    ->getQuery()
+                    ->getArrayResult();
     }
     
     private function obtenerTotales($retorno)

@@ -46,7 +46,7 @@ class AdministracionController extends Controller{
         {
             $sede = $request->query->get('sede');
             $fechaInicio = $request->query->get('fechaInicio');
-            $fechaFin = $request->query->get('fech$fechaInicio, $fechaFin, $sedeaFin');
+            $fechaFin = $request->query->get('fechaFin');
             //
             if(isset($sede) && isset($fechaInicio))
             {
