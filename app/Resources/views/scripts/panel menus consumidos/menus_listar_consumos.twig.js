@@ -1,5 +1,6 @@
 $(function(){
     
+    //creo la instancia del datatable sobre la tabla de la modal
     $(document).on("ready",function () {
     $('#tabla').DataTable({
              "oLanguage": 
@@ -29,6 +30,7 @@ $(function(){
         }}); 
     });
     
+    //evento para open modal
     $("#boton-listado-consumos").on("click",function() 
     {
         //
@@ -58,22 +60,14 @@ $(function(){
                 ({
                     async:true,
                     method: 'GET',
-                    url: "{{ path('administracion_listar') }}", 
+                    url: "{{ path('administracion_consumos') }}", 
                     data: datos,
                     dataType: 'json',
                     beforeSend: function()
                     {
                         $.blockUI({ message: '<img src="/img/cargando.gif"><h3>Cargando ...</h3>' });  
                     },
-                    success: function(datos)
-                    {
-                        if(datos.length === 2)
-                        {
-                            cargarFilasRecargas(datos[0]);
-                            cargarFilasConsumos(datos[1]);
-                            $.unblockUI();
-                        }
-                    },
+                    success: cargarModalConsumos,
                     timeout:12500,
                     error : function() 
                     {
@@ -83,5 +77,28 @@ $(function(){
                     }
                 });
         }
+    });
+    
+    //def de la modal de consumos
+    $( "#modal-listar" ).dialog(
+    {
+            autoOpen: false,
+            resizable: false,
+            height: "auto",
+            width: "auto",
+            modal: true,
+            buttons: 
+            {
+//              Confirmar: function() 
+//              {
+//                  cancelarTarjeta()
+//                  $( this ).dialog("close");
+//              }
+//              , 
+              Salir: function() 
+              {
+                  $( this ).dialog("close");
+              }
+           }
     });
 });
