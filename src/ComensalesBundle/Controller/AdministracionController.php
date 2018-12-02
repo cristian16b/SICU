@@ -58,4 +58,34 @@ class AdministracionController extends Controller{
         }
         return new JsonResponse($retorno);
     }
+    
+    /**
+     * @Route("/recargas",name="recargas")
+     */
+    public function obtenerListadoRecargas(Request $request)
+    {
+        $retorno = array();
+        if($request->isXmlHttpRequest())
+        {
+            
+        }
+        return new JsonResponse($retorno);
+    }
+    
+    /**
+     * @Route("/consumos",name="consumos")
+    */
+   public function obtenerListadoConsumos(Request $request)
+   {
+       $retorno = array();
+        if($request->isXmlHttpRequest())
+        {
+            $sede = $request->query->get('sede');
+            $fechaInicio = $request->query->get('fechaInicio');
+            $fechaFin = $request->query->get('fechaFin');
+            $retorno = $this->container->get('menus_consumidos')
+                            ->obtenerListadoMenusConsumidos($fechaInicio, $fechaFin, $sede);
+        }
+        return new JsonResponse($retorno);
+   }
 }

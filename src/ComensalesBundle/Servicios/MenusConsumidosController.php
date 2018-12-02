@@ -115,4 +115,66 @@ class MenusConsumidosController extends Controller{
         
         return $retorno;
     }
+    
+    public function obtenerListadoMenusConsumidos($fechaInicio, $fechaFin, $sede)
+    {
+        $retorno = null;
+        if($fechaFin == null)
+        {
+            $retorno = 
+                    $this->obtenerTotales
+                    (
+                        $this->obtenerListadoMenusDiario($fechaInicio, $sede)
+                    );
+        }
+        else
+        {  
+            $retorno =
+                    $this->obtenerTotales
+                    (
+                        $this->obtenerListadoMenusPeriodo($fechaInicio, $fechaFin, $sede)
+                    );
+        }
+        return $retorno;
+    }
+    
+    private function obtenerListadoMenusDiario($fechaInicio,$sede)
+    {
+        return $this->entityManager->createQueryBuilder()
+                    ->select('hc.fechaConsumo as fecha,'
+                            . 'hc.horaConsumo as hora'
+                            . 'imp.nombreImporte as tipo,'
+                            . 'tarj.id as tarjeta,'
+                            . 'sed.nombreSede as sede')
+                    ->from('ComensalesBundle:HistorialConsumos','hc')
+                    ->innerJoin('hc.itemConsumo','item')
+                    ->innerJoin('item.importe','imp')
+                    ->innerJoin('hc.tarjeta','tarj')
+                    ->innerJoin('hc.sedeConsumo','sed')
+                    ->where('hc.fechaConsumo = :fechaElegida')
+                    ->setParameter('fechaElegida',$fechaInicio)
+                    ->getQuery()
+                    ->getArrayResult();
+    }
+    
+    private function obtenerListadoMenusPeriodo($fechaInicio,$fechaFin,$sede)
+    {
+        return $this->entityManager->createQueryBuilder()
+                    ->select('hc.fechaConsumo as fecha,'
+                            . 'hc.horaConsumo as hora'
+                            . 'imp.nombreImporte as tipo,'
+                            . 'tarj.id as tarjeta,'
+                            . 'sed.nombreSede as sede')
+                    ->from('ComensalesBundle:HistorialConsumos','hc')
+                    ->innerJoin('hc.itemConsumo','item')
+                    ->innerJoin('item.importe','imp')
+                    ->innerJoin('hc.sedeConsumo','sed')
+                    ->innerJoin('hc.tarjeta','tarj')
+                    ->where('hc.fechaConsumo >= :fechaInicio')
+                    ->andWhere('hc.fechaConsumo <= :fechaFin')
+                    ->setParameter('fechaInicio',$fechaInicio)
+                    ->setParameter('fechaFin',$fechaFin)
+                    ->getQuery()
+                    ->getArrayResult();
+    }
 }
