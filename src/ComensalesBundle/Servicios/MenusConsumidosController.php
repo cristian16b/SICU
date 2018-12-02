@@ -122,18 +122,14 @@ class MenusConsumidosController extends Controller{
         if($fechaFin == null)
         {
             $retorno = 
-                    $this->obtenerTotales
-                    (
                         $this->obtenerListadoMenusDiario($fechaInicio, $sede)
-                    );
+                    ;
         }
         else
         {  
             $retorno =
-                    $this->obtenerTotales
-                    (
                         $this->obtenerListadoMenusPeriodo($fechaInicio, $fechaFin, $sede)
-                    );
+                    ;
         }
         return $retorno;
     }
@@ -142,7 +138,7 @@ class MenusConsumidosController extends Controller{
     {
         return $this->entityManager->createQueryBuilder()
                     ->select('hc.fechaConsumo as fecha,'
-                            . 'hc.horaConsumo as hora'
+                            . 'hc.horaConsumo as hora,'
                             . 'imp.nombreImporte as tipo,'
                             . 'tarj.id as tarjeta,'
                             . 'sed.nombreSede as sede')
@@ -161,7 +157,7 @@ class MenusConsumidosController extends Controller{
     {
         return $this->entityManager->createQueryBuilder()
                     ->select('hc.fechaConsumo as fecha,'
-                            . 'hc.horaConsumo as hora'
+                            . 'hc.horaConsumo as hora,'
                             . 'imp.nombreImporte as tipo,'
                             . 'tarj.id as tarjeta,'
                             . 'sed.nombreSede as sede')

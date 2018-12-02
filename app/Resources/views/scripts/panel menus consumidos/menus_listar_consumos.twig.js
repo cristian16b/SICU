@@ -151,4 +151,6 @@ function cargarModalConsumos(datos)
             
         }
     }
+    //desbloqueo
+    $.unblockUI();
 }
