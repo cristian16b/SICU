@@ -127,14 +127,3 @@ function cargarFilasConsumos(datos)
         document.getElementById('tabla-consumos').appendChild(renglon);
     }
 }
-
-function obtengoFechaFormato(fecha)
-{
-    var array = fecha.split("-");
-    var salida = null;
-    if(array.length > 0)
-    {
-        salida = array[2] + '-' + array[1] + '-' + array[0];
-    }
-    return salida;
-}
