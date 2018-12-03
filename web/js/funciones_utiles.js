@@ -12,3 +12,18 @@ function obtengoFechaFormato(fecha)
     return salida;
 }
 
+
+//recibe hora en forma fecha hora:minutos:segundos:milisegundos
+//retorno hora:minutos
+function obtengoHorarioFormato(horario)
+{
+    var arrayhoras = horario.split(' ');
+    var salida = '-';
+    if(arrayhoras.length > 0)
+    {
+        var tmp = arrayhoras[1];
+        var aux = tmp.split(':');
+        salida = aux[0] +':' + aux[1];
+    }
+    return salida;
+}

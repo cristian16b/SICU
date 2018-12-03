@@ -124,7 +124,7 @@ function cargarModalConsumos(datos)
         for(i=0;i<cantidad;i++)
         {
             fecha = datos[i].fecha.date;
-            hora =  '<td>'+datos[i].hora+'</td>';
+            hora =  '<td>'+obtengoHorarioFormato(datos[i].hora.date)+'</td>';
             tipo = '<td>'+datos[i].tipo+'</td>';
             tarjeta = '<td>'+datos[i].tarjeta+'</td>';
             sede = '<td>'+datos[i].sede+'</td>';
@@ -137,12 +137,13 @@ function cargarModalConsumos(datos)
             else
             {
                 f = fecha.split(' ');
+                fecha = obtengoFechaFormato(f[0])
             }
 
 
             tabla.row.add( 
                     [
-                        f[0],
+                        fecha,
                         hora,
                         tipo,
                         tarjeta,
