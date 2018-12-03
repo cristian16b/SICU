@@ -67,7 +67,11 @@ class AdministracionController extends Controller{
         $retorno = array();
         if($request->isXmlHttpRequest())
         {
-            
+            $sede = $request->query->get('sede');
+            $fechaInicio = $request->query->get('fechaInicio');
+            $fechaFin = $request->query->get('fechaFin');
+            $retorno = $this->container->get('ventas')
+                            ->obtenerListadoVentas($fechaInicio,$fechaFin,$sede);
         }
         return new JsonResponse($retorno);
     }

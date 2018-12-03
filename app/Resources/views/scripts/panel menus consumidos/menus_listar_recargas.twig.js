@@ -1,7 +1,7 @@
 $(function(){
     
     //evento para open modal
-    $("#boton-listado-consumos").on("click",function() 
+    $("#boton-listado-ventas").on("click",function() 
     {
         //
         var sede = $("#organismo").val();
@@ -29,14 +29,14 @@ $(function(){
                 ({
                     async:true,
                     method: 'GET',
-                    url: "{{ path('administracion_consumos') }}", 
+                    url: "{{ path('administracion_recargas') }}", 
                     data: datos,
                     dataType: 'json',
                     beforeSend: function()
                     {
                         $.blockUI({ message: '<img src="/img/cargando.gif"><h3>Cargando ...</h3>' });  
                     },
-                    success: cargarModalConsumos,
+                    success: cargarModalRecargas,
                     timeout:12500,
                     error : function() 
                     {
@@ -72,13 +72,13 @@ $(function(){
     });
 });
 
-function borrarFilas()
-{
-    var table = $('#tabla').DataTable();
-    table.clear().draw();
-}
+//function borrarFilas()
+//{
+//    var table = $('#tabla').DataTable();
+//    table.clear().draw();
+//}
 
-function cargarModalConsumos(datos)
+function cargarModalRecargas(datos)
 {
     if(datos.length > 0)
     {
@@ -89,7 +89,7 @@ function cargarModalConsumos(datos)
         var i=0;
         //
         $("#modal-listar").dialog('open');
-        $("#modal-listar").dialog('option', 'title', 'Listado de menus consumidos');
+        $("#modal-listar").dialog('option', 'title', 'Listado de recargas efectuadas');
         
         for(i=0;i<cantidad;i++)
         {

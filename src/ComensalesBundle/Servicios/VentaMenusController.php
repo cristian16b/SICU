@@ -65,7 +65,9 @@ class VentaMenusController extends Controller{
                 ->innerJoin('hr.itemRecarga','item')
                 ->innerJoin('hr.sedeRecarga','sed')
                 ->where('hr.fechaRecarga = :fechaElegida')
+                ->andWhere('sed.nombreSede = :sedeElegida')
                 ->setParameter('fechaElegida',$fecha)
+                ->setParameter('sedeElegida',$sede)
                 ->groupBy('tc.nombreComensal')
                 ->orderBy('total','DESC')
                 ->getQuery()
@@ -87,8 +89,10 @@ class VentaMenusController extends Controller{
                 ->innerJoin('hr.sedeRecarga','sed')
                 ->where('hr.fechaRecarga >= :fechaInicio')
                 ->andWhere('hr.fechaRecarga <= :fechaFin')
+                ->andWhere('sed.nombreSede = :sedeElegida')
                 ->setParameter('fechaInicio',$fechaInicio)
                 ->setParameter('fechaFin',$fechaFin)
+                ->setParameter('sedeElegida',$sede)
                 ->groupBy('tc.nombreComensal')
                 ->orderBy('total','DESC')
                 ->getQuery()
@@ -113,5 +117,71 @@ class VentaMenusController extends Controller{
         $retorno[$cantidad] = $filaTotales;
         
         return $retorno;
+    }
+    
+    public function obtenerListadoVentas($fechaInicio,$fechaFin,$sede)
+    {
+        $retorno = null;
+        if($fechaFin == null)
+        {
+            $retorno = 
+                         $this->obtenerListadoVentasDia($fechaInicio, $sede)
+                            ;
+        }
+        else
+        {
+            $retorno = 
+                        $this->obtenerListadoVentasPeriodo($fechaInicio, $fechaFin, $sede)
+                          ;
+        }
+        return $retorno;
+    }
+    
+    private function obtenerListadoVentasDia($fechaInicio,$sede)
+    {
+        return     
+            $this->entityManager->createQueryBuilder()
+                ->select('hr.fechaRecarga as fecha,'
+                        . 'hr.horaRecarga as hora,'
+                        . 'tc.nombreComensal as tipo,'
+                        . 'tarj.id as tarjeta,'
+                        . 'sed.nombreSede as sede')
+                ->from('ComensalesBundle:HistorialRecargas','hr')
+                ->innerJoin('hr.tarjeta','tarj')
+                ->innerJoin('tarj.solicitud','soli')
+                ->innerJoin('soli.tipo_comensal','tc')
+                ->innerJoin('hr.itemRecarga','item')
+                ->innerJoin('hr.sedeRecarga','sed')
+                ->where('hr.fechaRecarga = :fechaElegida')
+                ->andWhere('sed.nombreSede = :sedeElegida')
+                ->setParameter('fechaElegida',$fechaInicio)
+                ->setParameter('sedeElegida',$sede)
+                ->getQuery()
+                ->getArrayResult();
+    }
+    
+    private function obtenerListadoVentasPeriodo($fechaInicio, $fechaFin, $sede)
+    {
+        return     
+           $this->entityManager->createQueryBuilder()
+                ->select('hr.fechaRecarga as fecha,'
+                        . 'hr.horaRecarga as hora,'
+                        . 'tc.nombreComensal as tipo,'
+                        . 'tarj.id as tarjeta,'
+                        . 'sed.nombreSede as sede')
+                ->from('ComensalesBundle:HistorialRecargas','hr')
+                ->innerJoin('hr.tarjeta','tarj')
+                ->innerJoin('hr.itemRecarga','item')
+                ->innerJoin('tarj.solicitud','soli')
+                ->innerJoin('soli.tipo_comensal','tc')
+                ->innerJoin('hr.sedeRecarga','sed')
+                ->where('hr.fechaRecarga >= :fechaInicio')
+                ->andWhere('hr.fechaRecarga <= :fechaFin')
+                ->andWhere('sed.nombreSede = :sedeElegida')
+                ->setParameter('fechaInicio',$fechaInicio)
+                ->setParameter('fechaFin',$fechaFin)
+                ->setParameter('sedeElegida',$sede)
+                ->getQuery()
+                ->getArrayResult();
     }
 }
