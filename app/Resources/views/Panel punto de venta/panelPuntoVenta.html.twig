@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <div class="row">
+        {# urgente hacer un template con la barra e incluirlo #}
+        <div class="col-lg-2 col-md-2">
+            <ul class="nav nav-pills nav-stacked"  >
+                <li><a href="/solicitudes">SOLICITUDES</a></li>
+                <li><a href="/turnos/panel">TURNOS </a></li>
+                <li><a href="/menus consumidos/panel">TARJETAS </a></li>
+                <li><a href="/administracion/panel">MENUS CONSUMIDOS</a></li>
+                <li><a href="#">SALIR</a></li>
+            </ul>
+        </div>
+        <div class="col-lg-9 col-md-9">
+            <div class="row">
+                <div class="col lg-6 col-md-6">
+                    {% block resumen %}
+                        {{ include('Panel punto de venta/resumen.html.twig') }}
+                    {% endblock %}
+                </div>
+                <div class="col lg-6 col-md-6">
+                    {#{% block cargar_saldo %}
+                        {{ include('Panel punto de venta/cargarSaldo.html.twig') }}
+                    {% endblock %}#}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12 col-md-12">
+                    {% block botones %}
+                        {{ include('Panel punto de venta/botones.html.twig') }}
+                    {% endblock %}
+                </div>
+            </div>
+        </div>
+    </div>
+    {% block javascripts %}
+        <script>
+            {% include 'scripts/panel menus consumidos/menus_filtrar.twig.js' %}
+            {% include 'scripts/panel menus consumidos/menus_exportar.twig.js' %}
+            {% include 'scripts/panel menus consumidos/menus_listar_consumos.twig.js' %}
+            {% include 'scripts/panel menus consumidos/menus_listar_recargas.twig.js' %}
+        </script>
+    {% endblock %}    
+{% endblock%}
