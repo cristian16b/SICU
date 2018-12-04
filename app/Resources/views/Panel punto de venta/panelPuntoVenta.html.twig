@@ -24,11 +24,14 @@
                     {% endblock %}
                 </div>
                 <div class="col lg-6 col-md-6">
-                    {% block cargar_saldo %}
+                    {% block cargarSaldo %}
                         {{ include('Panel punto de venta/cargarSaldo.html.twig') }}
                     {% endblock %}
                     {% block botonesRecarga %}
-                        {{ include('Panel punto de venta/botonesResumen.html.twig') }}
+                        {{ include('Panel punto de venta/botonesRecarga.html.twig') }}
+                    {% endblock %}
+                    {% block  %}
+                        {{ include('Panel punto de venta/botonesRecarga.html.twig') }}
                     {% endblock %}
                 </div>
             </div>
