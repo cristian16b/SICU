@@ -19,7 +19,7 @@ use ComensalesBundle\Servicios\VentaMenusController;
 
 /**
  * Description of PuntoVentaController
- * @Route("/venta",name="venta_")
+ * @Route("/ventas",name="ventas_")
  * @author Cristian B
  */
 class PuntoVentaController extends Controller{
@@ -31,4 +31,7 @@ class PuntoVentaController extends Controller{
     {
         return $this->render('Panel punto de venta/panelPuntoVenta.html.twig');
     }
+    
+    
+    
 }
