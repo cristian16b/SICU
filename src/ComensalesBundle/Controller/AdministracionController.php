@@ -114,12 +114,12 @@ class AdministracionController extends Controller{
             $sede = 'Predio';
             $retorno = $this->container->get('ventas')
                             ->obtenerVentas($fechaInicio, $fechaFin, $sede);
-            //anexo datos para los repores
-            
-//            $retorno['sede'] = $sede;
-//            $retorno['fecha'] = $fechaInicio;
-//            $retorno['hora'] = $hora;
-//            
+            //anexo datos para los repotes
+            array_push($retorno, 
+                                array('sede'  => $sede,
+                                       'fecha' => $fechaInicio,
+                                       'hora'  => $hora
+                      ));
         }
         return new JsonResponse($retorno);
    }

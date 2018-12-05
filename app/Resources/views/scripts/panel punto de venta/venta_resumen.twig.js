@@ -36,10 +36,10 @@ function cargarFilasResumen(datos)
     borrarFilasResumen();
     var tipo,cantidad,total,fila,renglon;
     var tamanio = datos.length;
-    if(tamanio > 0 )
+    if(tamanio > 1 )
     {
         var i = 0;
-        for(i=0;i<tamanio-1;i++)
+        for(i=0;i<tamanio-2;i++)
         {
             tipo = '<td>' + datos[i].tipo + '</td>';
             cantidad = '<td>' + datos[i].cantidad+'</td>';
@@ -52,12 +52,16 @@ function cargarFilasResumen(datos)
         }
         //agrego la fila de totales
         //agrego la fila de totales
-        var cantTotal = '<td><b>' +  datos[tamanio-1].cantidad + '</b></td>';
-        var totalTotal = '<td><b>' +  datos[tamanio-1].total + '</b></td>';
+        var cantTotal = '<td><b>' +  datos[tamanio-2].cantidad + '</b></td>';
+        var totalTotal = '<td><b>' +  datos[tamanio-2].total + '</b></td>';
         fila = '<tr>' + '<td><i><b>TOTAL ACUMULADO</i></b></td>' +  cantTotal  + totalTotal +  '</tr>';
         renglon = document.createElement('TR');
         renglon.innerHTML = fila;
         document.getElementById('tabla-resumen').appendChild(renglon);
+        //agrego y seteo los inputs de fecha,hora y sede
+        $("#fecha-inicio").val(obtengoFechaFormato(datos[tamanio-1].fecha));
+        $("#hora").val(datos[tamanio-1].hora);
+        $("#organismo").val(datos[tamanio-1].sede);
     }
     //desbloq
      $.unblockUI();
