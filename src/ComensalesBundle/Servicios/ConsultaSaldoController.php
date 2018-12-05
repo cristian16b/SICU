@@ -34,7 +34,7 @@ class ConsultaSaldoController extends Controller{
         $fecha->setDate($anio, 1,1);
         
         return $this->entityManager->createQueryBuilder()
-                    ->select('per.apellido,per.nombre,tarj.saldo')
+                    ->select('per.apellido,per.nombre,tarj.saldo,tarj.id')
                     ->from('ComensalesBundle:Solicitud','soli')
                     ->innerJoin('soli.persona','per')
                     ->innerJoin('soli.tarjeta','tarj')

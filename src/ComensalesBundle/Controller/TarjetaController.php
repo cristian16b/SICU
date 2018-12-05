@@ -182,4 +182,38 @@ class TarjetaController extends Controller{
         }
         return new JsonResponse($retorno);
     }
+    
+    /**
+    * @Route("/acreditar/saldo",name="acreditar_saldo")     
+    * @Method({"GET"}) 
+    */
+    public function acreditarSaldo(Request $request)
+    {
+        $retorno = null;
+        if($request->isXmlHttpRequest())
+        {
+            $idTarjeta = $request->query->get('id');
+            $monto = $request->query->get('monto');
+            
+            if(isset($idTarjeta) && isset($monto) )
+            {
+                //obtengo tarjeta
+                $tarjeta = $this->obtenerTarjeta($idTarjeta);
+                //debo obtener el saldo
+                $saldo = $tarjeta->getSaldo();
+                
+                if($saldo > 0 && $tarjeta != null )
+                {
+                   $entityManager = $this->getDoctrine()->getManager();
+                   //actualizo
+                   $tarjeta->setSaldo(($saldo + $monto));
+                   $entityManager->flush();
+                }
+                
+                //obtengo la tarjeta actualizada
+                $retorno = $this->obtenerTarjeta($idTarjeta)->getSaldo();
+            }
+        }
+        return new JsonResponse($retorno);
+    }
 }
