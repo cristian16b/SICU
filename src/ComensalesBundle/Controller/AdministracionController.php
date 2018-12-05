@@ -92,4 +92,35 @@ class AdministracionController extends Controller{
         }
         return new JsonResponse($retorno);
    }
+   
+    /**
+     * La presente funcion es el resumen que pueden observar los empleados en el
+     * punto de venta
+     * @Route("/resumen",name="resumen_ptovta")
+    */
+   public function obtenerResumenVentas(Request $request)
+   {
+        $retorno = array();
+        if($request->isXmlHttpRequest())
+        {
+            //to-do implementar con role
+            //ver como hacer
+            date_default_timezone_set('America/Argentina/Cordoba');
+            $fechaInicio = Date('Y-m-d');
+            $hora = date("h:i:s A");
+            
+            $fechaFin = null;
+            //to-do asociar sede al role, por ahora hardcodeado
+            $sede = 'Predio';
+            $retorno = $this->container->get('ventas')
+                            ->obtenerVentas($fechaInicio, $fechaFin, $sede);
+            //anexo datos para los repores
+            
+//            $retorno['sede'] = $sede;
+//            $retorno['fecha'] = $fechaInicio;
+//            $retorno['hora'] = $hora;
+//            
+        }
+        return new JsonResponse($retorno);
+   }
 }
