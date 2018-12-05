@@ -80,3 +80,8 @@ services:
         arguments: ["@doctrine.orm.entity_manager"]
         public: true
     
+    consulta_saldo:
+        class: ComensalesBundle\Servicios\ConsultaSaldoController
+        arguments: ["@doctrine.orm.entity_manager"]
+        public: true
+        

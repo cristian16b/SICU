@@ -75,9 +75,42 @@ class TarjetaController extends Controller{
         return new JsonResponse($retorno);
     }
     
-    public function obtenerSaldo()
+    /**
+    * @Route("/consultar/saldo",name="saldo")     
+    * @Method({"GET"}) 
+    */
+    public function obtenerSaldo(Request $request)
     {
-        //to-do para el webservice
+        $retorno = null;
+        if($request->isXmlHttpRequest())
+        {
+            $opcion = $request->query->get('opcion');
+            $dni = $request->query->get('dni');
+            $id = $request->query->get('id');
+            if(isset($opcion))
+            {
+                $retorno = $this->obtenerSaldoSelector($opcion, $dni, $id);
+            }
+        }
+        return new JsonResponse($retorno);
+    }
+    
+    private function obtenerSaldoSelector($opcion,$dni,$id)
+    {
+        $saldo = null;
+        if(isset($dni) && $opcion == 'dni')
+        {   
+            $saldo = $this->container->get('consulta_saldo')->obtenerSaldoDni($dni);
+        }
+        else if(isset($id) && opcion == 'id')
+        {
+            $tarjeta = $this->obtenerTarjeta($id);
+            if($tarjeta != null)
+            {
+                $saldo = $tarjeta->getSaldo();
+            }
+        }
+        return $saldo;
     }
     
     /**
