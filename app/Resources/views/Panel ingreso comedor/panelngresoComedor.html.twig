@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <div class="row">
+        {# urgente hacer un template con la barra e incluirlo #}
+        <div class="col-lg-2 col-md-2">
+            <ul class="nav nav-pills nav-stacked"  >
+                <li><a href="/solicitudes">SOLICITUDES</a></li>
+                <li><a href="/turnos/panel">TURNOS </a></li>
+                <li><a href="/menus consumidos/panel">TARJETAS </a></li>
+                <li><a href="/administracion/panel">MENUS CONSUMIDOS</a></li>
+                <li class="active"><a href="/ventas/panel">VENTAS</a></li>
+                <li><a href="#">SALIR</a></li>
+            </ul>
+        </div>
+        <div class="col-lg-9 col-md-9">
+            <div class="row">
+                <div class="col lg-6 col-md-6">
+                    <p></p>
+                    {% block resumen %}
+                        {{ include('Panel punto de venta/resumen.html.twig') }}
+                    {% endblock %}
+                    {% block botonesResumen %}
+                        {{ include('Panel punto de venta/botonesResumen.html.twig') }}
+                    {% endblock %}
+                </div>
+                <div class="col lg-6 col-md-6">
+                    {% block cargarSaldo %}
+                        {{ include('Panel punto de venta/cargarSaldo.html.twig') }}
+                    {% endblock %}
+                    {% block botonesRecarga %}
+                        {{ include('Panel punto de venta/botonesRecarga.html.twig') }}
+                    {% endblock %}
+                    {% block buscar %}
+                        {{ include('Panel punto de venta/buscar.html.twig') }}
+                    {% endblock %}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12 col-md-12">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    {% block javascripts %}
+        <script>
+            {% include 'scripts/panel punto de venta/venta_resumen.twig.js' %}
+            {% include 'scripts/panel punto de venta/venta_acreditar.twig.js' %}
+            {# reutilizo las funcionalidades de menu para exportar  a pdf xls #}
+            {% include 'scripts/panel menus consumidos/menus_exportar.twig.js' %}
+        </script>
+    {% endblock %}    
+{% endblock%}
