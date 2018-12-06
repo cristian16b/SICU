@@ -31,9 +31,10 @@ $(function()
     //evento validacion sobre el monto ingresado
     $('#monto').on("change",function() 
     {
-        if(isNaN($("#monto").val()) !== false)
+        var monto = $("#monto").val();
+        if(isNaN(monto) !== false && monto !== '' && monto > 0)
         {
-            alert('La cantidad ingresada debe ser numerica');
+            alert('La cantidad ingresada debe ser numerica y no negativa');
             $("#monto").val("0.00");
         }
     });
@@ -42,10 +43,18 @@ $(function()
     $('#boton-acreditar-saldo').on("click",function() 
     {
         var datos = {};
+        var monto = $("#monto").val();
         datos.id = $("#tarjeta-id").val();
-        datos.monto = $("#monto").val();
+        datos.monto = monto;
         //
-        $.ajax
+        
+        if(isNaN(monto) !== false || monto === '' || monto < 0)
+        {
+            alert('La cantidad ingresada debe ser numerica y no negativa');
+        }
+        else
+        {
+            $.ajax
             ({
                 async:true,
                 method: 'GET',
@@ -56,9 +65,18 @@ $(function()
                 {
                     $.blockUI({ message: '<img src="/img/cargando.gif"><h3>Cargando ...</h3>' });  
                 },
-                success: function(datos)
+                success: function(dato)
                 {
-                    alert(datos);
+                    if(dato !== null)
+                    {
+                        $("#saldo-actualizado").val(dato);
+                    }
+                    else
+                    {
+                        $("#saldo-actualizado").val('Error, intente nuevamente');
+                    }
+                    //desbloqueo la pagina
+                    $.unblockUI();
                 },
                 timeout:12500,
                 error : function() 
@@ -68,6 +86,7 @@ $(function()
                     alert('ERROR DE CONEXIÓN, INTENTE NUEVAMENTE MAS TARDE');
                 }
             });
+        }
     });
 });
 
@@ -84,5 +103,9 @@ function cargarInfoTarjeta(datos)
         $("#apellido").val(datos[0].apellido);
         $("#nombre").val(datos[0].nombre);
         $("#saldo").val(datos[0].saldo);
+    }
+    else
+    {
+        $("#apellido").val('Comensal NO encontrado');
     }
 }
