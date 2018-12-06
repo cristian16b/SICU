@@ -201,17 +201,22 @@ class TarjetaController extends Controller{
                 $tarjeta = $this->obtenerTarjeta($idTarjeta);
                 //debo obtener el saldo
                 $saldo = $tarjeta->getSaldo();
-                
-                if($saldo > 0 && $tarjeta != null )
+                echo $saldo . ' ' . $monto;
+                if($monto > 0 && $tarjeta != null )
                 {
+                    echo 'es  '.is_numeric($saldo);
                    $entityManager = $this->getDoctrine()->getManager();
                    //actualizo
-                   $tarjeta->setSaldo(($saldo + $monto));
+                   $suma = $saldo + $monto;
+                   echo 'la suma es '. $suma;
+                   $tarjeta->setSaldo($suma);
+                   var_dump($tarjeta->getSaldo());
+                   die;
                    $entityManager->flush();
+                   
+                   //obtengo la tarjeta actualizada
+                   $retorno = $this->obtenerTarjeta($idTarjeta)->getSaldo();
                 }
-                
-                //obtengo la tarjeta actualizada
-                $retorno = $this->obtenerTarjeta($idTarjeta)->getSaldo();
             }
         }
         return new JsonResponse($retorno);
