@@ -148,6 +148,8 @@ class MenusConsumidosController extends Controller{
                     ->innerJoin('hc.tarjeta','tarj')
                     ->innerJoin('hc.sedeConsumo','sed')
                     ->where('hc.fechaConsumo = :fechaElegida')
+                    ->andWhere('hc.sede = :sede ')
+                    ->setParameter('sede',$sede)
                     ->setParameter('fechaElegida',$fechaInicio)
                     ->getQuery()
                     ->getArrayResult();
@@ -168,6 +170,8 @@ class MenusConsumidosController extends Controller{
                     ->innerJoin('hc.tarjeta','tarj')
                     ->where('hc.fechaConsumo >= :fechaInicio')
                     ->andWhere('hc.fechaConsumo <= :fechaFin')
+                    ->andWhere('hc.sede = :sede ')
+                    ->setParameter('sede',$sede)
                     ->setParameter('fechaInicio',$fechaInicio)
                     ->setParameter('fechaFin',$fechaFin)
                     ->getQuery()
