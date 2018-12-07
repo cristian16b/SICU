@@ -84,4 +84,8 @@ services:
         class: ComensalesBundle\Servicios\ConsultaSaldoController
         arguments: ["@doctrine.orm.entity_manager"]
         public: true
-        
+    
+    acreditar_saldo:
+        class: ComensalesBundle\Servicios\AcreditarSaldoController
+        arguments: ["@doctrine.orm.entity_manager"]
+        public: true
