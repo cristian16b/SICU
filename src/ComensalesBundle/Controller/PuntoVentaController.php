@@ -62,5 +62,4 @@ class PuntoVentaController extends Controller{
         }
         return new JsonResponse($retorno);
    }
-    
 }
