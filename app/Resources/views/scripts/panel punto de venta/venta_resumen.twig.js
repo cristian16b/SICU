@@ -6,7 +6,7 @@ $(function()
             ({
                 async:true,
                 method: 'GET',
-                url: "{{ path('administracion_resumen_ptovta') }}", 
+                url: "{{ path('ventas_resumen_ptovta') }}", 
                 data: null,
                 dataType: 'json',
                 beforeSend: function()

@@ -96,7 +96,7 @@ class AdministracionController extends Controller{
     /**
      * La presente funcion es el resumen que pueden observar los empleados en el
      * punto de venta
-     * @Route("/resumen",name="resumen_ptovta")
+     * @Route("/resumen/ventas",name="resumen_ptovta")
     */
    public function obtenerResumenVentas(Request $request)
    {
@@ -123,4 +123,10 @@ class AdministracionController extends Controller{
         }
         return new JsonResponse($retorno);
    }
+   
+   /**
+     * La presente funcion es el resumen que pueden observar los empleados en el
+     * punto de venta
+     * @Route("/resumen",name="resumen_ptovta")
+    */
 }

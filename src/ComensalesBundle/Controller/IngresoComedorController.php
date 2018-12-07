@@ -30,4 +30,6 @@ class IngresoComedorController extends Controller{
     {
         return $this->render('Panel ingreso comedor/panelngresoComedor.html.twig');
     }
+    
+    
 }
