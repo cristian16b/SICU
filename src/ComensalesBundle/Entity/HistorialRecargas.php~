@@ -31,7 +31,7 @@ class HistorialRecargas
      *
      * @ORM\Column(name="montonRecarga", type="decimal", precision=10, scale=2)
      */
-    private $montonRecarga;
+    private $montoRecarga;
 
     /**
      * @var \DateTime
@@ -83,9 +83,9 @@ class HistorialRecargas
      *
      * @return HistorialRecargas
      */
-    public function setMontonRecarga($montonRecarga)
+    public function setMontoRecarga($montoRecarga)
     {
-        $this->montonRecarga = $montonRecarga;
+        $this->montoRecarga = $montoRecarga;
 
         return $this;
     }
@@ -95,9 +95,9 @@ class HistorialRecargas
      *
      * @return string
      */
-    public function getMontonRecarga()
+    public function getMontoRecarga()
     {
-        return $this->montonRecarga;
+        return $this->montoRecarga;
     }
 
     /**
@@ -172,29 +172,6 @@ class HistorialRecargas
         return $this->tarjeta;
     }
 
-    /**
-     * Set itemRecarga
-     *
-     * @param \ComensalesBundle\Entity\ItemConsumo $itemRecarga
-     *
-     * @return HistorialRecargas
-     */
-    public function setItemRecarga(\ComensalesBundle\Entity\ItemConsumo $itemRecarga = null)
-    {
-        $this->itemRecarga = $itemRecarga;
-
-        return $this;
-    }
-
-    /**
-     * Get itemRecarga
-     *
-     * @return \ComensalesBundle\Entity\ItemConsumo
-     */
-    public function getItemRecarga()
-    {
-        return $this->itemRecarga;
-    }
 
     /**
      * Set sedeRecarga

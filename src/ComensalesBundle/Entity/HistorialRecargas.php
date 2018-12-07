@@ -83,7 +83,7 @@ class HistorialRecargas
      *
      * @return HistorialRecargas
      */
-    public function setMontoRecarga($montonRecarga)
+    public function setMontoRecarga($montoRecarga)
     {
         $this->montoRecarga = $montoRecarga;
 
@@ -172,29 +172,6 @@ class HistorialRecargas
         return $this->tarjeta;
     }
 
-    /**
-     * Set itemRecarga
-     *
-     * @param \ComensalesBundle\Entity\ItemConsumo $itemRecarga
-     *
-     * @return HistorialRecargas
-     */
-    public function setItemRecarga(\ComensalesBundle\Entity\ItemConsumo $itemRecarga = null)
-    {
-        $this->itemRecarga = $itemRecarga;
-
-        return $this;
-    }
-
-    /**
-     * Get itemRecarga
-     *
-     * @return \ComensalesBundle\Entity\ItemConsumo
-     */
-    public function getItemRecarga()
-    {
-        return $this->itemRecarga;
-    }
 
     /**
      * Set sedeRecarga
@@ -218,5 +195,29 @@ class HistorialRecargas
     public function getSedeRecarga()
     {
         return $this->sedeRecarga;
+    }
+
+    /**
+     * Set itemRecarga
+     *
+     * @param \ComensalesBundle\Entity\ItemRecarga $itemRecarga
+     *
+     * @return HistorialRecargas
+     */
+    public function setItemRecarga(\ComensalesBundle\Entity\ItemRecarga $itemRecarga = null)
+    {
+        $this->itemRecarga = $itemRecarga;
+
+        return $this;
+    }
+
+    /**
+     * Get itemRecarga
+     *
+     * @return \ComensalesBundle\Entity\ItemRecarga
+     */
+    public function getItemRecarga()
+    {
+        return $this->itemRecarga;
     }
 }

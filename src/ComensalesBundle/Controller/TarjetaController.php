@@ -197,21 +197,11 @@ class TarjetaController extends Controller{
             
             if(isset($idTarjeta) && isset($monto) )
             {
-                //obtengo tarjeta
                 $tarjeta = $this->obtenerTarjeta($idTarjeta);
-                //debo obtener el saldo
-                $saldo = $tarjeta->getSaldo();
-                if($monto > 0 && $tarjeta != null )
-                {
-                   $entityManager = $this->getDoctrine()->getManager();
-                   //actualizo
-                   $suma = $saldo + trim($monto);
-                   $tarjeta->setSaldo($suma);
-                   $entityManager->flush();
-                   
-                   //obtengo la tarjeta actualizada
-                   $retorno = $this->obtenerTarjeta($idTarjeta)->getSaldo();
-                }
+                
+                $retorno = $this->container->get('acreditar_saldo')
+                                ->acreditarSaldo($tarjeta,$monto);
+                
             }
         }
         return new JsonResponse($retorno);
