@@ -1,14 +1,18 @@
 {% extends 'base.html.twig' %}
 {% block body %}
     <div class="row">
-        {# urgente hacer un template con la barra e incluirlo #}
+        {# 
+            urgente hacer un template con la barra e incluirlo
+            usar path para las rutas
+        #}
         <div class="col-lg-2 col-md-2">
             <ul class="nav nav-pills nav-stacked"  >
                 <li><a href="/solicitudes">SOLICITUDES</a></li>
                 <li><a href="/turnos/panel">TURNOS </a></li>
                 <li><a href="/menus consumidos/panel">TARJETAS </a></li>
                 <li><a href="/administracion/panel">MENUS CONSUMIDOS</a></li>
-                <li class="active"><a href="/ventas/panel">VENTAS</a></li>
+                <li><a href="/ventas/panel">VENTAS</a></li>
+                <li class="active"><a href="/comedor/panel">COMEDOR</a></li>
                 <li><a href="#">SALIR</a></li>
             </ul>
         </div>
@@ -17,21 +21,21 @@
                 <div class="col lg-6 col-md-6">
                     <p></p>
                     {% block resumen %}
-                        {{ include('Panel punto de venta/resumen.html.twig') }}
+                        {{ include('Panel ingreso comedor/resumen.html.twig') }}
                     {% endblock %}
                     {% block botonesResumen %}
-                        {{ include('Panel punto de venta/botonesResumen.html.twig') }}
+                        {{ include('Panel ingreso comedor/botonesResumen.html.twig') }}
                     {% endblock %}
                 </div>
                 <div class="col lg-6 col-md-6">
-                    {% block cargarSaldo %}
-                        {{ include('Panel punto de venta/cargarSaldo.html.twig') }}
+                    {% block datosComensal %}
+                        {{ include('Panel ingreso comedor/datosComensal.html.twig') }}
                     {% endblock %}
-                    {% block botonesRecarga %}
-                        {{ include('Panel punto de venta/botonesRecarga.html.twig') }}
+                    {% block botonesIdentificacion %}
+                        {{ include('Panel ingreso comedor/botonesIdentificacion.html.twig') }}
                     {% endblock %}
                     {% block buscar %}
-                        {{ include('Panel punto de venta/buscar.html.twig') }}
+                        {{ include('Panel ingreso comedor/buscar.html.twig') }}
                     {% endblock %}
                 </div>
             </div>
@@ -44,8 +48,6 @@
     </div>
     {% block javascripts %}
         <script>
-            {% include 'scripts/panel punto de venta/venta_resumen.twig.js' %}
-            {% include 'scripts/panel punto de venta/venta_acreditar.twig.js' %}
             {# reutilizo las funcionalidades de menu para exportar  a pdf xls #}
             {% include 'scripts/panel menus consumidos/menus_exportar.twig.js' %}
         </script>
