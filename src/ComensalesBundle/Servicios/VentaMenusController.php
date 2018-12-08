@@ -145,7 +145,7 @@ class VentaMenusController extends Controller{
     
     private function obtenerListadoVentasDia($fechaInicio,$sede)
     {
-        $fechaFormateada = new \DateTime($fecha);
+        $fechaFormateada = new \DateTime($fechaInicio);
         $fechaInicio = $fechaFormateada->format('Y-m-d 00:00:00');
         $fechaFinal = $fechaFormateada->format('Y-m-d 23:59:59');
         return     

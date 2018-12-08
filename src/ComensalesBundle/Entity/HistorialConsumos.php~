@@ -29,17 +29,10 @@ class HistorialConsumos
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="fechaConsumo", type="datetime")
+     * @ORM\Column(name="fechaConsumo", type="datetime", options={"default": "CURRENT_TIMESTAMP"})
      */
-    private $fechaConsumo;
+    private $fechaHoraConsumo;
 
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="horaConsumo", type="time")
-     */
-    private $horaConsumo;
-    
     /**
     * @ORM\ManyToOne(targetEntity="Tarjeta")
     * @ORM\JoinColumn(name="tarjeta_id", referencedColumnName="id")
@@ -66,54 +59,6 @@ class HistorialConsumos
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set fechaConsumo
-     *
-     * @param \DateTime $fechaConsumo
-     *
-     * @return HistorialConsumos
-     */
-    public function setFechaConsumo($fechaConsumo)
-    {
-        $this->fechaConsumo = $fechaConsumo;
-
-        return $this;
-    }
-
-    /**
-     * Get fechaConsumo
-     *
-     * @return \DateTime
-     */
-    public function getFechaConsumo()
-    {
-        return $this->fechaConsumo;
-    }
-
-    /**
-     * Set horaConsumo
-     *
-     * @param \DateTime $horaConsumo
-     *
-     * @return HistorialConsumos
-     */
-    public function setHoraConsumo($horaConsumo)
-    {
-        $this->horaConsumo = $horaConsumo;
-
-        return $this;
-    }
-
-    /**
-     * Get horaConsumo
-     *
-     * @return \DateTime
-     */
-    public function getHoraConsumo()
-    {
-        return $this->horaConsumo;
     }
 
     /**
