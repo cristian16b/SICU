@@ -52,6 +52,11 @@ class VentaMenusController extends Controller{
     
     private function obtenerVentasDia($fecha,$sede)
     {
+        //to-do generar un servicio o controller para esto
+        $fechaFormateada = new \DateTime($fecha);
+        $fechaInicio = $fechaFormateada->format('Y-m-d 00:00:00');
+        $fechaFinal = $fechaFormateada->format('Y-m-d 23:59:59');
+        
         return     
             $this->entityManager->createQueryBuilder()
                 ->select('tc.nombreComensal as tipo,'
@@ -64,10 +69,11 @@ class VentaMenusController extends Controller{
                 ->innerJoin('soli.tipo_comensal','tc')
                 ->innerJoin('hr.itemRecarga','item')
                 ->innerJoin('hr.sedeRecarga','sed')
-                ->where('hr.fechaRecarga = :fechaElegida')
-                ->andWhere('sed.nombreSede = :sedeElegida')
-                ->setParameter('fechaElegida',$fecha)
+                ->where('sed.nombreSede = :sedeElegida')
                 ->setParameter('sedeElegida',$sede)
+                ->andWhere('hr.fechaHoraRecarga BETWEEN :dateMin AND :dateMax')
+                ->setParameter('dateMin',$fechaInicio)
+                ->setParameter('dateMax',$fechaFinal)
                 ->groupBy('tc.nombreComensal')
                 ->orderBy('total','DESC')
                 ->getQuery()
@@ -87,8 +93,8 @@ class VentaMenusController extends Controller{
                 ->innerJoin('tarj.solicitud','soli')
                 ->innerJoin('soli.tipo_comensal','tc')
                 ->innerJoin('hr.sedeRecarga','sed')
-                ->where('hr.fechaRecarga >= :fechaInicio')
-                ->andWhere('hr.fechaRecarga <= :fechaFin')
+                ->where('hr.fechaHoraRecarga >= :fechaInicio')
+                ->andWhere('hr.fechaHoraRecarga <= :fechaFin')
                 ->andWhere('sed.nombreSede = :sedeElegida')
                 ->setParameter('fechaInicio',$fechaInicio)
                 ->setParameter('fechaFin',$fechaFin)
@@ -139,6 +145,9 @@ class VentaMenusController extends Controller{
     
     private function obtenerListadoVentasDia($fechaInicio,$sede)
     {
+        $fechaFormateada = new \DateTime($fecha);
+        $fechaInicio = $fechaFormateada->format('Y-m-d 00:00:00');
+        $fechaFinal = $fechaFormateada->format('Y-m-d 23:59:59');
         return     
             $this->entityManager->createQueryBuilder()
                 ->select('hr.fechaRecarga as fecha,'
@@ -175,8 +184,8 @@ class VentaMenusController extends Controller{
                 ->innerJoin('tarj.solicitud','soli')
                 ->innerJoin('soli.tipo_comensal','tc')
                 ->innerJoin('hr.sedeRecarga','sed')
-                ->where('hr.fechaRecarga >= :fechaInicio')
-                ->andWhere('hr.fechaRecarga <= :fechaFin')
+                ->where('hr.fechaHoraRecarga >= :fechaInicio')
+                ->andWhere('hr.fechaHoraRecarga <= :fechaFin')
                 ->andWhere('sed.nombreSede = :sedeElegida')
                 ->setParameter('fechaInicio',$fechaInicio)
                 ->setParameter('fechaFin',$fechaFin)
