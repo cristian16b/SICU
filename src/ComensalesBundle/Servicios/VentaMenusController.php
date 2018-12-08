@@ -56,6 +56,12 @@ class VentaMenusController extends Controller{
         $fechaFormateada = new \DateTime($fecha);
         $fechaInicio = $fechaFormateada->format('Y-m-d 00:00:00');
         $fechaFinal = $fechaFormateada->format('Y-m-d 23:59:59');
+   
+//        $fechaInicio = $this->container->get('fechaHora')->fechaInicio($fecha);
+//        
+//        $fechaFinal = $this->container
+//                            ->get('fechaHora')
+//                            ->fechaFinal($fecha);
         
         return     
             $this->entityManager->createQueryBuilder()
@@ -82,6 +88,11 @@ class VentaMenusController extends Controller{
     
     private function obtenerVentasPeriodo($fechaInicio,$fechaFin,$sede)
     {
+        $fechaFormateadaInicio = new \DateTime($fechaInicio);
+        $fechaFormateadaFinal = new \DateTime($fechaFin);
+        $fechaInicio = $fechaFormateadaInicio->format('Y-m-d 00:00:00');
+        $fechaFinal = $fechaFormateadaFinal->format('Y-m-d 23:59:59');
+        
         return     
            $this->entityManager->createQueryBuilder()
                 ->select('tc.nombreComensal as tipo,'
@@ -93,11 +104,10 @@ class VentaMenusController extends Controller{
                 ->innerJoin('tarj.solicitud','soli')
                 ->innerJoin('soli.tipo_comensal','tc')
                 ->innerJoin('hr.sedeRecarga','sed')
-                ->where('hr.fechaHoraRecarga >= :fechaInicio')
-                ->andWhere('hr.fechaHoraRecarga <= :fechaFin')
-                ->andWhere('sed.nombreSede = :sedeElegida')
-                ->setParameter('fechaInicio',$fechaInicio)
-                ->setParameter('fechaFin',$fechaFin)
+                ->where('sed.nombreSede = :sedeElegida')
+                ->andWhere('hr.fechaHoraRecarga BETWEEN :dateMin AND :dateMax')
+                ->setParameter('dateMin',$fechaInicio)
+                ->setParameter('dateMax',$fechaFinal)
                 ->setParameter('sedeElegida',$sede)
                 ->groupBy('tc.nombreComensal')
                 ->orderBy('total','DESC')
@@ -161,9 +171,10 @@ class VentaMenusController extends Controller{
                 ->innerJoin('soli.tipo_comensal','tc')
                 ->innerJoin('hr.itemRecarga','item')
                 ->innerJoin('hr.sedeRecarga','sed')
-                ->where('hr.fechaRecarga = :fechaElegida')
+                ->where('hr.fechaHoraRecarga BETWEEN :dateMin AND :dateMax')
+                ->setParameter('dateMin',$fechaInicio)
+                ->setParameter('dateMax',$fechaFinal)
                 ->andWhere('sed.nombreSede = :sedeElegida')
-                ->setParameter('fechaElegida',$fechaInicio)
                 ->setParameter('sedeElegida',$sede)
                 ->getQuery()
                 ->getArrayResult();
@@ -171,6 +182,11 @@ class VentaMenusController extends Controller{
     
     private function obtenerListadoVentasPeriodo($fechaInicio, $fechaFin, $sede)
     {
+        $fechaFormateadaInicio = new \DateTime($fechaInicio);
+        $fechaFormateadaFinal = new \DateTime($fechaFin);
+        $fechaInicio = $fechaFormateadaInicio->format('Y-m-d 00:00:00');
+        $fechaFinal = $fechaFormateadaFinal->format('Y-m-d 23:59:59');
+        
         return     
            $this->entityManager->createQueryBuilder()
                 ->select('hr.fechaRecarga as fecha,'
@@ -184,11 +200,10 @@ class VentaMenusController extends Controller{
                 ->innerJoin('tarj.solicitud','soli')
                 ->innerJoin('soli.tipo_comensal','tc')
                 ->innerJoin('hr.sedeRecarga','sed')
-                ->where('hr.fechaHoraRecarga >= :fechaInicio')
-                ->andWhere('hr.fechaHoraRecarga <= :fechaFin')
+                ->andWhere('hr.fechaHoraRecarga BETWEEN :dateMin AND :dateMax')
+                ->setParameter('dateMin',$fechaInicio)
+                ->setParameter('dateMax',$fechaFinal)
                 ->andWhere('sed.nombreSede = :sedeElegida')
-                ->setParameter('fechaInicio',$fechaInicio)
-                ->setParameter('fechaFin',$fechaFin)
                 ->setParameter('sedeElegida',$sede)
                 ->getQuery()
                 ->getArrayResult();
