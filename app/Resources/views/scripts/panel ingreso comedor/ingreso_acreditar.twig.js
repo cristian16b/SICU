@@ -69,10 +69,12 @@ $(function()
                 {
                     if(dato !== null)
                     {
+                        $("#saldo").val('0.00');
                         $("#saldo-actualizado").val(dato);
                     }
                     else
                     {
+                        $("#saldo").val('0.00');
                         $("#saldo-actualizado").val('Error, intente nuevamente');
                     }
                     //desbloqueo la pagina

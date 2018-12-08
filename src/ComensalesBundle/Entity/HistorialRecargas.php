@@ -36,17 +36,11 @@ class HistorialRecargas
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="fechaRecarga", type="datetime")
+     * @ORM\Column(name="fechaHoraRecarga", type="datetime", options={"default": "CURRENT_TIMESTAMP"})
      */
-    private $fechaRecarga;
-
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="horaRecarga", type="time")
-     */
-    private $horaRecarga;
     
+    private $fechaHoraRecarga;
+
     /**
     * @ORM\ManyToOne(targetEntity="Tarjeta")
     * @ORM\JoinColumn(name="tarjeta_id", referencedColumnName="id")
@@ -65,8 +59,12 @@ class HistorialRecargas
     */
     private $sedeRecarga;
 
+    public function __construct() 
+    {
+        $this->fechaHoraRecarga = new \DateTime();
+    }
 
-    /**
+        /**
      * Get id
      *
      * @return int
@@ -98,54 +96,6 @@ class HistorialRecargas
     public function getMontoRecarga()
     {
         return $this->montoRecarga;
-    }
-
-    /**
-     * Set fechaRecarga
-     *
-     * @param \DateTime $fechaRecarga
-     *
-     * @return HistorialRecargas
-     */
-    public function setFechaRecarga($fechaRecarga)
-    {
-        $this->fechaRecarga = $fechaRecarga;
-
-        return $this;
-    }
-
-    /**
-     * Get fechaRecarga
-     *
-     * @return \DateTime
-     */
-    public function getFechaRecarga()
-    {
-        return $this->fechaRecarga;
-    }
-
-    /**
-     * Set horaRecarga
-     *
-     * @param \DateTime $horaRecarga
-     *
-     * @return HistorialRecargas
-     */
-    public function setHoraRecarga($horaRecarga)
-    {
-        $this->horaRecarga = $horaRecarga;
-
-        return $this;
-    }
-
-    /**
-     * Get horaRecarga
-     *
-     * @return \DateTime
-     */
-    public function getHoraRecarga()
-    {
-        return $this->horaRecarga;
     }
 
     /**
@@ -219,5 +169,45 @@ class HistorialRecargas
     public function getItemRecarga()
     {
         return $this->itemRecarga;
+    }
+
+    /**
+     * Set fechaHoraRecarga
+     *
+     * @param \DateTime $fechaHoraRecarga
+     *
+     * @return HistorialRecargas
+     */
+    public function setFechaHoraRecarga($fechaHoraRecarga)
+    {
+        $this->fechaHoraRecarga = $fechaHoraRecarga;
+
+        return $this;
+    }
+
+    /**
+     * Get fechaHoraRecarga
+     *
+     * @return \DateTime
+     */
+    public function getFechaHoraRecarga()
+    {
+        return $this->fechaHoraRecarga;
+    }
+    
+    /**
+     * AGREGO LOS SIGUIENTES METODOS
+     * getFechaRecarga(): retorna la fecha de la recarga en formato : anio-mes-dia
+     * getHoraRecarga(): retorna la hora de la recarga en formato hora:minutos:segundos
+     */
+    
+    public function getFechaRecarga()
+    {
+        //to-do
+    }
+    
+    public function getHoraRecarga()
+    {
+        //to-do
     }
 }

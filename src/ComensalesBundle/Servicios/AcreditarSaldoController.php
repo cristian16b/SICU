@@ -63,10 +63,11 @@ class AcreditarSaldoController extends Controller{
        
        //registro en el historial de recargas
        $nuevoRegistro = new HistorialRecargas();
+//       var_dump($nuevoRegistro->getFechaRecarga());die;
        $nuevoRegistro->setTarjeta($tarjeta);
-       $nuevoRegistro->setFechaRecarga($fechaRecarga);
+//       $nuevoRegistro->setFechaRecarga($fechaRecarga);
        $nuevoRegistro->setMontoRecarga($monto);
-       $nuevoRegistro->setHoraRecarga($horaRecarga);
+//       $nuevoRegistro->setHoraRecarga($horaRecarga);
        $nuevoRegistro->setItemRecarga($itemRecarga);
        
        return $nuevoRegistro;
