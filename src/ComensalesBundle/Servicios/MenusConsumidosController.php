@@ -58,6 +58,10 @@ class MenusConsumidosController extends Controller{
      */
     private function obtenerMenusConsumidosDiario($fecha,$sede)
     {
+        $fechaFormateada = new \DateTime($fecha);
+        $fechaInicio = $fechaFormateada->format('Y-m-d 00:00:00');
+        $fechaFinal = $fechaFormateada->format('Y-m-d 23:59:59');
+        
         return $this->entityManager->createQueryBuilder()
                     ->select('imp.nombreImporte as tipo,'
                             . 'count(hc) as cantidad,'
@@ -66,16 +70,24 @@ class MenusConsumidosController extends Controller{
                     ->innerJoin('hc.itemConsumo','item')
                     ->innerJoin('item.importe','imp')
                     ->innerJoin('hc.sedeConsumo','sed')
-                    ->where('hc.fechaConsumo = :fechaElegida')
-                    ->setParameter('fechaElegida',$fecha)
+                    ->where('sed.nombreSede = :sedeElegida')
+                    ->andWhere('hc.fechaHoraConsumo BETWEEN :dateMin AND :dateMax')
+                    ->setParameter('dateMin',$fechaInicio)
+                    ->setParameter('dateMax',$fechaFinal)
+                    ->setParameter('sedeElegida',$sede)
                     ->groupBy('imp.nombreImporte')
                     ->orderBy('cantidad','DESC')
                     ->getQuery()
                     ->getArrayResult();
     }
     
-    private function obtenerMenusConsumidosPeriodo($fechaInicio,$fechaFin,$sede)
+    private function obtenerMenusConsumidosPeriodo($fechaIni,$fechaFin,$sede)
     {
+        $fechaFormateadaInicio = new \DateTime($fechaIni);
+        $fechaFormateadaFinal = new \DateTime($fechaFin);
+        $fechaInicio = $fechaFormateadaInicio->format('Y-m-d 00:00:00');
+        $fechaFinal = $fechaFormateadaFinal->format('Y-m-d 23:59:59');
+        
         return $this->entityManager->createQueryBuilder()
                     ->select('imp.nombreImporte as tipo,'
                             . 'count(hc) as cantidad,'
@@ -84,10 +96,11 @@ class MenusConsumidosController extends Controller{
                     ->innerJoin('hc.itemConsumo','item')
                     ->innerJoin('item.importe','imp')
                     ->innerJoin('hc.sedeConsumo','sed')
-                    ->where('hc.fechaConsumo >= :fechaInicio')
-                    ->andWhere('hc.fechaConsumo <= :fechaFin')
-                    ->setParameter('fechaInicio',$fechaInicio)
-                    ->setParameter('fechaFin',$fechaFin)
+                    ->andWhere('hc.fechaHoraConsumo BETWEEN :dateMin AND :dateMax')
+                    ->setParameter('dateMin',$fechaInicio)
+                    ->setParameter('dateMax',$fechaFinal)
+                ->where('sed.nombreSede = :sedeElegida')
+                ->setParameter('sedeElegida',$sede)
                     ->groupBy('imp.nombreImporte')
                     ->orderBy('cantidad','DESC')
                     ->getQuery()
@@ -168,9 +181,7 @@ class MenusConsumidosController extends Controller{
                     ->innerJoin('item.importe','imp')
                     ->innerJoin('hc.sedeConsumo','sed')
                     ->innerJoin('hc.tarjeta','tarj')
-                    ->where('hc.fechaConsumo >= :fechaInicio')
-                    ->andWhere('hc.fechaConsumo <= :fechaFin')
-                    ->andWhere('hc.sede = :sede ')
+                    ->where('hc.sede = :sede ')
                     ->setParameter('sede',$sede)
                     ->setParameter('fechaInicio',$fechaInicio)
                     ->setParameter('fechaFin',$fechaFin)
