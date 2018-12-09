@@ -147,11 +147,14 @@ class MenusConsumidosController extends Controller{
         return $retorno;
     }
     
-    private function obtenerListadoMenusDiario($fechaInicio,$sede)
+    private function obtenerListadoMenusDiario($fechaIni,$sede)
     {
+        $fechaFormateada = new \DateTime($fechaIni);
+        $fechaInicio = $fechaFormateada->format('Y-m-d 00:00:00');
+        $fechaFinal = $fechaFormateada->format('Y-m-d 23:59:59');
+        
         return $this->entityManager->createQueryBuilder()
-                    ->select('hc.fechaConsumo as fecha,'
-                            . 'hc.horaConsumo as hora,'
+                    ->select('hc.fechaHoraConsumo as fecha,'
                             . 'imp.nombreImporte as tipo,'
                             . 'tarj.id as tarjeta,'
                             . 'sed.nombreSede as sede')
@@ -160,19 +163,25 @@ class MenusConsumidosController extends Controller{
                     ->innerJoin('item.importe','imp')
                     ->innerJoin('hc.tarjeta','tarj')
                     ->innerJoin('hc.sedeConsumo','sed')
-                    ->where('hc.fechaConsumo = :fechaElegida')
-                    ->andWhere('hc.sede = :sede ')
+                    ->where('hc.sede = :sede ')
+                    ->andWhere('hc.fechaHoraConsumo BETWEEN :dateMin AND :dateMax')
+                    ->setParameter('dateMin',$fechaInicio)
+                    ->setParameter('dateMax',$fechaFinal)
                     ->setParameter('sede',$sede)
-                    ->setParameter('fechaElegida',$fechaInicio)
                     ->getQuery()
                     ->getArrayResult();
     }
     
-    private function obtenerListadoMenusPeriodo($fechaInicio,$fechaFin,$sede)
+    private function obtenerListadoMenusPeriodo($fechaIni,$fechaFin,$sede)
     {
+        $fechaFormateadaInicio = new \DateTime($fechaIni);
+        $fechaFormateadaFinal = new \DateTime($fechaFin);
+        $fechaInicio = $fechaFormateadaInicio->format('Y-m-d 00:00:00');
+        $fechaFinal = $fechaFormateadaFinal->format('Y-m-d 23:59:59');
+     
+        
         return $this->entityManager->createQueryBuilder()
-                    ->select('hc.fechaConsumo as fecha,'
-                            . 'hc.horaConsumo as hora,'
+                    ->select('hc.fechaHoraConsumo as fecha,'
                             . 'imp.nombreImporte as tipo,'
                             . 'tarj.id as tarjeta,'
                             . 'sed.nombreSede as sede')
@@ -182,9 +191,10 @@ class MenusConsumidosController extends Controller{
                     ->innerJoin('hc.sedeConsumo','sed')
                     ->innerJoin('hc.tarjeta','tarj')
                     ->where('hc.sede = :sede ')
+                    ->andWhere('hc.fechaHoraConsumo BETWEEN :dateMin AND :dateMax')
+                    ->setParameter('dateMin',$fechaInicio)
+                    ->setParameter('dateMax',$fechaFinal)
                     ->setParameter('sede',$sede)
-                    ->setParameter('fechaInicio',$fechaInicio)
-                    ->setParameter('fechaFin',$fechaFin)
                     ->getQuery()
                     ->getArrayResult();
     }

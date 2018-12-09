@@ -17,13 +17,11 @@ function obtengoFechaFormato(fecha)
 //retorno hora:minutos
 function obtengoHorarioFormato(horario)
 {
-    var arrayhoras = horario.split(' ');
+    var arrayhoras = horario.split('.');
     var salida = '-';
     if(arrayhoras.length > 0)
     {
-        var tmp = arrayhoras[1];
-        var aux = tmp.split(':');
-        salida = aux[0] +':' + aux[1];
+        salida = arrayhoras[0];
     }
     return salida;
 }

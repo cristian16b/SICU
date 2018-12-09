@@ -94,7 +94,6 @@ function cargarModalRecargas(datos)
         for(i=0;i<cantidad;i++)
         {
             fecha = datos[i].fecha.date;
-            hora =  '<td>'+obtengoHorarioFormato(datos[i].hora.date)+'</td>';
             tipo = '<td>'+datos[i].tipo+'</td>';
             tarjeta = '<td>'+datos[i].tarjeta+'</td>';
             sede = '<td>'+datos[i].sede+'</td>';
@@ -102,12 +101,14 @@ function cargarModalRecargas(datos)
             var f;
             if(fecha === null)
             {
-                f = '';
+                fecha = '';
+                hora = '';
             }
             else
             {
                 f = fecha.split(' ');
                 fecha = obtengoFechaFormato(f[0]);
+                hora = obtengoHorarioFormato(f[1]);
             }
 
 

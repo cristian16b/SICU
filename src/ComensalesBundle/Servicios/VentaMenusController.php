@@ -160,8 +160,7 @@ class VentaMenusController extends Controller{
         $fechaFinal = $fechaFormateada->format('Y-m-d 23:59:59');
         return     
             $this->entityManager->createQueryBuilder()
-                ->select('hr.fechaRecarga as fecha,'
-                        . 'hr.horaRecarga as hora,'
+                ->select('hr.fechaHoraRecarga as fecha,'
                         . 'tc.nombreComensal as tipo,'
                         . 'tarj.id as tarjeta,'
                         . 'sed.nombreSede as sede')
@@ -189,8 +188,7 @@ class VentaMenusController extends Controller{
         
         return     
            $this->entityManager->createQueryBuilder()
-                ->select('hr.fechaRecarga as fecha,'
-                        . 'hr.horaRecarga as hora,'
+                ->select('hr.fechaHoraRecarga as fecha,'
                         . 'tc.nombreComensal as tipo,'
                         . 'tarj.id as tarjeta,'
                         . 'sed.nombreSede as sede')
