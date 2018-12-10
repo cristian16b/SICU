@@ -101,10 +101,11 @@ function cargarInfoTarjeta(datos)
     //seteo los inputs
     if(datos.length>0)
     {
+        var apellidoNombre = datos[0].apellido + ' ' + datos[0].nombre;
         $("#tarjeta-id").val(datos[0].id);
-        $("#apellido").val(datos[0].apellido);
-        $("#nombre").val(datos[0].nombre);
-        $("#saldo").val(datos[0].saldo);
+        $("#apellido-nombre").val(apellidoNombre);
+//        $("#nombre").val(datos[0].nombre);
+        $("#saldo-actualizado").val(datos[0].saldo);
     }
     else
     {

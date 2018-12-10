@@ -61,4 +61,18 @@ class IngresoComedorController extends Controller{
         }
         return new JsonResponse($retorno);
    }
+   
+   
+   /**
+     * @Route("/ingreso",name="ingreso")
+     */
+   public function registrarMenuConsumido(Request $request)
+   {
+       $retorno = array();
+        if($request->isXmlHttpRequest())
+        {
+            
+        }
+        return new JsonResponse($retorno);
+   }
 }
