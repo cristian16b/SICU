@@ -45,6 +45,13 @@ class Tarjeta
     private $saldo;
     
     /**
+     * @var \DateTime
+     * 
+     * @ORM\Column(name="fechaUltimoConsumo", type="datetime")
+     */
+    private $fechaUltimoConsumo;
+    
+    /**
     * @ORM\ManyToOne(targetEntity="EstadoTarjeta")
     * @ORM\JoinColumn(name="estado_tarjeta_id", referencedColumnName="id")
     */
@@ -55,6 +62,7 @@ class Tarjeta
     * @ORM\JoinColumn(name="solicitud_id", referencedColumnName="id")
     */
     private $solicitud;
+    
      
     
     /**

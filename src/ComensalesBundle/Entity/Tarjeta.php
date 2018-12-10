@@ -45,6 +45,13 @@ class Tarjeta
     private $saldo;
     
     /**
+     * @var \DateTime
+     * 
+     * @ORM\Column(name="fechaUltimoConsumo", type="datetime")
+     */
+    private $fechaUltimoConsumo;
+    
+    /**
     * @ORM\ManyToOne(targetEntity="EstadoTarjeta")
     * @ORM\JoinColumn(name="estado_tarjeta_id", referencedColumnName="id")
     */
@@ -55,6 +62,7 @@ class Tarjeta
     * @ORM\JoinColumn(name="solicitud_id", referencedColumnName="id")
     */
     private $solicitud;
+    
      
     
     /**
@@ -161,5 +169,29 @@ class Tarjeta
     public function getSolicitud()
     {
         return $this->solicitud;
+    }
+
+    /**
+     * Set fechaUltimoConsumo
+     *
+     * @param \DateTime $fechaUltimoConsumo
+     *
+     * @return Tarjeta
+     */
+    public function setFechaUltimoConsumo($fechaUltimoConsumo)
+    {
+        $this->fechaUltimoConsumo = $fechaUltimoConsumo;
+
+        return $this;
+    }
+
+    /**
+     * Get fechaUltimoConsumo
+     *
+     * @return \DateTime
+     */
+    public function getFechaUltimoConsumo()
+    {
+        return $this->fechaUltimoConsumo;
     }
 }

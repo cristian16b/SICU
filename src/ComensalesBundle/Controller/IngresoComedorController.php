@@ -71,8 +71,39 @@ class IngresoComedorController extends Controller{
        $retorno = array();
         if($request->isXmlHttpRequest())
         {
-            
+            $dni = $request->query->get('dni');
+            $opcion = $request->query->get('opcion');
+            //si existe y esta def
+            if(isset($dni) && isset($opcion))
+            {
+                if($opcion == 'dni')
+                {
+                    $lista = $this->obtenerTarjetaEstado($dni);
+                }
+                //to-do implementar por numero de tarjeta
+                
+                
+            }
         }
         return new JsonResponse($retorno);
+   }
+   
+   private function obtenerTarjetaEstado($dni)
+   {
+        $qb = $this->getDoctrine()->getEntityManager()->createQueryBuilder()
+                   ->select('tarj.id,'
+                           . 'tarj.fechaAlta,'
+                           . 'tarj.saldo,'
+                           . 'est.nombreEstadoTarjeta,'
+                           . 'per.nombre,'
+                           . 'per.apellido,'
+                           . 'per.dni')
+                   ->from('ComensalesBundle:Tarjeta','tarj')
+                   ->innerJoin('tarj.estadoTarjeta','est')
+                   ->innerJoin('tarj.solicitud','soli')
+                   ->innerJoin('soli.persona','per')
+                   ->innerJoin('per.facultad','facu')
+                ;
+        return new JsonResponse($qb->getQuery()->getArrayResult());
    }
 }
