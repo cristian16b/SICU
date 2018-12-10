@@ -47,7 +47,7 @@ class Tarjeta
     /**
      * @var \DateTime
      * 
-     * @ORM\Column(name="fechaUltimoConsumo", type="datetime")
+     * @ORM\Column(name="fechaUltimoConsumo", type="datetime" ,nullable=true)
      */
     private $fechaUltimoConsumo;
     
@@ -169,5 +169,29 @@ class Tarjeta
     public function getSolicitud()
     {
         return $this->solicitud;
+    }
+
+    /**
+     * Set fechaUltimoConsumo
+     *
+     * @param \DateTime $fechaUltimoConsumo
+     *
+     * @return Tarjeta
+     */
+    public function setFechaUltimoConsumo($fechaUltimoConsumo)
+    {
+        $this->fechaUltimoConsumo = $fechaUltimoConsumo;
+
+        return $this;
+    }
+
+    /**
+     * Get fechaUltimoConsumo
+     *
+     * @return \DateTime
+     */
+    public function getFechaUltimoConsumo()
+    {
+        return $this->fechaUltimoConsumo;
     }
 }

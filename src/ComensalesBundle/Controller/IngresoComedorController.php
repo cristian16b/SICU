@@ -78,32 +78,78 @@ class IngresoComedorController extends Controller{
             {
                 if($opcion == 'dni')
                 {
-                    $lista = $this->obtenerTarjetaEstado($dni);
+                    $retorno = $this->obtenerTarjetaDni($dni);
                 }
                 //to-do implementar por numero de tarjeta
-                
-                
             }
         }
         return new JsonResponse($retorno);
    }
    
+   private function obtenerTarjetaDni($dni)
+   {
+       $lista = $this->obtenerTarjetaEstado($dni);
+       $retorno = null;
+       if(count($lista) > 0)
+       {
+           //Si esta activa la tarjeta pasa
+           if($lista[0]['estado'] == 'Activa') 
+            {
+               //pregunto si la fecha es distinta de la actual
+               if(!$this->esFechaActual($lista[0]['fechaUltimo']))
+               {
+                   echo 'no es fecha actual';
+               }
+               else
+               {
+                   $retorno['error'] = 'Ya ha consumido en el día de la fecha.';
+               }
+            }
+            else
+            {
+                $retorno['error'] = 'La tarjeta no esta activa.';
+            }
+       }
+       return $retorno;
+   }
+   
    private function obtenerTarjetaEstado($dni)
    {
-        $qb = $this->getDoctrine()->getEntityManager()->createQueryBuilder()
+        return $this->getDoctrine()->getEntityManager()->createQueryBuilder()
                    ->select('tarj.id,'
-                           . 'tarj.fechaAlta,'
+                           . 'tarj.fechaUltimoConsumo as fechaUltimo,'
                            . 'tarj.saldo,'
-                           . 'est.nombreEstadoTarjeta,'
+                           . 'est.nombreEstadoTarjeta as estado,'
                            . 'per.nombre,'
                            . 'per.apellido,'
-                           . 'per.dni')
+                           . 'per.dni,'
+                           . 'tcom.nombreComensal as tipoComensal')
                    ->from('ComensalesBundle:Tarjeta','tarj')
                    ->innerJoin('tarj.estadoTarjeta','est')
                    ->innerJoin('tarj.solicitud','soli')
                    ->innerJoin('soli.persona','per')
-                   ->innerJoin('per.facultad','facu')
+                   ->innerJoin('soli.tipo_comensal','tcom')
+                   ->where('per.dni = :dniIngresado')
+                   ->setParameter('dniIngresado',$dni)
+                   ->getQuery()->getArrayResult()
                 ;
-        return new JsonResponse($qb->getQuery()->getArrayResult());
+   }
+   
+   //to-do agrupar en un servicio
+   private function esFechaActual($fecha)
+   {
+      $retorno = false;
+      if($fecha != null)
+      {
+           $fechaActual = date('Y-m-d');
+           $fechaRecibida = $fecha->format('Y-m-d');
+           $retorno = ($fechaActual == $fechaRecibida);
+      }
+      return $retorno;
+   }
+   
+   private function obtenerImporteActual($fecha)
+   {
+       
    }
 }

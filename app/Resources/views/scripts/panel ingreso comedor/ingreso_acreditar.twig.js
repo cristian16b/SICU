@@ -10,7 +10,7 @@ $(function()
             ({
                 async:true,
                 method: 'GET',
-                url: "{{ path('tarjetas_saldo') }}", 
+                url: "{{ path('comedor_ingreso') }}", 
                 data: datos,
                 dataType: 'json',
                 beforeSend: function()

@@ -47,7 +47,7 @@ class Tarjeta
     /**
      * @var \DateTime
      * 
-     * @ORM\Column(name="fechaUltimoConsumo", type="datetime")
+     * @ORM\Column(name="fechaUltimoConsumo", type="datetime" ,nullable=true)
      */
     private $fechaUltimoConsumo;
     
