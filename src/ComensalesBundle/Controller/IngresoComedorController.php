@@ -151,16 +151,19 @@ class IngresoComedorController extends Controller{
    
    private function obtenerImporteActual($tipoComensal)
    {
+       $subconsulta = '(Select max(impo.fechaActualizacion) from ComensalesBundle:Importe impo)';
        //to-do no funciona bien la consulta, revisar
-       return $this->getDoctrine()->getEntityManager()->createQueryBuilder()
+       $retorno =  $this->getDoctrine()->getEntityManager()->createQueryBuilder()
                    ->select('imp.precio,'
-                           . 'max(imp.fechaActualizacion) as fecha')
+                           . 'imp.fechaActualizacion as fecha')
                    ->from('ComensalesBundle:Importe','imp')
                    ->where('imp.nombreImporte = :tipoIngresado')
+                   ->andWhere('imp.fechaActualizacion = ' . $subconsulta )
                    ->setParameter('tipoIngresado',$tipoComensal)
                    ->setMaxResults(1)
                    ->getQuery()
                    ->getOneOrNullResult()
                 ;
+       return $retorno;
    }
 }
