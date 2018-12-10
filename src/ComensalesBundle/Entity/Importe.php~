@@ -47,7 +47,7 @@ class Importe
      *
      * @ORM\Column(name="fechaActualizacion", type="date")
      */
-    private $fechaAcualizacion;
+    private $fechaActualizacion;
     
     /**
      * Get id
@@ -106,28 +106,31 @@ class Importe
     {
         return $this->precio;
     }
+    
+    
+
 
     /**
-     * Set fechaAcualizacion
+     * Set costo
      *
-     * @param \DateTime $fechaAcualizacion
+     * @param string $costo
      *
      * @return Importe
      */
-    public function setFechaAcualizacion($fechaAcualizacion)
+    public function setCosto($costo)
     {
-        $this->fechaAcualizacion = $fechaAcualizacion;
+        $this->costo = $costo;
 
         return $this;
     }
 
     /**
-     * Get fechaAcualizacion
+     * Get costo
      *
-     * @return \DateTime
+     * @return string
      */
-    public function getFechaAcualizacion()
+    public function getCosto()
     {
-        return $this->fechaAcualizacion;
+        return $this->costo;
     }
 }

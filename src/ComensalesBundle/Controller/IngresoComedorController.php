@@ -98,6 +98,7 @@ class IngresoComedorController extends Controller{
                //pregunto si la fecha es distinta de la actual
                if(!$this->esFechaActual($lista[0]['fechaUltimo']))
                {
+                   var_dump($this->obtenerImporteActual('Estudiante'));
                    echo 'no es fecha actual';
                }
                else
@@ -148,8 +149,18 @@ class IngresoComedorController extends Controller{
       return $retorno;
    }
    
-   private function obtenerImporteActual($fecha)
+   private function obtenerImporteActual($tipoComensal)
    {
-       
+       //to-do no funciona bien la consulta, revisar
+       return $this->getDoctrine()->getEntityManager()->createQueryBuilder()
+                   ->select('imp.precio,'
+                           . 'max(imp.fechaActualizacion) as fecha')
+                   ->from('ComensalesBundle:Importe','imp')
+                   ->where('imp.nombreImporte = :tipoIngresado')
+                   ->setParameter('tipoIngresado',$tipoComensal)
+                   ->setMaxResults(1)
+                   ->getQuery()
+                   ->getOneOrNullResult()
+                ;
    }
 }
