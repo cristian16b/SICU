@@ -88,18 +88,35 @@ class IngresoComedorController extends Controller{
    
    private function obtenerTarjetaDni($dni)
    {
-       $lista = $this->obtenerTarjetaEstado($dni);
-       $retorno = null;
+       $retorno = $this->obtenerTarjetaEstado($dni);
        if(count($lista) > 0)
        {
+           //almaceno info que sera usada posteriormente
+           
+           $estado = $lista[0]['estado'];
            //Si esta activa la tarjeta pasa
-           if($lista[0]['estado'] == 'Activa') 
+           if($estado == 'Activa') 
             {
                //pregunto si la fecha es distinta de la actual
                if(!$this->esFechaActual($lista[0]['fechaUltimo']))
                {
-                   var_dump($this->obtenerImporteActual('Estudiante'));
-                   echo 'no es fecha actual';
+                   $importes = $this->obtenerImporteActual($lista[0]['fechaUltimo']);
+                   if($lista[0]['saldo'] >= -$importes['precio'])
+                   {
+                       if($lista[0]['saldo'] < 0 )
+                       {
+                           $retorno['alerta'] = 'Su tarjeta se encuenta en saldo negativo, efectue una recarga en la brevedad.';
+                       }
+                       //registro en el historial
+                       
+                       //actualizo la info de la tarjeta (saldo y ultima fecha)
+                       
+                       
+                   }
+                   else
+                   {
+                       $retorno['error'] = 'No cuenta con saldo suficiente para ingresar.';
+                   }
                }
                else
                {
@@ -110,6 +127,10 @@ class IngresoComedorController extends Controller{
             {
                 $retorno['error'] = 'La tarjeta no esta activa.';
             }
+       }
+       else
+       {
+           $retorno['error'] = 'Usuario no encontrado en el sistema, intente nuevamente o dirigase a la sede administrativa.';
        }
        return $retorno;
    }
@@ -154,8 +175,7 @@ class IngresoComedorController extends Controller{
        $subconsulta = '(Select max(impo.fechaActualizacion) from ComensalesBundle:Importe impo)';
        //to-do no funciona bien la consulta, revisar
        $retorno =  $this->getDoctrine()->getEntityManager()->createQueryBuilder()
-                   ->select('imp.precio,'
-                           . 'imp.fechaActualizacion as fecha')
+                   ->select('imp.precio')
                    ->from('ComensalesBundle:Importe','imp')
                    ->where('imp.nombreImporte = :tipoIngresado')
                    ->andWhere('imp.fechaActualizacion = ' . $subconsulta )

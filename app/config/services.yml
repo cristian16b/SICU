@@ -89,8 +89,8 @@ services:
         class: ComensalesBundle\Servicios\AcreditarSaldoController
         arguments: ["@doctrine.orm.entity_manager"]
         public: true
-        
-    fechaHora:
-        class: ComensalesBundle\Servicios\FechaHoraController
-        arguments: ["null"]
+    
+    decrementar_saldo:
+        class: ComensalesBundle\Servicios\DecrementarSaldoController
+        arguments: ["@doctrine.orm.entity_manager"]
         public: true
