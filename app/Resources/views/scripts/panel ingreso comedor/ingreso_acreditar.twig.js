@@ -5,7 +5,7 @@ $(function()
         var datos = {};
         datos.dni = $("#buscar-dni").val();
         datos.opcion = 'dni';
-        
+        $("#notificaciones-div").hide();
         $.ajax
             ({
                 async:true,
@@ -21,74 +21,14 @@ $(function()
                 timeout:12500,
                 error : function() 
                 {
+                    //mostrar mensaje de error
+                    $("#notificaciones-div").show();
+                    $("#texto-notificacion").val('Error en la conexión, intente nuevamente');
+                    $("#notificaciones-div").addClass('alert alert-danger');
                     //desbloqueo la pagina
                     $.unblockUI();
-                    alert('ERROR DE CONEXIÓN, INTENTE NUEVAMENTE MAS TARDE');
                 }
             });
-    });
-    
-    //evento validacion sobre el monto ingresado
-    $('#monto').on("change",function() 
-    {
-        var monto = $("#monto").val();
-        if(isNaN(monto) !== false && monto !== '' && monto > 0)
-        {
-            alert('La cantidad ingresada debe ser numerica y no negativa');
-            $("#monto").val("0.00");
-        }
-    });
-    
-    //evento de enviar monto ingresado
-    $('#boton-acreditar-saldo').on("click",function() 
-    {
-        var datos = {};
-        var monto = $("#monto").val();
-        datos.id = $("#tarjeta-id").val();
-        datos.monto = monto;
-        //
-        
-        if(isNaN(monto) !== false || monto === '' || monto < 0)
-        {
-            alert('La cantidad ingresada debe ser numerica y no negativa');
-        }
-        else
-        {
-            $.ajax
-            ({
-                async:true,
-                method: 'GET',
-                url: "{{ path('tarjetas_acreditar_saldo') }}", 
-                data: datos,
-                dataType: 'json',
-                beforeSend: function()
-                {
-                    $.blockUI({ message: '<img src="/img/cargando.gif"><h3>Cargando ...</h3>' });  
-                },
-                success: function(dato)
-                {
-                    if(dato !== null)
-                    {
-                        $("#saldo").val('0.00');
-                        $("#saldo-actualizado").val(dato);
-                    }
-                    else
-                    {
-                        $("#saldo").val('0.00');
-                        $("#saldo-actualizado").val('Error, intente nuevamente');
-                    }
-                    //desbloqueo la pagina
-                    $.unblockUI();
-                },
-                timeout:12500,
-                error : function() 
-                {
-                    //desbloqueo la pagina
-                    $.unblockUI();
-                    alert('ERROR DE CONEXIÓN, INTENTE NUEVAMENTE MAS TARDE');
-                }
-            });
-        }
     });
 });
 
@@ -97,18 +37,51 @@ function cargarInfoTarjeta(datos)
     
     //desbloqueo la pagina
     $.unblockUI();
-    
     //seteo los inputs
-    if(datos.length>0)
+    if(datos !== null)
     {
-        var apellidoNombre = datos[0].apellido + ' ' + datos[0].nombre;
-        $("#tarjeta-id").val(datos[0].id);
-        $("#apellido-nombre").val(apellidoNombre);
-//        $("#nombre").val(datos[0].nombre);
-        $("#saldo-actualizado").val(datos[0].saldo);
+        //
+        $("#tarjeta-id").val(datos.id);
+        //
+        $("#apellido-nombre").val(datos.apellidoNombre);
+        //
+        $("#saldo-actualizado").val(datos.saldo);
+        //
+        if(datos.fotoBase64 !== null)
+        {
+            document.getElementById('foto-perfil').src = 'data:image/jpg;base64,' + datos.fotoBase64;
+        }
+        
+        //pregunto si hay errores
+        var error = datos.error;
+        var alerta = datos.alerta;
+        var exito = datos.exito;
+        
+        if(error.length > 0)
+        {
+            $("#notificaciones-div").show();
+            $("#notificaciones-div").addClass('alert alert-danger');
+            alert(error);
+            $("#texto-notificacion").append(error);
+        }
+        else if(alerta.lenght > 0)
+        {
+            $("#notificaciones-div").show();
+            $("#notificaciones-div").addClass('alert alert-warning');
+            $("#texto-notificacion").val(alerta);
+        }
+        else if(exito.length > 0)
+        {
+            $("#notificaciones-div").show();
+            $("#notificaciones-div").addClass('alert alert-success');
+            $("#texto-notificacion").val(exito);
+        }
     }
     else
     {
-        $("#apellido").val('Comensal NO encontrado');
+        //mostrar mensaje de error
+        $("#notificaciones-div").show();
+        $("#notificaciones-div").addClass('alert alert-danger');
+        $("#texto-notificacion").val('Error en la conexión, intente nuevamente');
     }
 }

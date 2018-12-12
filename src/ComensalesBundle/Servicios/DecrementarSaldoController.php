@@ -39,9 +39,6 @@ class DecrementarSaldoController extends Controller{
         $sede = '';
         if($tarjet != null)
         {
-           echo $saldo . '<br>';
-           echo $importe . '<br>';
-           echo $tarjet->getSaldo() - $importe;
            //update
            $tarjet->setSaldo($saldo - $importe);
            date_default_timezone_set('America/Argentina/Cordoba');

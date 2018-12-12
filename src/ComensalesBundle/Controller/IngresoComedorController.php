@@ -108,7 +108,7 @@ class IngresoComedorController extends Controller{
            $retorno['id'] = $lista[0]['id'];
            $retorno['saldo'] = $lista[0]['saldo'];
            //obtengo la foto en base 64    
-           $retorno['fotoBase64'] = $this->obtenerFotoBase64($lista[0]['nombreFisico']);
+           $retorno['fotoBase64'] = $this->obtenerFotoBase64($lista[0]['dirFoto']);
            
            //almaceno info que sera usada posteriormente
            $estado = $lista[0]['estado'];
@@ -234,7 +234,7 @@ class IngresoComedorController extends Controller{
         //pregunto si tiene foto
         //to-do ver manejo de archivos con symfony
         //ver try cacht
-        if($nombreFisico != null)
+        if($nombreFisico != null && file_exists($nombreFisico))
         {
             //obtengo la foto
             $imagenData = file_get_contents($nombreFisico);
