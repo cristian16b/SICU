@@ -92,5 +92,5 @@ services:
     
     decrementar_saldo:
         class: ComensalesBundle\Servicios\DecrementarSaldoController
-        arguments: ["@doctrine.orm.entity_manager"]
+        arguments: ["@doctrine.orm.entity_manager","@sedes"]
         public: true

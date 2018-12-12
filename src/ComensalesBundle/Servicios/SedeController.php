@@ -34,4 +34,13 @@ class SedeController extends Controller{
         ;
         return $qb->getQuery()->getArrayResult();
     }
+    
+    public function obtenerSede($nombreSede)
+    {
+        return $this->entityManager
+                    ->getRepository('ComensalesBundle:Sede')
+                    ->findOneBy
+                        (array('nombreSede' => $nombreSede))
+                    ;
+    }
 }

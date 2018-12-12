@@ -86,32 +86,68 @@ class IngresoComedorController extends Controller{
         return new JsonResponse($retorno);
    }
    
+   //to-do refactorizar la clase ingresocomedor y decrementarsaldo
+   //modularizar y mejorar el rendimiento de las consultas dql
+   //el metodo debe ser eficiente, el comensal no debe esperar mas de 20 segundos
+   //sino se pueden generar colas en el ingreso y no es la idea
+   //buscar formas de medir tiempos de respuesta 
    private function obtenerTarjetaDni($dni)
    {
-       $retorno = $this->obtenerTarjetaEstado($dni);
+       $lista = $this->obtenerTarjetaEstado($dni);
+       
+       $retorno['error'] = '';
+       $retorno['alerta'] = '';
+       
+       //to-do por el momento se va a hardcodeare la sede a predio
+       $sede = 'Predio';
+       
        if(count($lista) > 0)
        {
-           //almaceno info que sera usada posteriormente
+           //almaceno info que se muestra en el front
+           $retorno['apellidoNombre'] = $lista[0]['apellido'] .' '. $lista[0]['nombre'];
+           $retorno['id'] = $lista[0]['id'];
+           $retorno['saldo'] = $lista[0]['saldo'];
+           //obtengo la foto en base 64    
+           $retorno['fotoBase64'] = $this->obtenerFotoBase64($lista[0]['nombreFisico']);
            
+           //almaceno info que sera usada posteriormente
            $estado = $lista[0]['estado'];
            //Si esta activa la tarjeta pasa
            if($estado == 'Activa') 
             {
+               $fecha = $lista[0]['fechaUltimo'];
                //pregunto si la fecha es distinta de la actual
-               if(!$this->esFechaActual($lista[0]['fechaUltimo']))
+               if(!$this->esFechaActual($fecha))
                {
-                   $importes = $this->obtenerImporteActual($lista[0]['fechaUltimo']);
-                   if($lista[0]['saldo'] >= -$importes['precio'])
+                   $tipo = $lista[0]['tipoComensal'];
+                   $importes = $this->obtenerImporteActual($tipo);
+                   $importe = $importes['precio']; 
+                   $saldo = $lista[0]['saldo'];
+                   
+                   if($saldo >= -$importe)
                    {
-                       if($lista[0]['saldo'] < 0 )
+                       if($saldo < 0 )
                        {
                            $retorno['alerta'] = 'Su tarjeta se encuenta en saldo negativo, efectue una recarga en la brevedad.';
                        }
                        //registro en el historial
+                       //modifico saldo y fecha en la tarjeta
+                       //obtengo el nuevo saldo
+                       $nuevoSaldo =  
+                            $this->container->get('decrementar_saldo')
+                            ->registrarConsumo($lista[0]['id'],$saldo,$importe,$sede,$tipo);
                        
-                       //actualizo la info de la tarjeta (saldo y ultima fecha)
-                       
-                       
+                       //si la operacion es correcta el saldo debe ser menor
+                       //sino envio mensaje de error
+                       if($nuevoSaldo < $saldo)
+                       {
+                           $retorno['saldo'] = $nuevoSaldo;
+                           $retorno['exito'] = 'Su operación fue exitosa.';
+                       }
+                       else
+                       {
+                           $retorno['error'] = 'Su operación no fue exitosa, intente nuevamente.';
+                       }
                    }
                    else
                    {
@@ -145,12 +181,14 @@ class IngresoComedorController extends Controller{
                            . 'per.nombre,'
                            . 'per.apellido,'
                            . 'per.dni,'
-                           . 'tcom.nombreComensal as tipoComensal')
+                           . 'tcom.nombreComensal as tipoComensal,'
+                           . 'fo.nombreFisico as dirFoto')
                    ->from('ComensalesBundle:Tarjeta','tarj')
                    ->innerJoin('tarj.estadoTarjeta','est')
                    ->innerJoin('tarj.solicitud','soli')
                    ->innerJoin('soli.persona','per')
                    ->innerJoin('soli.tipo_comensal','tcom')
+                   ->innerJoin('soli.foto','fo')
                    ->where('per.dni = :dniIngresado')
                    ->setParameter('dniIngresado',$dni)
                    ->getQuery()->getArrayResult()
@@ -172,6 +210,8 @@ class IngresoComedorController extends Controller{
    
    private function obtenerImporteActual($tipoComensal)
    {
+       //importante para la subconsulta, debe iniciar con ( y terminar con )
+       //sino tira un error de sintaxis
        $subconsulta = '(Select max(impo.fechaActualizacion) from ComensalesBundle:Importe impo)';
        //to-do no funciona bien la consulta, revisar
        $retorno =  $this->getDoctrine()->getEntityManager()->createQueryBuilder()
@@ -186,4 +226,24 @@ class IngresoComedorController extends Controller{
                 ;
        return $retorno;
    }
+   
+    private function obtenerFotoBase64($nombreFisico)
+    {   
+        $base64 = null;
+        
+        //pregunto si tiene foto
+        //to-do ver manejo de archivos con symfony
+        //ver try cacht
+        if($nombreFisico != null)
+        {
+            //obtengo la foto
+            $imagenData = file_get_contents($nombreFisico);
+        
+            //codifico
+            $base64 = base64_encode($imagenData);
+        }
+        
+        //retorno
+        return $base64;
+    }
 }
