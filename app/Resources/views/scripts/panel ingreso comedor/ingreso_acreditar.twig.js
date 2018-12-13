@@ -60,11 +60,11 @@ function cargarInfoTarjeta(datos)
         
         if(error.length > 0)
         {
-            mostrarNotificacion('alert alert-danger',exito);
+            mostrarNotificacion('alert alert-danger',error);
         }
         else if(alerta.length > 0)
         {
-            mostrarNotificacion('alert alert-warning',exito);
+            mostrarNotificacion('alert alert-warning',alerta);
         }
         else if(exito.length > 0)
         {

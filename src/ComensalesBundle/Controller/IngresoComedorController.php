@@ -115,60 +115,7 @@ class IngresoComedorController extends Controller{
            //obtengo la foto en base 64    
            $retorno['fotoBase64'] = $this->obtenerFotoBase64($lista[0]['dirFoto']);
            
-           //almaceno info que sera usada posteriormente
-           $estado = $lista[0]['estado'];
-           //Si esta activa la tarjeta pasa
-           if($estado == 'Activa') 
-            {
-               $fecha = $lista[0]['fechaUltimo'];
-               //pregunto si la fecha es distinta de la actual
-               if(!$this->esFechaActual($fecha))
-               {
-                   $tipo = $lista[0]['tipoComensal'];
-                   $importes = $this->obtenerImporteActual($tipo);
-                   $importe = $importes['precio']; 
-                   $saldo = $lista[0]['saldo'];
-                   
-                   if($saldo >= -$importe)
-                   {
-                       //registro en el historial
-                       //modifico saldo y fecha en la tarjeta
-                       //obtengo el nuevo saldo
-                       $nuevoSaldo =  
-                            $this->container->get('decrementar_saldo')
-                            ->registrarConsumo($lista[0]['id'],$saldo,$importe,$sede,$tipo);
-                       
-                       //si la operacion es correcta el saldo debe ser menor
-                       //sino envio mensaje de error
-                       if($nuevoSaldo < $saldo)
-                       {
-                           $retorno['saldo'] = $nuevoSaldo;
-                           $retorno['exito'] = 'Su operación fue exitosa.';
-                       }
-                       else
-                       {
-                           $retorno['error'] = 'Su operación no fue exitosa, intente nuevamente.';
-                       }
-                       //pregunto
-                       if($nuevoSaldo < 0 )
-                       {
-                           $retorno['alerta'] = 'Su tarjeta se encuenta en saldo negativo, efectue una recarga en la brevedad.';
-                       }
-                   }
-                   else
-                   {
-                       $retorno['error'] = 'No cuenta con saldo suficiente para ingresar.';
-                   }
-               }
-               else
-               {
-                   $retorno['error'] = 'Ya ha consumido en el día de la fecha.';
-               }
-            }
-            else
-            {
-                $retorno['error'] = 'La tarjeta no esta activa.';
-            }
+           $retorno = $this->esActiva($retorno, $lista, $sede);
        }
        else
        {
@@ -177,6 +124,83 @@ class IngresoComedorController extends Controller{
        return $retorno;
    }
    
+   private function esActiva($retorno,$lista,$sede)
+   {
+       //almaceno info que sera usada posteriormente
+           $estado = $lista[0]['estado'];
+           //Si esta activa la tarjeta pasa
+           if($estado == 'Activa') 
+            {
+               $retorno = $this->consumioHoy($retorno, $lista,$sede);
+            }
+            else
+            {
+                $retorno['error'] = 'La tarjeta no esta activa.';
+            }
+        return $retorno;
+   }
+   
+   private function consumioHoy($retorno,$lista,$sede)
+   {
+       $fecha = $lista[0]['fechaUltimo'];
+       //pregunto si la fecha es distinta de la actual
+       if(!$this->esFechaActual($fecha))
+       {
+           $retorno = $this->tieneSaldo($retorno, $lista,$sede);
+       }
+       else
+       {
+           $retorno['error'] = 'Ya ha consumido en el día de la fecha.';
+       }
+        return $retorno;
+   }
+   
+   private function tieneSaldo($retorno,$lista,$sede)
+   {
+       $tipo = $lista[0]['tipoComensal'];
+       $importes = $this->obtenerImporteActual($tipo);
+       $importe = $importes['precio']; 
+       $saldo = $lista[0]['saldo'];
+
+       if($saldo >= -$importe)
+       {
+           $retorno = $this->registroConsumo($retorno, $lista, $saldo, $importe, $sede, $tipo);
+       }
+       else
+       {
+           $retorno['error'] = 'No cuenta con saldo suficiente para ingresar.';
+       }
+        return $retorno;
+   }
+   
+   private function registroConsumo($retorno,$lista,$saldo,$importe,$sede,$tipo)
+   {
+       //registro en el historial
+       //modifico saldo y fecha en la tarjeta
+       //obtengo el nuevo saldo
+       $nuevoSaldo =  
+            $this->container->get('decrementar_saldo')
+            ->registrarConsumo($lista[0]['id'],$saldo,$importe,$sede,$tipo);
+
+       //si la operacion es correcta el saldo debe ser menor
+       //sino envio mensaje de error
+       if($nuevoSaldo < $saldo)
+       {
+           $retorno['saldo'] = $nuevoSaldo;
+           $retorno['exito'] = 'Su operación fue exitosa.';
+       }
+       else
+       {
+           $retorno['error'] = 'Su operación no fue exitosa, intente nuevamente.';
+       }
+       //pregunto
+       if($nuevoSaldo < 0 )
+       {
+           $retorno['alerta'] = 'Su tarjeta se encuenta en saldo negativo, efectue una recarga en la brevedad.';
+       }
+        return $retorno;
+   }
+
    private function obtenerTarjetaEstado($dni)
    {
         return $this->getDoctrine()->getEntityManager()->createQueryBuilder()
