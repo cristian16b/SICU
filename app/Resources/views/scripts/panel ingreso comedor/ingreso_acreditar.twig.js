@@ -23,7 +23,8 @@ $(function()
                 {
                     //mostrar mensaje de error
                     $("#notificaciones-div").show();
-                    $("#texto-notificacion").val('Error en la conexión, intente nuevamente');
+                    $("#notificaciones-div").removeClass($("#notificaciones-div").attr('class'));
+                    $("#texto-notificacion").text('Error en la conexión, intente nuevamente');
                     $("#notificaciones-div").addClass('alert alert-danger');
                     //desbloqueo la pagina
                     $.unblockUI();
@@ -86,7 +87,8 @@ function cargarInfoTarjeta(datos)
     {
         //mostrar mensaje de error
         $("#notificaciones-div").show();
+        $("#notificaciones-div").removeClass($("#notificaciones-div").attr('class'));
         $("#notificaciones-div").addClass('alert alert-danger');
-        $("#texto-notificacion").val('Error en la conexión, intente nuevamente');
+        $("#texto-notificacion").text('Error en la conexión, intente nuevamente');
     }
 }
