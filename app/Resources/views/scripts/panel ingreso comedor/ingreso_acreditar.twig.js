@@ -22,10 +22,7 @@ $(function()
                 error : function() 
                 {
                     //mostrar mensaje de error
-                    $("#notificaciones-div").show();
-                    $("#notificaciones-div").removeClass($("#notificaciones-div").attr('class'));
-                    $("#texto-notificacion").text('Error en la conexión, intente nuevamente');
-                    $("#notificaciones-div").addClass('alert alert-danger');
+                    mostrarNotificacion('alert alert-danger','Error en la conexión, intente nuevamente');
                     //desbloqueo la pagina
                     $.unblockUI();
                 }
@@ -63,32 +60,27 @@ function cargarInfoTarjeta(datos)
         
         if(error.length > 0)
         {
-            $("#notificaciones-div").show();
-            $("#notificaciones-div").removeClass($("#notificaciones-div").attr('class'));
-            $("#notificaciones-div").addClass('alert alert-danger');
-            $("#texto-notificacion").text(error);
+            mostrarNotificacion('alert alert-danger',exito);
         }
         else if(alerta.length > 0)
         {
-            $("#notificaciones-div").show();
-            $("#notificaciones-div").removeClass($("#notificaciones-div").attr('class'));
-            $("#notificaciones-div").addClass('alert alert-warning');
-            $("#texto-notificacion").text(alerta);
+            mostrarNotificacion('alert alert-warning',exito);
         }
         else if(exito.length > 0)
         {
-            $("#notificaciones-div").show();
-            $("#notificaciones-div").removeClass($("#notificaciones-div").attr('class'));
-            $("#notificaciones-div").addClass('alert alert-success');
-            $("#texto-notificacion").text(exito);
+            mostrarNotificacion('alert alert-success',exito);
         }
     }
     else
     {
         //mostrar mensaje de error
-        $("#notificaciones-div").show();
-        $("#notificaciones-div").removeClass($("#notificaciones-div").attr('class'));
-        $("#notificaciones-div").addClass('alert alert-danger');
-        $("#texto-notificacion").text('Error en la conexión, intente nuevamente');
+        mostrarNotificacion('alert alert-danger','Error en la conexión, intente nuevamente');
     }
+}
+function mostrarNotificacion(clase,mensaje)
+{
+    $("#notificaciones-div").show();
+    $("#notificaciones-div").removeClass($("#notificaciones-div").attr('class'));
+    $("#notificaciones-div").addClass(clase);
+    $("#texto-notificacion").text(mensaje);
 }
