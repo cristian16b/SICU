@@ -65,14 +65,17 @@ class DecrementarSaldoController extends Controller{
        $horaRecarga = date("h:i:s A");
        //obtengo el item 
        $item = $this->obtenerItemConsumo($tipoComensal);
-       //obtengo la sede
-       $sede = $this->sedes->obtenerSede($sede);
+//       var_dump($item);
+        //obtengo la sede
+//       $sede = $this->sedes->obtenerSede($sede);
+       $sede = $this->obtenerSede($sede);
        //registro en el historial de recargas
        $nuevoRegistro = new HistorialConsumos();
+       $nuevoRegistro->setSede($sede);
        $nuevoRegistro->setTarjeta($tarjeta);
        $nuevoRegistro->setFechaHoraConsumo(new \DateTime());
        $nuevoRegistro->setItemConsumo($item);
-       $nuevoRegistro->setSede($sede);
+       
        
        return $nuevoRegistro;
     }
@@ -92,4 +95,13 @@ class DecrementarSaldoController extends Controller{
         return $this->entityManager
                         ->getRepository('ComensalesBundle:Tarjeta')->find($id);
     } 
+    
+    private function obtenerSede($nombreSede)
+    {
+        return $this->entityManager
+                    ->getRepository('ComensalesBundle:Sede')
+                    ->findOneBy
+                        (array('nombreSede' => $nombreSede))
+                    ;
+    }
 }

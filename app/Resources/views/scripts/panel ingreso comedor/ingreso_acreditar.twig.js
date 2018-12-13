@@ -50,6 +50,9 @@ function cargarInfoTarjeta(datos)
         if(datos.fotoBase64 !== null)
         {
             document.getElementById('foto-perfil').src = 'data:image/jpg;base64,' + datos.fotoBase64;
+            //seteo el tamaño para que se vean iguales
+            document.getElementById('foto-perfil').width = 250;
+            document.getElementById('foto-perfil').height = 250;
         }
         
         //pregunto si hay errores
@@ -60,21 +63,23 @@ function cargarInfoTarjeta(datos)
         if(error.length > 0)
         {
             $("#notificaciones-div").show();
+            $("#notificaciones-div").removeClass($("#notificaciones-div").attr('class'));
             $("#notificaciones-div").addClass('alert alert-danger');
-            alert(error);
-            $("#texto-notificacion").append(error);
+            $("#texto-notificacion").text(error);
         }
-        else if(alerta.lenght > 0)
+        else if(alerta.length > 0)
         {
             $("#notificaciones-div").show();
+            $("#notificaciones-div").removeClass($("#notificaciones-div").attr('class'));
             $("#notificaciones-div").addClass('alert alert-warning');
-            $("#texto-notificacion").val(alerta);
+            $("#texto-notificacion").text(alerta);
         }
         else if(exito.length > 0)
         {
             $("#notificaciones-div").show();
+            $("#notificaciones-div").removeClass($("#notificaciones-div").attr('class'));
             $("#notificaciones-div").addClass('alert alert-success');
-            $("#texto-notificacion").val(exito);
+            $("#texto-notificacion").text(exito);
         }
     }
     else

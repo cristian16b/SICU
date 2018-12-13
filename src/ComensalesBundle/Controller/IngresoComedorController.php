@@ -96,8 +96,13 @@ class IngresoComedorController extends Controller{
        $lista = $this->obtenerTarjetaEstado($dni);
        
        $retorno['error'] = '';
+       $retorno['exito'] = '';
        $retorno['alerta'] = '';
-       
+       $retorno['apellidoNombre'] = '';
+       $retorno['id'] = '';
+       $retorno['saldo'] = '';
+       //obtengo la foto en base 64    
+       $retorno['fotoBase64'] = '';
        //to-do por el momento se va a hardcodeare la sede a predio
        $sede = 'Predio';
        
@@ -126,10 +131,6 @@ class IngresoComedorController extends Controller{
                    
                    if($saldo >= -$importe)
                    {
-                       if($saldo < 0 )
-                       {
-                           $retorno['alerta'] = 'Su tarjeta se encuenta en saldo negativo, efectue una recarga en la brevedad.';
-                       }
                        //registro en el historial
                        //modifico saldo y fecha en la tarjeta
                        //obtengo el nuevo saldo
@@ -147,6 +148,11 @@ class IngresoComedorController extends Controller{
                        else
                        {
                            $retorno['error'] = 'Su operación no fue exitosa, intente nuevamente.';
+                       }
+                       //pregunto
+                       if($nuevoSaldo < 0 )
+                       {
+                           $retorno['alerta'] = 'Su tarjeta se encuenta en saldo negativo, efectue una recarga en la brevedad.';
                        }
                    }
                    else
