@@ -2,3 +2,64 @@ services:
 #    comensales.example:
 #        class: ComensalesBundle\Example
 #        arguments: ["@service_id", "plain_value", "%parameter%"]
+
+
+    gestor_turnos:
+        class: ComensalesBundle\Servicios\GestorTurnoController
+        arguments: ["@doctrine.orm.entity_manager","@gestor_solicitudes"]
+        public: true
+        
+    gestor_solicitudes:
+        class: ComensalesBundle\Servicios\GestorSolicitudController
+        arguments: ["@doctrine.orm.entity_manager"]
+        public: true
+    
+    gestor_solicitudes:
+        class: ComensalesBundle\Servicios\GestorTarjetasController
+        arguments: ["@doctrine.orm.entity_manager"]
+        public: true
+    
+    sedes:
+        class: ComensalesBundle\Servicios\SedeController
+        arguments: ["@doctrine.orm.entity_manager"]
+        public: true    
+    
+    organismos:
+        class: ComensalesBundle\Servicios\OrganismoController
+        arguments: ["@doctrine.orm.entity_manager"]
+        public: true
+        
+    estadosTarjeta:
+        class: ComensalesBundle\Servicios\EstadoTarjetaController
+        arguments: ["@doctrine.orm.entity_manager"]
+        public: true
+
+    historialCR:
+        class: ComensalesBundle\Servicios\HistorialCRController
+        arguments: ["@doctrine.orm.entity_manager"]
+        public: true
+    
+    ventas:
+        class: ComensalesBundle\Servicios\VentaMenusController
+        arguments: ["@doctrine.orm.entity_manager"]
+        public: true
+        
+    menus_consumidos:
+        class: ComensalesBundle\Servicios\MenusConsumidosController
+        arguments: ["@doctrine.orm.entity_manager"]
+        public: true
+    
+    consulta_saldo:
+        class: ComensalesBundle\Servicios\ConsultaSaldoController
+        arguments: ["@doctrine.orm.entity_manager"]
+        public: true
+    
+    acreditar_saldo:
+        class: ComensalesBundle\Servicios\AcreditarSaldoController
+        arguments: ["@doctrine.orm.entity_manager","@sedes"]
+        public: true
+    
+    decrementar_saldo:
+        class: ComensalesBundle\Servicios\DecrementarSaldoController
+        arguments: ["@doctrine.orm.entity_manager","@sedes"]
+        public: true
