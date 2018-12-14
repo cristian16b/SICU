@@ -87,7 +87,7 @@ services:
     
     acreditar_saldo:
         class: ComensalesBundle\Servicios\AcreditarSaldoController
-        arguments: ["@doctrine.orm.entity_manager"]
+        arguments: ["@doctrine.orm.entity_manager","@sedes"]
         public: true
     
     decrementar_saldo:

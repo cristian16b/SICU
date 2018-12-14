@@ -68,10 +68,13 @@ class DecrementarSaldoController extends Controller{
 //       var_dump($item);
         //obtengo la sede
 //       $sede = $this->sedes->obtenerSede($sede);
-       $sede = $this->obtenerSede($nombreSede);
+       
+       $sede = $this->sedes
+                    ->obtenerSede('Predio');
+       
        //registro en el historial de recargas
        $nuevoRegistro = new HistorialConsumos();
-       $nuevoRegistro->setSede($sede);
+       $nuevoRegistro->setSedeConsumo($sede);
        $nuevoRegistro->setTarjeta($tarjeta);
        $nuevoRegistro->setFechaHoraConsumo(new \DateTime());
        $nuevoRegistro->setItemConsumo($item);

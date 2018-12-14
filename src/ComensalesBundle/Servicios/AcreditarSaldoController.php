@@ -19,10 +19,13 @@ use ComensalesBundle\Entity\HistorialRecargas;
 class AcreditarSaldoController extends Controller{
    
     protected $entityManager;
+    
+    protected $sedes;
 
-    public function __construct($entityManager)
+    public function __construct($entityManager,$sedes)
     {
         $this->entityManager = $entityManager;
+        $this->sedes = $sedes;
     }
     
     public function acreditarSaldo($tarjeta,$monto)
@@ -69,6 +72,11 @@ class AcreditarSaldoController extends Controller{
        $nuevoRegistro->setMontoRecarga($monto);
 //       $nuevoRegistro->setHoraRecarga($horaRecarga);
        $nuevoRegistro->setItemRecarga($itemRecarga);
+       //setep la sede 
+            $nuevoRegistro->setSedeRecarga(
+                     $this->sedes
+                          ->obtenerSede('Predio')
+                );
        
        return $nuevoRegistro;
     }

@@ -115,30 +115,6 @@ class HistorialConsumos
     }
 
     /**
-     * Set sede
-     *
-     * @param \ComensalesBundle\Entity\Sede $sede
-     *
-     * @return HistorialConsumos
-     */
-    public function setSede(\ComensalesBundle\Entity\Sede $sede = null)
-    {
-        $this->sede = $sede;
-
-        return $this;
-    }
-
-    /**
-     * Get sede
-     *
-     * @return \ComensalesBundle\Entity\Sede
-     */
-    public function getSede()
-    {
-        return $this->sede;
-    }
-
-    /**
      * Set sedeConsumo
      *
      * @param \ComensalesBundle\Entity\Sede $sedeConsumo
