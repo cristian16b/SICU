@@ -162,7 +162,7 @@ class IngresoComedorController extends Controller{
        $importe = $importes['precio']; 
        $saldo = $lista[0]['saldo'];
 
-       if($saldo >= -$importe)
+       if($saldo > -$importe)
        {
            $retorno = $this->registroConsumo($retorno, $lista, $saldo, $importe, $sede, $tipo);
        }
