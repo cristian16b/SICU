@@ -59,7 +59,7 @@ class HistorialCRController extends Controller
         
         return $this->entityManager->createQueryBuilder()
                     ->select('tarj.id as id,'
-                            . 'hc.fechaConsumo as fecha,'
+                            . 'hc.fechaHoraConsumo as fecha,'
                             . 'sed.nombreSede as sede,'
                             . 'item.nombreItemConsumo as concepto,'
                             . 'imp.precio as importe,'
@@ -70,7 +70,7 @@ class HistorialCRController extends Controller
                     ->innerJoin('item.importe','imp')
                     ->innerJoin('hc.sedeConsumo','sed')
                     ->where('tarj.id = :id')
-                    ->andWhere('hc.fechaConsumo > :fechaActual')
+                    ->andWhere('hc.fechaHoraConsumo > :fechaActual')
                     ->setParameter('id',$id)
                     ->setParameter('fechaActual',$fecha)
                     ->getQuery()
@@ -86,7 +86,7 @@ class HistorialCRController extends Controller
         
         return     
            $this->entityManager->createQueryBuilder()
-                ->select('hr.fechaRecarga as fecha,'
+                ->select('hr.fechaHoraRecarga as fecha,'
                         . 'hr.montoRecarga as importe,'
                         . 'sed.nombreSede as sede,'
                         . 'item.nombreItemRecarga as concepto,'
@@ -96,7 +96,7 @@ class HistorialCRController extends Controller
                 ->innerJoin('hr.itemRecarga','item')
                 ->innerJoin('hr.sedeRecarga','sed')
                 ->where('tarj.id = :id')
-                ->andWhere('hr.fechaRecarga > :fechaActual')
+                ->andWhere('hr.fechaHoraRecarga > :fechaActual')
                 ->setParameter('id',$id)
                 ->setParameter('fechaActual',$fecha)
                 ->getQuery()
