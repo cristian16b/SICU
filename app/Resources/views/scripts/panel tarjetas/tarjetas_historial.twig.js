@@ -40,25 +40,25 @@ $(function()
               }
    }});
    
-       $( "#modal-historial-tarjetas" ).dialog({
-        autoOpen: false,
-        resizable: false,
-        height: "auto",
-        width: "auto",
-        modal: true,
-        buttons: 
-        {
+   $( "#modal-historial-tarjetas" ).dialog({
+    autoOpen: false,
+    resizable: false,
+    height: "auto",
+    width: "auto",
+    modal: true,
+    buttons: 
+    {
 //                Confirmar: function() 
 //                {
 //                    $( this ).dialog( "close" );
 //                }
 //                ,
-                Salir: function() 
-                {
-                   $( this ).dialog( "close" );
-                }
-       }
-       });
+            Salir: function() 
+            {
+               $( this ).dialog( "close" );
+            }
+   }
+   });
    
    $("#boton-historial-tarjeta").on("click",function()
    {
@@ -76,6 +76,8 @@ function mostrarHistorial(id,tipoHistorial,anio)
     datos.tipoHistorial = tipoHistorial;
     datos.anio = anio;
     borrarFilasHistorial();
+    
+    //
     $.ajax
     ({
         async:true,

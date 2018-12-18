@@ -63,7 +63,7 @@ class HistorialCRController extends Controller
                             . 'sed.nombreSede as sede,'
                             . 'item.nombreItemConsumo as concepto,'
                             . 'imp.precio as importe,'
-                            . 'tarj.saldo')
+                            . 'hc.saldoConsumo as saldo')
                     ->from('ComensalesBundle:HistorialConsumos','hc')
                     ->innerJoin('hc.tarjeta','tarj')
                     ->innerJoin('hc.itemConsumo','item')
@@ -90,7 +90,7 @@ class HistorialCRController extends Controller
                         . 'hr.montoRecarga as importe,'
                         . 'sed.nombreSede as sede,'
                         . 'item.nombreItemRecarga as concepto,'
-                        . 'tarj.saldo')
+                        . 'hr.saldoRecarga as saldo')
                 ->from('ComensalesBundle:HistorialRecargas','hr')
                 ->innerJoin('hr.tarjeta','tarj')
                 ->innerJoin('hr.itemRecarga','item')
