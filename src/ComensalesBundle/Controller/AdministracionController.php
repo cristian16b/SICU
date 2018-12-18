@@ -16,10 +16,12 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use ComensalesBundle\Servicios\VentaMenusController;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 /**
  * Description of AdministracionController
  * @Route("/administracion",name="administracion_")
+ * @Security("has_role('ROLE_ADMINISTRATIVO')")
  * @author Cristian B
  */
 

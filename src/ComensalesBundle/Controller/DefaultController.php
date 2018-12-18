@@ -5,14 +5,13 @@ namespace ComensalesBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
-use ComensalesBundle\Entity\Usuario;
 
 class DefaultController extends Controller
 {
     /**
      * @Route("/login", name="login")
      */
-    public function loginAction(Request $request)
+    public function loginAction()
     {
         // Recupera el servicio de autenticación
         $authenticationUtils = $this->get('security.authentication_utils');
@@ -23,22 +22,6 @@ class DefaultController extends Controller
         // Recupera el último nombre de usuario introducido
         $lastUsername = $authenticationUtils->getLastUsername();
         
-        $u = $this->getUser();
-        
-        if($u != null)
-        {
-            $role = $u->getRole();
-            if($role == 'ROLE_VENDEDOR_PREDIO')
-            {
-                return $this->redirect('ventas_panel');
-            }
-            else
-            {
-                echo 'ERROR';
-                DIE;
-            }
-        }
-        
         // Renderiza la plantilla, enviándole, si existen, el último error y nombre de usuario
         return $this->render('login.html.twig', array(
             'last_username' => $lastUsername,
@@ -46,6 +29,42 @@ class DefaultController extends Controller
         ));
     }
     
+    /**
+     * @Route("/", name="home")
+     */
+    public function homeAction()
+    {
+        //
+        $usuario = $this->getUser();
+        if(null != $usuario)
+        {
+            $rol = $usuario->getRoles();
+            if(count($rol) == 0)
+            {
+                //TO-DO usar throw exeption
+                echo 'ERROR';
+                DIE;
+            }
+            if($rol[0] == 'ROLE_ADMINISTRATIVO')
+            {
+                return $this->redirectToRoute('tarjetas_panel');
+            }
+            else if($rol[0] == 'ROLE_INGRESO_PREDIO')
+            {
+                return $this->redirectToRoute('comedor_panel');
+            }
+            else if($rol[0] == 'ROLE_VENDEDOR_PREDIO')
+            {
+                return $this->redirectToRoute('ventas_panel');
+            }
+            else 
+            {
+                return $this->redirectToRoute('login');
+            }  
+        }
+    }
+
+
     /*
     * @Route("/logout", name="logout")
     */
@@ -53,5 +72,4 @@ class DefaultController extends Controller
     {
        // UNREACHABLE CODE
     }
-    
 }

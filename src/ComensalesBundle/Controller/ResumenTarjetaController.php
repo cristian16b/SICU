@@ -13,13 +13,14 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
-
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 /**
  * Description of ResumenTarjetaController
  * En esta clase, se obtienen el resumen informativo sobre 
  * + cantidad de tarjetas
  * + saldo positivo ( a favor de los comensales)
  * + saldo negativo ( deudas de los comensales)
+ * @Security("has_role('ROLE_ADMINISTRATIVO')")
  * @author Cristian B
  */
 class ResumenTarjetaController extends Controller{

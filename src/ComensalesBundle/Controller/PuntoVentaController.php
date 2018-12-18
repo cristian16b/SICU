@@ -15,11 +15,13 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use ComensalesBundle\Servicios\VentaMenusController;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 
 /**
  * Description of PuntoVentaController
  * @Route("/ventas",name="ventas_")
+ * @Security("has_role('ROLE_VENDEDOR_PREDIO')")
  * @author Cristian B
  */
 class PuntoVentaController extends Controller{

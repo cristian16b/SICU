@@ -15,10 +15,11 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use ComensalesBundle\Servicios\VentaMenusController;
-
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 /**
  * Description of IngresoComedorController
  * @Route("/comedor",name="comedor_")
+ * @Security("has_role('ROLE_INGRESO_PREDIO')")
  * @author Cristian B
  */
 class IngresoComedorController extends Controller{

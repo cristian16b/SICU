@@ -16,11 +16,12 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use ComensalesBundle\Controller\HistorialCRController;
-
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 /**
  * Description of TarjetaController
  * * @Route("/tarjetas",name="tarjetas_")
+ * @Security("has_role('ROLE_ADMINISTRATIVO')")
  * @author Cristian B
  */
 class TarjetaController extends Controller{

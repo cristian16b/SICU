@@ -19,11 +19,11 @@ use ComensalesBundle\Entity\TipoRechazo;
 use ComensalesBundle\Controller\FormularioController;
 use ComensalesBundle\Controller\FotoController;
 use ComensalesBundle\Entity\DetalleEnfermedad;
-
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 /**
  * Description of PanelComensales
- *
+ *@Security("has_role('ROLE_ADMINISTRATIVO')")
  * @author Cristian B
  */
 class SolicitudController extends Controller {

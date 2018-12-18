@@ -16,15 +16,11 @@
         <label for="password">Contraseña:</label>
         <input type="password" id="password" name="_password" />
 
-        {# Ruta a la que redirige si hay éxito #}
-        <input type="hidden" name="_target_path" value="/ventas/panel" />
-{#        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">#}
+        {# Ruta a la que redirige si hay éxito  solo es util se va a redirigir a un solo lugar#}
+{#        <input type="hidden" name="_target_path" value="{{ path('home') }}" />#}
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
         <button type="submit">Entrar</button>
     </form>
-        
-        {% if app.user != null %}
-            {{app.user.nombre}}
-        {% endif %}
 
     {# Enlace al registro #}
 {#    <p><a href="{{ path('register') }}">Registro</a></p>#}

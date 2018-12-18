@@ -33,15 +33,13 @@ security:
             form_login:
                 login_path: /login
                 check_path: /login_check
-#                csrf_token_generator: security.csrf.token_manager
-#                username_parameter: _username
-#                password_parameter: _password
             logout:
                 path: logout
                 target: /login
     access_control:
         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/, roles: ROLE_USER }
+#        - { path: ^/ventas, roles: ROLE_VENDEDOR_PREDIO }
+#        - { path: ^/login, roles: ROLE_VENDEDOR_PREDIO }
             # activate different ways to authenticate
 
             # https://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate

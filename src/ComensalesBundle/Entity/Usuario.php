@@ -139,7 +139,7 @@ class Usuario implements UserInterface
     public function getRoles()
     {
       // En este caso definimos un rol fijo, en el caso de que tengamos un campo role en la tabla de la BBDD    tendríamos que hacer $this->getRole()
-        return array('ROLE_USER');
+        return array($this->rolUsuario);
     }
 
     public function eraseCredentials()

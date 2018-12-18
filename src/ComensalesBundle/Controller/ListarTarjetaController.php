@@ -13,9 +13,10 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
-
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 /**
  * Description of ListarTarjetaController
+ * @Security("has_role('ROLE_ADMINISTRATIVO')")
  * @author Cristian B
  */
 class ListarTarjetaController extends Controller{
