@@ -32,6 +32,13 @@ class HistorialConsumos
      * @ORM\Column(name="fechaConsumo", type="datetime", options={"default": "CURRENT_TIMESTAMP"})
      */
     private $fechaHoraConsumo;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="saldoConsumo", type="decimal", precision=10, scale=2)
+     */
+    private $saldoConsumo;
 
     /**
     * @ORM\ManyToOne(targetEntity="Tarjeta")
@@ -160,5 +167,29 @@ class HistorialConsumos
     public function getFechaHoraConsumo()
     {
         return $this->fechaHoraConsumo;
+    }
+
+    /**
+     * Set saldoConsumo
+     *
+     * @param string $saldoConsumo
+     *
+     * @return HistorialConsumos
+     */
+    public function setSaldoConsumo($saldoConsumo)
+    {
+        $this->saldoConsumo = $saldoConsumo;
+
+        return $this;
+    }
+
+    /**
+     * Get saldoConsumo
+     *
+     * @return string
+     */
+    public function getSaldoConsumo()
+    {
+        return $this->saldoConsumo;
     }
 }

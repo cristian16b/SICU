@@ -32,6 +32,14 @@ class HistorialRecargas
      * @ORM\Column(name="montonRecarga", type="decimal", precision=10, scale=2)
      */
     private $montoRecarga;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="saldoRecarga", type="decimal", precision=10, scale=2)
+     */
+    private $saldoRecarga;
+
 
     /**
      * @var \DateTime
@@ -209,5 +217,29 @@ class HistorialRecargas
     public function getHoraRecarga()
     {
         //to-do
+    }
+
+    /**
+     * Set saldoRecarga
+     *
+     * @param string $saldoRecarga
+     *
+     * @return HistorialRecargas
+     */
+    public function setSaldoRecarga($saldoRecarga)
+    {
+        $this->saldoRecarga = $saldoRecarga;
+
+        return $this;
+    }
+
+    /**
+     * Get saldoRecarga
+     *
+     * @return string
+     */
+    public function getSaldoRecarga()
+    {
+        return $this->saldoRecarga;
     }
 }

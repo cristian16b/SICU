@@ -32,6 +32,13 @@ class HistorialConsumos
      * @ORM\Column(name="fechaConsumo", type="datetime", options={"default": "CURRENT_TIMESTAMP"})
      */
     private $fechaHoraConsumo;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="saldoConsumo", type="decimal", precision=10, scale=2)
+     */
+    private $saldoConsumo;
 
     /**
     * @ORM\ManyToOne(targetEntity="Tarjeta")
@@ -51,6 +58,11 @@ class HistorialConsumos
     */
     private $sedeConsumo;
 
+    public function __construct() 
+    {
+        $this->fechaHoraRecarga = new \DateTime();
+    }
+    
     /**
      * Get id
      *
@@ -110,30 +122,6 @@ class HistorialConsumos
     }
 
     /**
-     * Set sede
-     *
-     * @param \ComensalesBundle\Entity\Sede $sede
-     *
-     * @return HistorialConsumos
-     */
-    public function setSede(\ComensalesBundle\Entity\Sede $sede = null)
-    {
-        $this->sede = $sede;
-
-        return $this;
-    }
-
-    /**
-     * Get sede
-     *
-     * @return \ComensalesBundle\Entity\Sede
-     */
-    public function getSede()
-    {
-        return $this->sede;
-    }
-
-    /**
      * Set sedeConsumo
      *
      * @param \ComensalesBundle\Entity\Sede $sedeConsumo
@@ -155,5 +143,29 @@ class HistorialConsumos
     public function getSedeConsumo()
     {
         return $this->sedeConsumo;
+    }
+
+    /**
+     * Set fechaHoraConsumo
+     *
+     * @param \DateTime $fechaHoraConsumo
+     *
+     * @return HistorialConsumos
+     */
+    public function setFechaHoraConsumo($fechaHoraConsumo)
+    {
+        $this->fechaHoraConsumo = $fechaHoraConsumo;
+
+        return $this;
+    }
+
+    /**
+     * Get fechaHoraConsumo
+     *
+     * @return \DateTime
+     */
+    public function getFechaHoraConsumo()
+    {
+        return $this->fechaHoraConsumo;
     }
 }
