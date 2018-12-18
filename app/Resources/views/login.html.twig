@@ -6,22 +6,47 @@
         <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
     {% endif %}
 
-    <form action="{{ path('login_check') }}" method="post">
+<div class="container">
+  
+  <div class="row" id="pwd-container">
+      <div class="col-md-4">
+           
+      </div>
+    <div class="col-md-4">
+      <section class="login-form">
+          <div align="center">
+              <p><b>Ingreso al Sistema Informático del Comedor Universitario UNL"</b></p>
+            <img src="img/logo.jpeg" alt="SICU"> 
+            <p></p>
+          </div>
+            <form action="{{ path('login_check') }}" method="post">
 
-        {# Input para el campo email #}
-        <label for="username">Email:</label>
-        <input type="text" id="username" name="_username" value="{{ last_username }}" />
+                {# Input para el campo email #}
+                <label for="username">Nombre de usuario:</label>
+                <input type="text"  placeholder="Ingrese su nombre de usuario" 
+                       required class="form-control input-lg" 
+                       id="username" name="_username" 
+                       value="{{ last_username }}" />
 
-        {# Input para el campo contraseña #}
-        <label for="password">Contraseña:</label>
-        <input type="password" id="password" name="_password" />
+                {# Input para el campo contraseña #}
+                <label for="password">Contraseña:</label>
+                <input type="password" 
+                       placeholder="Ingrese su contraseña" 
+                       required=""
+                       class="form-control input-lg" 
+                       id="password" name="_password" />
 
-        {# Ruta a la que redirige si hay éxito  solo es util se va a redirigir a un solo lugar#}
-{#        <input type="hidden" name="_target_path" value="{{ path('home') }}" />#}
-        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-        <button type="submit">Entrar</button>
-    </form>
+                {# Ruta a la que redirige si hay éxito  solo es util se va a redirigir a un solo lugar#}
+        {#        <input type="hidden" name="_target_path" value="{{ path('home') }}" />#}
+                <input type="hidden" class="btn btn-lg btn-primary btn-block"
+                       name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                <button type="submit" class="btn btn-lg btn-primary btn-block">Entrar</button>
+            </form>
+      </section>
+    </div>
 
+  </div>
+</div>
     {# Enlace al registro #}
 {#    <p><a href="{{ path('register') }}">Registro</a></p>#}
 {% endblock %}

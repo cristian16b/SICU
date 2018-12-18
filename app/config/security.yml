@@ -38,8 +38,6 @@ security:
                 target: /login
     access_control:
         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-#        - { path: ^/ventas, roles: ROLE_VENDEDOR_PREDIO }
-#        - { path: ^/login, roles: ROLE_VENDEDOR_PREDIO }
             # activate different ways to authenticate
 
             # https://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
