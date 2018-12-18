@@ -56,17 +56,10 @@ http://www.bootstrapzen.com/item/135/simple-login-form-logo/
 		  z-index: 2;
 		}
 	}
-
-body {
-	background: #ecffe5;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
-}
-
+        
 .login-form {
-	margin-top: 60px;
+    	background: #ecffe5;
+	margin-top: 30px;
 }
 
 form[role=login] {
