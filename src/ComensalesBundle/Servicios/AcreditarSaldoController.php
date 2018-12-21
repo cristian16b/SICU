@@ -77,7 +77,9 @@ class AcreditarSaldoController extends Controller{
                      $this->sedes
                           ->obtenerSede('Predio')
                 );
-       
+       //seteo el saldo que queda registrado en el historial
+       $nuevoRegistro->setSaldoRecarga($tarjeta->getSaldo());
+            
        return $nuevoRegistro;
     }
     

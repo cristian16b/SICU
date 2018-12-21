@@ -23,7 +23,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 /**
  * Description of PanelComensales
- *@Security("has_role('ROLE_ADMINISTRATIVO')")
  * @author Cristian B
  */
 class SolicitudController extends Controller {

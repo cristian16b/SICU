@@ -18,7 +18,6 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use ComensalesBundle\Controller\HistorialCRController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
-//* @Security("has_role('ROLE_ADMINISTRATIVO')")
 
 /**
  * Description of TarjetaController
@@ -29,7 +28,8 @@ class TarjetaController extends Controller{
    
 
     /**
-    * @Route("/panel",name="panel")     * 
+    * @Route("/panel",name="panel")
+    * @Security("has_role('ROLE_ADMINISTRATIVO')") 
     */
     public function mostrarPanel()
     {

@@ -78,6 +78,7 @@ class DecrementarSaldoController extends Controller{
        $nuevoRegistro->setTarjeta($tarjeta);
        $nuevoRegistro->setFechaHoraConsumo(new \DateTime());
        $nuevoRegistro->setItemConsumo($item);
+       $nuevoRegistro->setSaldoConsumo($tarjeta->getSaldo());
        
        return $nuevoRegistro;
     }
