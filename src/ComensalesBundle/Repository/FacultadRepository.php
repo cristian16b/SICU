@@ -2,6 +2,8 @@
 
 namespace ComensalesBundle\Repository;
 
+use ComensalesBundle\Entity\Facultad;
+
 /**
  * FacultadRepository
  *
@@ -10,4 +12,17 @@ namespace ComensalesBundle\Repository;
  */
 class FacultadRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function obtenerFacultadId($nombreFacultad)
+    {
+        $id = $this->getEntityManager()
+                    ->getRepository(Facultad::class)
+                    ->findBynombreCortoFacultad($nombreFacultad);
+               
+        if($id != null && !empty($id))
+        {
+             $id = $id[0]->getId();
+        }
+        return $id;
+    }
+    
 }

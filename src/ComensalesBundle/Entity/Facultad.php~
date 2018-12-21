@@ -28,6 +28,14 @@ class Facultad
      */
     private $nombreFacultad;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nombreCortoFacultad", type="string", length=255)
+     */
+    private $nombreCortoFacultad;
+
+
 
     /**
      * Get id
@@ -62,5 +70,28 @@ class Facultad
     {
         return $this->nombre;
     }
-}
 
+    /**
+     * Set nombreFacultad
+     *
+     * @param string $nombreFacultad
+     *
+     * @return Facultad
+     */
+    public function setNombreFacultad($nombreFacultad)
+    {
+        $this->nombreFacultad = $nombreFacultad;
+
+        return $this;
+    }
+
+    /**
+     * Get nombreFacultad
+     *
+     * @return string
+     */
+    public function getNombreFacultad()
+    {
+        return $this->nombreFacultad;
+    }
+}
