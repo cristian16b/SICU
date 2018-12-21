@@ -18,11 +18,12 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use ComensalesBundle\Controller\HistorialCRController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
+//* @Security("has_role('ROLE_ADMINISTRATIVO')")
+
 /**
  * Description of TarjetaController
  * * @Route("/tarjetas",name="tarjetas_")
- * @Security("has_role('ROLE_ADMINISTRATIVO')")
- * @author Cristian B
+  * @author Cristian B
  */
 class TarjetaController extends Controller{
    
