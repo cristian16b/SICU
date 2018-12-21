@@ -39,10 +39,12 @@ class FiltrarSolicitudesController  extends Controller{
             $id_facultad = $this->getDoctrine()
                                 ->getRepository('ComensalesBundle:Facultad')
                                 ->obtenerFacultadId($facultad);
-                    
-                    
-            $id_estado = $this->obtenerEstado($estado);
-            $id_tipo = $this->obtenerTipo($tipo);    
+            $id_estado = $this->getDoctrine()
+                              ->getRepository('ComensalesBundle:TipoEstado')
+                              ->obtenerEstadoSolicitudId($estado);
+            $id_tipo = $this->getDoctrine()
+                            ->getRepository('ComensalesBundle:TipoComensal')
+                            ->obtenerTipoComensalId($tipo);    
             
             //obtengo la fecha actual
             //genero una fecha generica (1-1-año actual)
@@ -61,16 +63,19 @@ class FiltrarSolicitudesController  extends Controller{
             }
             elseif($tipo == 'Todos' && $estado != 'Todos')
             {
+                die;
                 //throw $this->createNotFoundException($tipo == '4' && $estado != '4');
                 $qb = $this->obtenerConsultaII($qb, $fecha, $id_facultad, $id_estado);
             }
             elseif($tipo != 'Todos' && $estado == 'Todos')
             {
+                die;
                 //throw $this->createNotFoundException('entra en la 3');
                 $qb = $this->obtenerConsultaIII($qb, $fecha, $id_tipo, $id_facultad);
             }
             elseif($tipo == 'Todos' && $estado == 'Todos')
             {
+                die;
                 //throw $this->createNotFoundException('entra en la 4');
                 $qb = $this->obtenerConsultaIV($qb, $fecha, $id_facultad);
             }
@@ -100,13 +105,14 @@ class FiltrarSolicitudesController  extends Controller{
     private function obtenerConsultaI($qb,$fecha,$id_estado,$id_facultad,$id_tipo)
     {
         //consulto
-        $qb->select('s.id,p.dni,p.apellido,p.nombre,p.codTelefono,p.telefono,t.sede,'
+        $qb->select('s.id,p.dni,p.apellido,p.nombre,p.codTelefono,p.telefono,se.nombreSede,'
                 . 't.horario,t.dia,e.nombreEstado,tc.nombreComensal')
            ->from('ComensalesBundle:Solicitud','s')
            ->innerJoin('s.persona','p')
            ->innerJoin('p.facultad','f')
            ->innerJoin('s.tipo_estado','e')
            ->innerJoin('s.turno','t')
+           ->innerJoin('t.sede','se')
            ->innerJoin('s.tipo_comensal','tc')
            ->where('p.facultad = :facultad_elegida')
            ->andWhere('s.tipo_estado = :estado_elegido')

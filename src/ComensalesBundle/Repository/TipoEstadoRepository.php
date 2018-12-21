@@ -2,6 +2,7 @@
 
 namespace ComensalesBundle\Repository;
 
+use ComensalesBundle\Entity\TipoEstado;
 /**
  * TipoEstadoRepository
  *
@@ -10,4 +11,16 @@ namespace ComensalesBundle\Repository;
  */
 class TipoEstadoRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function obtenerEstadoSolicitudId($nombreEstado)
+    {
+        $id = $this->getEntityManager()
+                   ->getRepository(TipoEstado::class)
+                   ->findBynombreEstado($nombreEstado);
+               
+        if($id != null && !empty($id))
+        {
+             $id = $id[0]->getId();
+        }
+        return $id;
+    }
 }

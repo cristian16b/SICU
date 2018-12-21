@@ -2,6 +2,7 @@
 
 namespace ComensalesBundle\Repository;
 
+use ComensalesBundle\Entity\TipoComensal;
 /**
  * TipoComensalRepository
  *
@@ -10,4 +11,16 @@ namespace ComensalesBundle\Repository;
  */
 class TipoComensalRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function obtenerTipoComensalId($tipo)
+    {
+        $id = $this->getEntityManager()
+                   ->getRepository(TipoComensal::class)
+                   ->findBynombreComensal($tipo);
+               
+        if($id != null && !empty($id))
+        {
+             $id = $id[0]->getId();
+        }
+        return $id;
+    }
 }
