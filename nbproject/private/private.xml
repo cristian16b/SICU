@@ -12,19 +12,13 @@
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/xampp/htdocs/SICU/src/ComensalesBundle/Entity/Turno.php</file>
-            <file>file:/C:/xampp/htdocs/SICU/src/ComensalesBundle/Entity/HistorialConsumos.php</file>
-            <file>file:/C:/xampp/htdocs/SICU/app/Resources/views/scripts/panel%20ingreso%20comedor/ingreso_acreditar.twig.js</file>
-            <file>file:/C:/xampp/htdocs/SICU/src/ComensalesBundle/Servicios/SedeController.php</file>
-            <file>file:/C:/xampp/htdocs/SICU/src/ComensalesBundle/Entity/Solicitud.php</file>
-            <file>file:/C:/xampp/htdocs/SICU/src/ComensalesBundle/Servicios/DecrementarSaldoController.php</file>
-            <file>file:/C:/xampp/htdocs/SICU/app/config/services.yml</file>
-            <file>file:/C:/xampp/htdocs/SICU/src/ComensalesBundle/Servicios/GestorTurnoController.php</file>
-            <file>file:/C:/xampp/htdocs/SICU/src/ComensalesBundle/Resources/config/services.yml</file>
-            <file>file:/C:/xampp/htdocs/SICU/src/ComensalesBundle/Entity/HistorialRecargas.php</file>
-            <file>file:/C:/xampp/htdocs/SICU/src/ComensalesBundle/Controller/IngresoComedorController.php</file>
-            <file>file:/C:/xampp/htdocs/SICU/src/ComensalesBundle/Servicios/AcreditarSaldoController.php</file>
-            <file>file:/C:/xampp/htdocs/SICU/app/Resources/views/Panel%20ingreso%20comedor/notificaciones.html.twig</file>
+            <file>file:/C:/xampp/htdocs/SICU/src/ComensalesBundle/Repository/FacultadRepository.php</file>
+            <file>file:/C:/xampp/htdocs/SICU/web/css/misEstilos.css</file>
+            <file>file:/C:/xampp/htdocs/SICU/src/ComensalesBundle/Controller/SolicitudController.php</file>
+            <file>file:/C:/xampp/htdocs/SICU/app/config/config.yml</file>
+            <file>file:/C:/xampp/htdocs/SICU/src/ComensalesBundle/Controller/ListarSolicitudesController.php</file>
+            <file>file:/C:/xampp/htdocs/SICU/src/ComensalesBundle/Entity/Facultad.php</file>
+            <file>file:/C:/xampp/htdocs/SICU/app/Resources/views/login.html.twig</file>
         </group>
     </open-files>
 </project-private>

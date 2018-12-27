@@ -19,8 +19,9 @@ class FacultadRepository extends \Doctrine\ORM\EntityRepository
                     ->findBynombreCortoFacultad($nombreFacultad);
                
         if($id != null && !empty($id))
-        {
-             $id = $id[0]->getId();
+        {   
+            //pregunto el id
+            $id = $id[0]->getId();
         }
         return $id;
     }

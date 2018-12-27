@@ -216,45 +216,6 @@ class SolicitudController extends Controller {
         return $base64;
     }
     
-    /**
-    * @Route("/buscar_s",name="buscar_s")     
-    * @Method({"GET"}) 
-    */
-    public function buscarComensal(Request $request)
-    {
-        if($request->isXmlHttpRequest())
-        {
-            $filtro = $request->query->get('filtro');
-            $abuscar = $request->query->get('abuscar');
-            
-            $db = $this->getDoctrine()->getEntityManager();
-            $qb = $db->createQueryBuilder();
-            
-            //pregunto
-            if($filtro == 'Apellido')
-            {
-               $qb = $this->consultarApellido($qb,$abuscar);
-            }
-            elseif($filtro == 'Dni')
-            {
-               $qb = $this->consultarDni($qb,$abuscar);
-            }
-            else
-            {
-                throw $this->createNotFoundException('ERROR: Fallo la busqueda del comensal');
-            }
-            
-            $q = $qb->getQuery();
-            
-            //consulto
-            //$resultado = $q->getResult();
-            $resultado = $q->getArrayResult();
-
-            //convierto en json y retorno
-            return new JsonResponse($resultado);
-            
-        }
-    }
     
     /**
     * @Route("/eliminar_s",name="eliminar_s")     
@@ -292,49 +253,6 @@ class SolicitudController extends Controller {
             return new JsonResponse($resultado);
         }
     }
-    
-    private function consultarApellido($qb,$apellido)
-    {
-             //consulto
-        $qb->select('s.id,p.dni,p.apellido,p.nombre,p.correo,p.codTelefono,p.telefono,t.sede,'
-                . 't.horario,t.dia,e.nombreEstado,tc.nombreComensal')
-           ->from('ComensalesBundle:Solicitud','s')
-           ->innerJoin('s.persona','p')
-           ->innerJoin('p.facultad','f')
-           ->innerJoin('s.tipo_estado','e')
-           ->innerJoin('s.turno','t')
-           ->innerJoin('s.tipo_comensal','tc')
-           ->where('p.apellido = :apellido_elegido')
-           ->setParameter('apellido_elegido',$apellido)
-           ->orderBy('p.apellido','ASC')
-        ;
-        
-        //retorno
-        return $qb;
-    }
-    
-    private function consultarDni($qb,$dni)
-    {
-             //consulto
-        $qb->select('s.id,p.dni,p.apellido,p.nombre,p.correo,p.codTelefono,p.telefono,t.sede,'
-                . 't.horario,t.dia,e.nombreEstado,tc.nombreComensal')
-           ->from('ComensalesBundle:Solicitud','s')
-           ->innerJoin('s.persona','p')
-           ->innerJoin('p.facultad','f')
-           ->innerJoin('s.tipo_estado','e')
-           ->innerJoin('s.turno','t')
-           ->innerJoin('s.tipo_comensal','tc')
-           ->where('p.dni = :dni_elegido')
-           ->setParameter('dni_elegido',$dni)
-           ->orderBy('p.apellido','ASC')
-        ;
-        
-        //retorno
-        return $qb;
-    }
-    
-    
-    
     
     private function obtenerTipo($tipo)
     {
