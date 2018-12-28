@@ -1,0 +1,74 @@
+{% block filtros %}
+<div class="row" >
+<div class="col-lg-11 col-md-11">
+    <form>
+        <div class="col-lg-1 col-md-1">
+            FILTRAR
+            <!--<p>FILTRAR:</p>-->
+        </div>
+        <div class="col-lg-3 col-md-3">
+            <select class="form-control"
+                    required
+                    id="tipo">
+                <option value="tipo" disabled selected hidden>Tipo de comensal</option> 
+                <option value="Estudiante">Estudiante de grado</option>
+                <option value="Docnodoc">Docente - No docente</option>
+                <option value="Invitado">Invitado</option>
+                <option value="Todos">Todos</option>
+            </select>
+        </div>
+<div class="col-lg-4 col-md-3">
+        <select class="form-control"
+        requiered
+        id ="facultadSelect"
+        >
+            <option value="facultad" disabled selected hidden>Facultad / Escuela / Otros</option>
+
+            <option value="fadu">Facultad de Arquitectura, Diseño y
+                                            Urbanismo</option>
+            <option value="fbcb">Facultad de Bioquímica y Ciencias
+            Biológicas</option>
+            <option value="fca"> Facultad de Ciencias Agrarias</option>
+            <option value="fce">Facultad de Ciencias Económicas</option>
+            <option value="fcjs"> Facultad de Ciencias Jurídicas y
+            Sociales</option>
+            <option value="fcm">Facultad de Ciencias Médicas</option>
+            <option value="fcv">Facultad de Ciencias Veterinarias</option>
+            <option value="fhuc">Facultad de Humanidades y Ciencias</option>
+            <option value="fiq">Facultad de Ingeniería Química</option>
+            <option value="fich">Facultad de Ingeniería y Ciencias
+            Hídricas</option>
+            <option value="ess">Escuela Superior de Sanidad “Ramón
+            Carrillo”</option>
+            <option value="ism">Instituto Superior de Música</option>
+            <!--
+            <option value="">Centro Universitario /
+            Reconquista-Avellaneda</option>
+            <option>Centro Universitario / Gálvez</option>
+            <option>Todas las facu ltades</option>
+            -->
+            <option value="rec">Rectorado y Secretarias dependientes</option>
+            <option value="otras">Otras instituciones</option>
+</select>
+        </div>
+        <div class="col-lg-2 col-md-2">
+            <select class="form-control"
+                    id="estado">
+                <option value="estado" disabled selected hidden>Estado</option>
+                <option value="Aprobados">Aprobados</option>
+                <option value="Rechazados">Rechazados</option>
+                <option value="Pendientes">Pendientes</option>
+                <option value="Todos">Todos</option>
+            </select>
+        </div>
+        <div class="col-lg-1 col-md-1">
+            <button 
+                class="btn btn-default"
+                type="button"
+                id="mostrar"
+                >MOSTRAR </button>
+        </div>
+    </form>
+</div>
+</div>
+{% endblock %}

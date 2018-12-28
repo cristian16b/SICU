@@ -1,0 +1,29 @@
+{% block busqueda %}
+ <div class="row">
+    <div class="col-md-12">
+        <div class="col-lg-1 col-md-1">
+            <p>BUSCAR POR:</p>
+        </div>
+        <div class="col-lg-3 col-lg-push-0 col-lg-pull-0 col-md-3">
+            <select 
+                id="buscarSelect"
+                class="form-control"
+                    requiered>
+                <option disabled selected hidden>Elija filtro de busqueda</option>
+                <option value="Apellido">Apellido</option>
+                <option value="Dni">DNI</option>
+            </select>
+        </div>
+        <div class="col-lg-2 col-lg-pull-0 col-md-2">
+            <input id="buscarInput"
+                   class="form-control" 
+                   type="search">
+        </div>
+        <div class="col-lg-1 col-md-1">
+            <button class="btn btn-default" 
+                    id="buscar"
+                    type="button">BUSCAR</button>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,42 @@
+{%block botones %}
+<div class="row">
+    <div class="col-lg-3 col-md-3">
+        <div class="btn-group" role="group">
+            <a class="btn btn-default" 
+               href="formulario_i" 
+               type="button" 
+               target="_blank">AGREGAR</a>
+            <!--
+            <button class="btn btn-default" type="button" id ="agregar">AGREGAR </button>
+            -->
+            <button class="btn btn-default" 
+                    type="button" 
+                    id ="eliminar">ELIMINAR </button>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-3">
+        <div class="btn-group" role="group">
+
+            <button class="btn btn-primary" 
+                    id="aceptar"
+                    type="button">ACEPTAR 
+            </button>
+            <button 
+                id="rechazar"
+                class="btn btn-danger"
+                type="button">RECHAZAR
+            </button>
+        </div>
+    </div>
+    <div class="col-lg-5 col-md-4">
+        <div class="btn-group" role="group">
+            <button class="btn btn-default" type="button" id="pdf"
+                    >EXPORTAR PDF
+            </button>
+            <button class="btn btn-default" type="button" id="xls"
+                    >EXPORTAR XLS
+            </button>
+        </div>
+    </div>
+</div>    
+{% endblock %}

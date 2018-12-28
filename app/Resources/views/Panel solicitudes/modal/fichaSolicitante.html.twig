@@ -1,0 +1,418 @@
+{% block ficha %}
+<div id="modificarMasInfo-dialogo" >
+               <!--INICIO DEL FORMULARIO-->
+
+                   <form class="form-horizontal" 
+                         name="formulario"
+                         id="noScrollHorizontal"
+                         > 
+                         <!--
+                         novalidate anula las validaciones html 5
+
+                         -->
+                       <!--NRO SOLICITUD-->
+                       <div class="form-group">
+                                       <div class="col-lg-2 col-md-2">
+                                           <p><strong>Nro Solicitud</strong></p>
+                                       </div>
+                                       <div class="col-lg-4 col-md-4">
+                                           <input  class="form-control"
+                                                   name = "nroSolicitud"
+                                                   type="text"
+                                                   id="nroSolicitud" 
+                                                   disabled
+                                                   >
+                                       </div>
+                       <!--ESTADO-->    
+                                       <div class="col-lg-2 col-md-2">
+                                           <p><strong>Estado</strong></p>
+                                       </div>
+                                       <div class="col-lg-3  col-md-3 col-lg-pull-1 col-md-pull-1">
+                                           <input class="form-control" 
+                                                  type="text" 
+                                                  name="estadoSolicitud" 
+                                                  id="estadoSolicitud"
+                                                  disabled
+                                                  required
+                                           >
+                                       </div>    
+                       </div>
+
+                       <!--DNI-->
+                       <div class="form-group">
+                                       <div class="col-lg-2 col-md-2">
+                                           <p><strong>DNI</strong></p>
+                                       </div>
+                                       <div class="col-lg-3  col-md-3" value="">
+                                           <input class="form-control" 
+                                                  type="text" 
+                                                  name="dni" 
+                                                  id="dni"
+                                                  disabled
+                                                  minlength="7" 	
+                                                  maxlength="10" 
+                                                  required
+                                                  pattern="[0-9]{1,2}\.?[0-9]{3}\.?[0-9]{3}"
+                                                  title="Revisar su documento. 
+                                                  Ejemplos de dni validos 1.000.000 o 1000000"
+                                                  >
+                                       </div>
+                       </div>
+
+
+                       <div class="form-group">
+                           <!--APELLIDO-->
+                            <div class="col-lg-2 col-md-2">
+                                           <p><strong>Apellido</strong></p>
+                                       </div>
+                                       <div class="col-lg-4 col-md-4">
+                                           <input  class="form-control"
+                                                   name = "apellido"
+                                                   value="" 
+                                                   autofocus="" 
+                                                   type="text"
+                                                   id="apellido"
+                                                   disabled 
+                                                   minlength="2" 	
+                                                   maxlength="50" 
+                                                   required
+                                                   pattern="^([A-Za-zÁÉÍÓÚñáéíóúÑ]{0}?[A-Za-zÁÉÍÓÚñáéíóúÑ\']+[\s])+([A-Za-zÁÉÍÓÚñáéíóúÑ]{0}?[A-Za-zÁÉÍÓÚñáéíóúÑ\'])+[\s]?([A-Za-zÁÉÍÓÚñáéíóúÑ]{0}?[A-Za-zÁÉÍÓÚñáéíóúÑ\'])?$"
+                                                   title="Ingrese el apellido usando solamente letras y sin numeros o carácteres especiales como por ejemplo: !@#$%&/()=??¡]¨*[__-{"
+                                                   >
+                                       </div>
+                           <!--NOMBRE-->
+                                       <div class="col-lg-2 col-md-2">
+                                           <p><strong>Nombre</strong></p>
+                                       </div>
+                                       <div class="col-lg-4 col-md-4 col-lg-pull-1 col-md-pull-1">
+                                           <input class="form-control" 
+                                                  type="text" 
+                                                  name="nombre" 
+                                                  id="nombre"
+                                                  disabled
+                                                  minlength="3" 	
+                                                  maxlength="50" 
+                                                  Value="" 
+                                                  required 
+                                                  pattern="^([A-Za-zÁÉÍÓÚñáéíóúÑ]{0}?[A-Za-zÁÉÍÓÚñáéíóúÑ\']+[\s])+([A-Za-zÁÉÍÓÚñáéíóúÑ]{0}?[A-Za-zÁÉÍÓÚñáéíóúÑ\'])+[\s]?([A-Za-zÁÉÍÓÚñáéíóúÑ]{0}?[A-Za-zÁÉÍÓÚñáéíóúÑ\'])?$"
+                                                  title="Ingrese el apellido usando solamente letras y sin numeros o carácteres especiales como por ejemplo: !@#$%&/()=??¡]¨*[__-{"
+                                                  >
+                                       </div>
+
+                       </div>
+
+
+                       <!--TIPO DE COMENSAL-->
+                       <div class="form-group">
+                                       <div class="col-lg-2 col-md-2">
+                                           <p><strong>Tipo de comensal</strong></p>
+                                       </div>
+                                       <div class="col-lg-5 col-md-5">
+                                           <select class="form-control input-lg" 
+                                                   name="select_tipo"
+                                                   id="tipo_comensal"
+                                                   disabled
+                                                   required>
+                                               <!--hidden permite mostrar un mensaje de ayuda que cuando el user lo abre no lo ve de nuevo-->
+                                               <option disabled selected hidden></option>
+                                               <option value="Estudiante de carrera de grado">Estudiante de carrera de grado</option>
+                                               <option value="Docente - No docente">Docente - No docente</option>
+                                               <option value="Invitado">Invitado</option>
+                                           </select>
+                                       </div>
+                       </div>
+
+
+                       <!--FACULTAD-->
+                       <div class="form-group">
+                                       <div class="col-lg-2 col-md-2">
+                                           <p><strong>Facultad</strong></p>
+                                       </div>
+                                       <div class="col-lg-6 col-md-6">
+                                           <select class="form-control input-lg" 
+                                                   id ="facultad"
+                                                   name="select_facultad" 
+                                                   onchange="mostrarCarrera();"
+                                                   disabled
+                                                   >
+                                               <option disabled selected hidden></option>
+                                                 <option value="fadu">Facultad de Arquitectura, Diseño y
+                                                     Urbanismo</option>
+                                                 <option value="fbcb">Facultad de Bioquímica y Ciencias
+                                                       Biológicas</option>
+                                                 <option value="fca"> Facultad de Ciencias Agrarias</option>
+                                                 <option value="fce">Facultad de Ciencias Económicas</option>
+                                                 <option value="fcsj"> Facultad de Ciencias Jurídicas y
+                                                       Sociales</option>
+                                                 <option value="fcm">Facultad de Ciencias Médicas</option>
+                                                 <option value="fcv">Facultad de Ciencias Veterinarias</option>
+                                                 <option value="fhuc">Facultad de Humanidades y Ciencias</option>
+                                                 <option value="fiq">Facultad de Ingeniería Química</option>
+                                                 <option value="fich">Facultad de Ingeniería y Ciencias
+                                                       Hídricas</option>
+                                                 <option value="ess">Escuela Superior de Sanidad “Ramón
+                                                       Carrillo”</option>
+                                                 <option value="ism">Instituto Superior de Música </option>
+                                                 <option value="rec">Rectorado y Secretarias dependientes</option>
+                                                 <option value="otras">Otras instituciones</option>
+
+                                           </select>
+                                       </div>
+                       </div>
+
+                       <!--CARRERA-->
+                       <div class="form-group">
+                                       <div class="col-lg-2 col-md-2">
+                                           <p><strong>Carrera</strong></p>
+                                       </div>
+                                       <div class="col-lg-5 col-md-5">
+                                           <select class="form-control input-lg" 
+                                                   id ="carrera"
+                                                   name="select_carrera"
+                                                   disabled
+                                                   >
+                                                   <option 
+                                                        disabled 
+                                                        selected 
+                                                        hidden> 
+                                                    </option>
+
+                                           </select>
+                                       </div>
+
+                       </div>
+
+
+
+                       <!--CORREO-->
+
+                       <div class="form-group">
+                                       <div class="col-lg-2 col-md-2">
+                                           <p><strong>Correo</strong></p>
+                                       </div>
+                                       <div class="col-lg-4 col-md-4">
+                                           <input class="form-control" 
+                                                  type="email" 
+                                                  name="correo" 
+                                                  disabled
+                                                  minlength="5" 	
+                                                  maxlength="50"
+                                                  required
+                                                  id="correo"
+                                                  autocomplete="off"
+                                                  pattern="[a-zA-Z0-9aáéíóúÁÉÍÓÚ.,!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*"
+                                                  title="Revise su correo"
+                                                  onpaste="return false" oncut="return false" oncopy="return false"
+                                                  >
+                                       </div>
+                       </div>
+
+
+                       <!--TELEFONO-->        
+                        <div class="form-group">  
+                                       <div class="col-lg-2 col-md-2">
+                                           <p><strong>Codigo de Área</strong></p>
+                                       </div>
+                                       <div class="col-lg-2 col-md-2">
+                                           <input class="form-control" 
+                                                  type="codtel" 
+                                                  name="codtelefono" 
+
+                                                  minlength="2"
+                                                  id="codtelefono"
+                                                  maxlength="50"
+                                                  pattern="[0-9()\#\-\.\_]+\s+"
+                                                  disabled
+                                                  required>
+                                       </div>
+                                       <div class="col-lg-2 col-md-2">
+                                           <p><strong>Telefono</strong></p>
+                                       </div>
+                                       <div class="col-lg-3 col-md-3 col-lg-pull-1 col-md-pull-1">
+                                           <input class="form-control" 
+                                                  type="tel" 
+                                                  name="telefono"
+                                                  id="telefono"
+                                                  disabled
+                                                  minlength="2" 	
+                                                  maxlength="50"
+                                                  pattern="[0-9()\#\-\.\_]+\s+"
+                                                  required>
+                                       </div>
+                        </div>
+                        <!--DETALLE-->
+                        <div class="form-group">
+                                   <div class="col-lg-2 col-md-3">
+                                       <p><strong>¿Usted es?</strong></p>
+                                   </div>
+                                   <div class="col-lg-3 col-md-3">
+                                       <div class="checkbox">
+                                           <label class="control-label" 
+                                                  for="Celiaco">
+                                               <input type="checkbox"
+                                                      name ="celiaco"
+                                                      value="celiaco"
+                                                      disabled
+                                                      id="celiaco">Celiaco </label>
+                                       </div>
+                                       <div class="checkbox">
+                                           <label class="control-label" for="vegetariano">
+                                               <input type="checkbox"
+                                                      name ="vegetariano"
+                                                      value="vegetariano"
+                                                      disabled
+                                                      id="vegetariano">Vegetariano</label>
+                                       </div>
+                                   </div>
+                        </div>
+                       <!--los siguientes div los traigo del formulario ii-->
+                       <div class="form-group">
+                           <div class="col-lg-2 col-md-3">
+                               <p><strong>Foto</strong></p>
+                           </div>
+                              <div class ="row">
+                                       <div class="col-lg-3" id="videodiv">
+                                          <video  id="video" style="display:none">
+                                          </video> 
+                                       </div>
+                                       <div class="col-lg-1" id="canvasdiv">
+                                           <canvas id="canvas"
+                                                   style="display:none"
+                                                  >
+                                           </canvas>
+                                       </div>
+                                      <div class="col-lg-1">
+                                            <img class="foto" 
+                                                        src="img/perfil_defecto.png" 
+                                                        id="imagen" 
+                                                   />
+                                       </div>
+                                  <textarea name="base64" 
+                                            id="base64"
+                                            style="display:none"
+                                      >
+                                  </textarea>
+                                  <!--   -->
+                              </div>
+                       </div>
+                   <!-- div de visualizacion -->
+                   <div class="form-group">
+                           <div class="col-lg-offset-2 col-md-12 col-md-offset-4">
+                                       <canvas id="canvasRecorte" hidden></canvas>
+                                       <input class="btn btn-default"
+                                                  type="file"
+                                                  id ="archivo"
+                                                  value="Subir foto"
+                                                  name="archivo"
+                                                  disabled
+                                                  title="Subir archivo"
+                                                  onClick="previsualizar();"
+                                        >
+                               <div class="col-lg-6">
+                                   <div class="btn-group" role="group">
+                                        <input class="btn btn-default" 
+                                              id="habilitarVideo"
+                                              type="button"
+                                              disabled
+                                              value="Habilitar webcam"
+                                             onClick="mostrarVideo();">
+                                        <input class="btn btn-default" 
+                                              id="tomarfoto"
+                                              type="button"
+                                              disabled
+                                              value="Tomar foto"
+                                              onClick="previsualizar()"
+                                             >
+                                        <input class="btn btn-default"
+                                               id="cancelarfoto"
+                                               type="button"
+                                               disabled
+                                               onClick="ocultarVideo();"
+                                               value="Guardar"
+                                               >
+                                        <input class="btn btn-default"
+                                               type="button" 
+                                               id="botonRecortar" 
+                                               value="Recortar" 
+                                               />
+                                   </div>
+                           </div>
+                        </div>
+                   </div>
+
+                   <!-- div info de turnos -->
+                   <div class="form-group">
+                       <div class="col-lg-1 col-md-1">
+                               <p><strong>Sede Turno</strong></p>
+                           </div>
+                               <div class="col-lg-3 col-md-3">
+                                   <select class="form-control" 
+                                           name="sede" 
+                                           id="sede"
+                                           required=""
+                                           disabled
+                                           >
+                                       <option disabled selected hidden></option>
+                                       <option value="1">Predio UNL - ATE</option>
+                                       <option value="2">Rectorado</option>
+                                       <option value="3">Esperanza</option>
+                                   </select>
+                               </div>
+                       <div class="col-lg-1 col-md-1">
+                           <p><strong>Fecha</strong></p>
+                       </div>
+                       <div class="col-lg-3 col-md-3">
+                                               <input class="form-control"
+                                                      type="text" 
+                                                      id = "datepicker"
+                                                      required=""
+                                                      disabled
+
+                                                      onchange="guardarFecha();"
+                                                      disabled
+                                                      />                
+                       </div>
+                       <div class="col-lg-1 col-md-1">
+                           <p><strong>Horario</strong></p>
+                       </div>
+
+                           <div class="col-lg-3 col-md-3">
+                                   <select class="form-control" 
+                                           id ="horario_turno"
+                                           name="horario_turno" 
+                                           required=""
+                                           disabled
+                                           onchange="guardarHorario();"
+                                           > 
+                                       <option disabled selected hidden></option>
+                                   </select>
+                           </div>
+                   </div>
+
+                   <div class="form-group">
+                       <div class="col-lg-2 col-md-2">
+                           <p><strong>Revisado por</strong></p>
+                       </div>
+
+                       <div class="col-lg-3 col-md-3">
+                           <input class="form-control"
+                                    type="text" 
+                                    id = "revisor"
+                                    disabled
+                                      />        
+                       </div>
+                       <div class="col-lg-1 col-md-1 ">
+                           <p><strong>Fecha</strong></p>
+                       </div>
+
+                       <div class="col-lg-3 col-md-3">
+                           <input class="form-control"
+                                  type="text" 
+                                  id = "fechaRevision"
+                                  disabled
+                                  />        
+                       </div>
+                   </div>
+               </form>
+    </div>
+{% endblock %}

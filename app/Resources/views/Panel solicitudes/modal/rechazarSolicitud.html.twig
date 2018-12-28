@@ -1,0 +1,36 @@
+{% block rechazar %}
+<div id="rechazar-dialogo" title="RECHAZAR SOLICITUD">
+       <form>
+           <div class="form-group">
+               <p>Sera rechazada la siguiente solicitud:</p>
+               <div id="dniApellidoNombre"></div>
+               <p></p>
+               <p>Seleccione un motivo de rechazo:</p>
+               <select 
+                       id="motivo"
+                       class="form-control"
+                           requiered>
+                       <option disabled selected hidden>Elija el motivo de rechazo</option>
+                       <option>Información declarada no es valida</option>
+                       <option>No pertenece a la comunidad UNL</option>
+                       <option>Falta información</option>
+                       <option>No es estudiante grado</option>
+                       <option>No es docente - no docente</option>
+                       <option>Otros motivos</option>
+               </select>
+
+               <p>Comentarios adicionales:</p>
+               <textarea id="comentarios" class="form-control">
+
+
+
+               </textarea>
+               <!--oculto para el usuario, guardo el id de la solicitud-->
+               <textarea  maxlength="100"
+                          id="idSolicitud"
+                          style="display:none">
+               </textarea>
+           </div>
+       </form>
+</div>   
+{% endblock %}
