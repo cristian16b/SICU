@@ -11,8 +11,47 @@ use GuzzleHttp\Client;
 //use Symfony\Component\HttpKernel\Client;
 //use Symfony\Bundle\FrameworkBundle\Client;
 
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+
 class DefaultController extends Controller
 {
+    /////////////////////////////////////////////////
+    // prueba de formulario
+    /**
+     * @Route("/pruebaform", name="pruebaform")
+     */
+    public function pruebaform(Request $request)
+    {
+        //ver https://uniwebsidad.com/libros/symfony-2-x/capitulo-12/creando-clases-de-formulario
+        //
+        //
+        //$defaultData = array('message' => 'prueba');
+        //$form = $this->createFormBuilder($defaultData)
+        $form = $this->createFormBuilder(null)
+            ->add('numero',TextType::class)
+            ->add('send', SubmitType::class)
+            ->getForm();
+    
+          $form->handleRequest($request);
+          
+        if ($form->isValid() && $form->isSubmitted()) 
+        {
+            // data es un array con claves 'name', 'email', y 'message'
+            //$data = $form->getData();
+            //var_dump($data);
+            echo 'numero ingresado es '. $form->get('numero')->getData();
+            die;
+        }
+        
+        return $this->render('pruebaform.html.twig',array('form' => $form->createView()));
+    }
+    
+    
+    
+    
+    
+    /////////////////////////////////////////////////
     /**
      * @Route("/aux", name="aux")
      */

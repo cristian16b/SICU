@@ -12,7 +12,17 @@
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/xampp/htdocs/SICU/src/ComensalesBundle/Controller/ListarSolicitudesController.php</file>
+            <file>file:/C:/xampp/htdocs/SICU/app/Resources/views/Panel%20tarjetas/botones.html.twig</file>
+            <file>file:/C:/xampp/htdocs/SICU/app/Resources/views/Panel%20solicitudes/modal/eliminarSolicitud.html.twig</file>
+            <file>file:/C:/xampp/htdocs/SICU/app/Resources/views/Panel%20solicitudes/panelSolicitudes.html.twig</file>
+            <file>file:/C:/xampp/htdocs/SICU/app/Resources/views/Panel%20tarjetas/panelTarjetas.html.twig</file>
+            <file>file:/C:/xampp/htdocs/SICU/app/Resources/views/Panel%20solicitudes/botones.html.twig</file>
+            <file>file:/C:/xampp/htdocs/SICU/app/Resources/views/Panel%20solicitudes/camaraScript.html.twig</file>
+            <file>file:/C:/xampp/htdocs/SICU/app/Resources/views/Panel%20solicitudes/calendarioScript.html.twig</file>
+            <file>file:/C:/xampp/htdocs/SICU/app/Resources/views/Panel%20solicitudes/tabla.html.twig</file>
+            <file>file:/C:/xampp/htdocs/SICU/app/Resources/views/Panel%20solicitudes/busqueda.html.twig</file>
+            <file>file:/C:/xampp/htdocs/SICU/app/Resources/views/Panel%20solicitudes/modal/rechazarSolicitud.html.twig</file>
+            <file>file:/C:/xampp/htdocs/SICU/app/Resources/views/Panel%20solicitudes/modal/fichaSolicitante.html.twig</file>
         </group>
     </open-files>
 </project-private>
