@@ -30,4 +30,5 @@ Se usaron las siguientes tecnologías:
   - Symfony 3.4
   - Doctrine 2.6
   - MySql 
+  
 El sistema se monto en un localHost con Xampp 3.2
