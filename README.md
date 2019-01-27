@@ -17,6 +17,15 @@ Las funcionalidades mas relevantes son:
 - Formulario de inscripción on-line
 - Reportes en pdf y xls
 - Paginación de resultados con DataTable
-
 Se usaron las siguientes tecnologías:
--
+- Front
+  - Jquery
+  - Javascript
+  - DataTable
+  - Ajax de Jquery
+  - Bootstrap y Html
+  - JsPdf
+- Back
+  - Symfony 3.4
+  - Doctrine 2.6
+  - MySql 
